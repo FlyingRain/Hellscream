@@ -1,0 +1,46 @@
+group 'com.flyingrain.translate.framework'
+version '1.0-SNAPSHOT'
+
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:1.5.2.RELEASE"
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'maven'
+
+apply plugin: 'org.springframework.boot'
+
+
+
+sourceCompatibility=1.8
+
+uploadArchives{
+    repositories{
+        mavenDeployer{
+            repository(url:uri('/home/wally/repository'))
+        }
+    }
+}
+
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+    compile(group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '1.5.1.RELEASE') {
+        exclude module: 'spring-boot-starter-tomcat'
+    }
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-jersey', version: '1.5.1.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-jetty', version: '1.5.2.RELEASE'
+
+}
+
