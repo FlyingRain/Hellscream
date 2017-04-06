@@ -5,6 +5,7 @@
 .settings
 .metadata
 
+
 build
 lib/
 target
@@ -17,5 +18,4 @@ activemq-data
 
 .idea
 *.jar
-
 

@@ -1,0 +1,7 @@
+group 'com.flyingrain.translate.words.collection'
+version '1.0-SNAPSHOT'
+
+//添加对子项目的依赖
+dependencies{
+    compile project(':collection-api')
+}

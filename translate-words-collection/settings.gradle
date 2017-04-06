@@ -1,0 +1,4 @@
+rootProject.name = 'translate-words-collection'
+include 'collection-api'
+include 'collection-service'
+
