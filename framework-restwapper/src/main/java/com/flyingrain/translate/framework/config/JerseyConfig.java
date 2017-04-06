@@ -3,6 +3,8 @@ package com.flyingrain.translate.framework.config;
 import com.flyingrain.translate.framework.annotaions.Resource;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.servlet.ServletProperties;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,7 @@ import java.util.List;
 @Component
 public class JerseyConfig extends ResourceConfig implements InitializingBean, ApplicationContextAware {
 
+    private Logger logger = LoggerFactory.getLogger(JerseyConfig.class);
     private static ApplicationContext applicationContext;
     @Autowired
     @Qualifier("jerseyServlet")
@@ -34,6 +37,7 @@ public class JerseyConfig extends ResourceConfig implements InitializingBean, Ap
         String names[] = applicationContext.getBeanNamesForAnnotation(Resource.class);
         for (String name :
                 names) {
+            logger.info("start to upload resources : " + name);
             resources.add(applicationContext.getBean(name).getClass());
         }
 

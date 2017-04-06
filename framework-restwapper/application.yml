@@ -1,2 +1,7 @@
 serverPrefix: /translate
+logging:
+  file: /home/wally/workspace/myprojects/logs/restwapper.log
+
+
+
 
