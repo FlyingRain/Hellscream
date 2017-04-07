@@ -1,3 +1,5 @@
+serverPrefix: /translate
+
 datasource:
     - datasourceName: test1
       userName: root

@@ -22,7 +22,7 @@ public class AppConfig {
     private Environment environment;
     @Bean
     public ServletRegistrationBean jerseyServlet(){
-        ServletRegistrationBean registrationBean = new ServletRegistrationBean(new ServletContainer(),environment.getProperty("serverPrefix")+"/*");
+        ServletRegistrationBean registrationBean = new ServletRegistrationBean(new ServletContainer(),(environment.getProperty("serverPrefix")==null?"":environment.getProperty("serverPrefix"))+"/*");
         return registrationBean;
     }
 

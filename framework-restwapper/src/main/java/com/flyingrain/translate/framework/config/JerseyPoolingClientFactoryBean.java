@@ -63,12 +63,12 @@ public class JerseyPoolingClientFactoryBean implements FactoryBean<Client>, Init
 
     @Override
     public Client getObject() throws Exception {
-        return this.client;
+        return client==null?ClientBuilder.newClient():client;
     }
 
     @Override
     public Class<?> getObjectType() {
-        return this.client.getClass();
+        return (this.client == null ? Client.class : this.client.getClass());
     }
 
     @Override
