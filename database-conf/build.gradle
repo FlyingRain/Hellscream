@@ -1,0 +1,29 @@
+group 'com.flyingrain.translate.database.conf'
+version '1.0-SNAPSHOT'
+
+
+buildscript{
+    repositories{
+        mavenCentral()
+    }
+    dependencies{
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:1.5.2.RELEASE"
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-jdbc', version: '1.5.1.RELEASE'
+
+}
