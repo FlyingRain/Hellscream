@@ -14,7 +14,7 @@ import org.springframework.core.env.Environment;
  * Created by wally on 4/1/17.
  */
 @Configuration
-@ComponentScan(basePackages = "com.flyingrain.translate.framework")
+@ComponentScan(basePackages = "com.flyingrain.translate")
 @EnableAutoConfiguration
 public class AppConfig {
 
