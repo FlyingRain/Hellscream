@@ -20,10 +20,20 @@ sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
+    mavenLocal()
 }
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.11'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-jdbc', version: '1.5.1.RELEASE'
+    compile group:'com.flyingrain.translate.framework',name:'framework-restwapper',version:'1.0-SNAPSHOT'
+}
 
+
+uploadArchives{
+    repositories{
+        mavenDeployer{
+            repository(url:uri('/home/wally/repository'))
+        }
+    }
 }

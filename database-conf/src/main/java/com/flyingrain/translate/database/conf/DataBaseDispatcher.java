@@ -1,7 +1,6 @@
 package com.flyingrain.translate.database.conf;
 
 import com.flyingrain.translate.database.conf.databases.DataBasePro;
-import javafx.beans.property.ObjectProperty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
@@ -10,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
+
+import java.lang.reflect.Method;
 
 /**
  * Created by wally on 4/7/17.
@@ -31,12 +32,22 @@ public class DataBaseDispatcher implements ApplicationContextAware,InitializingB
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         this.applicationContext = applicationContext;
+
+
     }
 
     @Override
     public void afterPropertiesSet() throws Exception {
         String [] names = applicationContext.getBeanNamesForAnnotation(DataSource.class);
-        Object o = applicationContext.getBean(names[0]);
+        for (String name :
+                names) {
+            Object o = applicationContext.getBean(name);
+            DataSource dataSource = o.getClass().getAnnotation(DataSource.class);
+            Method methods[] = o.getClass().getDeclaredMethods();
+
+        }
+
+
 
     }
 }
