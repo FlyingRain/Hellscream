@@ -44,13 +44,7 @@ public class DynamicDataSourceRegister implements ImportBeanDefinitionRegistrar,
 
 
     }
-
-    private Map<String, DataSource> getOtherDataSources(Environment environment) {
-
-        Map<String, DataSource> otherDatasources = new HashMap<>();
-
-
-    }
+    
 
     private void init(Environment environment) {
         int i = 0;
@@ -59,7 +53,7 @@ public class DynamicDataSourceRegister implements ImportBeanDefinitionRegistrar,
             if (dataSourceMap==null){
                 break;
             }
-        
+
                 i++;
         }
 
