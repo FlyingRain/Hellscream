@@ -4,6 +4,7 @@ import org.glassfish.jersey.servlet.ServletContainer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.context.embedded.jetty.JettyEmbeddedServletContainerFactory;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -16,6 +17,7 @@ import org.springframework.core.env.Environment;
 @Configuration
 @ComponentScan(basePackages = "com.flyingrain.translate")
 @EnableAutoConfiguration
+//@EnableConfigurationProperties(PropertiesContext.class)
 public class AppConfig {
 
     @Autowired

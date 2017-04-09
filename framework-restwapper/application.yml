@@ -1,4 +1,15 @@
+#服务前缀
 serverPrefix: /translate
+#需要装载的配置文件
+load:
+ properties:
+   -
+ yaml:
+   - file:myconf.yml
+
+
+
+
 logging:
   file: /home/wally/workspace/myprojects/logs/restwapper.log
 
