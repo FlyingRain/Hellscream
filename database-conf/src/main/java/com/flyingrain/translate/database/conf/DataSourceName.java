@@ -8,6 +8,6 @@ import java.lang.annotation.*;
 @Inherited
 @Target({ElementType.TYPE,ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface DataSource {
+public @interface DataSourceName {
     String value();
 }

@@ -20,6 +20,7 @@ public class DataBaseDispatcher implements ApplicationContextAware,InitializingB
 
     private Logger logger = LoggerFactory.getLogger(DataBaseDispatcher.class);
 
+
     private DataBasePro dataBasePro;
 
     private  ApplicationContext applicationContext;
@@ -38,11 +39,11 @@ public class DataBaseDispatcher implements ApplicationContextAware,InitializingB
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        String [] names = applicationContext.getBeanNamesForAnnotation(DataSource.class);
+        String [] names = applicationContext.getBeanNamesForAnnotation(DataSourceName.class);
         for (String name :
                 names) {
             Object o = applicationContext.getBean(name);
-            DataSource dataSource = o.getClass().getAnnotation(DataSource.class);
+            DataSourceName dataSourceName = o.getClass().getAnnotation(DataSourceName.class);
             Method methods[] = o.getClass().getDeclaredMethods();
 
         }

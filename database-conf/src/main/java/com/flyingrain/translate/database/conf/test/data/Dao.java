@@ -1,13 +1,13 @@
 package com.flyingrain.translate.database.conf.test.data;
 
-import com.flyingrain.translate.database.conf.DataSource;
+import com.flyingrain.translate.database.conf.DataSourceName;
 import org.springframework.stereotype.Component;
 
 /**
  * Created by wally on 4/7/17.
  */
 @Component
-@DataSource("test1")
+@DataSourceName("test1")
 public class Dao {
 
     public void test(){

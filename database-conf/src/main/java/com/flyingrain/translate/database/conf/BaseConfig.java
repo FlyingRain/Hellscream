@@ -7,6 +7,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.env.YamlPropertySourceLoader;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.PropertySource;
 
 /**
  * 数据库基础配置
@@ -14,7 +16,9 @@ import org.springframework.context.annotation.Configuration;
  * Created by wally on 4/7/17.
  */
 @Configuration
-//@EnableConfigurationProperties(DataBasePro.class)
+//@PropertySource("classpath:myconf.properties")
+@EnableConfigurationProperties(DataBasePro.class)
+@Import(DynamicDataSourceRegister.class)
 public class BaseConfig {
 
 

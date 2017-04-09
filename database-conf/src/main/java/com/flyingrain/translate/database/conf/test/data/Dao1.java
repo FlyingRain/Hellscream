@@ -1,6 +1,6 @@
 package com.flyingrain.translate.database.conf.test.data;
 
-import com.flyingrain.translate.database.conf.DataSource;
+import com.flyingrain.translate.database.conf.DataSourceName;
 import org.springframework.stereotype.Component;
 
 /**
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class Dao1 {
 
-    @DataSource("test2")
+    @DataSourceName("test2")
     public void test(){
 
     }
