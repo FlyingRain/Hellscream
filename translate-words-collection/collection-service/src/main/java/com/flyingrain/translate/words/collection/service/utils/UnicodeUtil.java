@@ -4,7 +4,11 @@ package com.flyingrain.translate.words.collection.service.utils;
  * Created by wally on 4/10/17.
  */
 public class UnicodeUtil {
-
+    /**
+     * 将unicode转化为字符串
+     * @param unicode
+     * @return
+     */
     public static String unicodeToString(String unicode){
         StringBuilder sb = new StringBuilder();
         int i = -1;

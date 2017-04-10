@@ -21,6 +21,11 @@ public class HttpUtil {
 
     private static  ObjectMapper objectMapper = new ObjectMapper();
 
+    /**
+     * 发送GET请求
+     * @param url 请求地址
+     * @return 返回
+     */
     public static String sendGet(String url) {
         try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
             final HttpGet httpGet = new HttpGet(url);

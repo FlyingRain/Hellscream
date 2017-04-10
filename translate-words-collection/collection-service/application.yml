@@ -3,3 +3,7 @@ serverPrefix: /translate
 load:
  yaml:
   - file:databaseConfig.yml
+
+
+server:
+  port: 8099
