@@ -4,4 +4,6 @@ version '1.0-SNAPSHOT'
 //添加对子项目的依赖
 dependencies{
     compile project(':collection-api')
+    compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.3'
+
 }
