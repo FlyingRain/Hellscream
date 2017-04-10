@@ -1,9 +1,9 @@
 package com.flyingrain.translate.database.conf;
 
-import com.flyingrain.translate.database.conf.databases.DataBasePro;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.MutablePropertyValues;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.beans.factory.support.GenericBeanDefinition;
 import org.springframework.context.EnvironmentAware;
@@ -23,7 +23,6 @@ public class DynamicDataSourceRegister implements ImportBeanDefinitionRegistrar,
 
     private Logger logger = LoggerFactory.getLogger(DynamicDataSourceRegister.class);
 
-    private DataBasePro dataBasePro;
 
     public DynamicDataSourceRegister() {
     }
@@ -36,6 +35,12 @@ public class DynamicDataSourceRegister implements ImportBeanDefinitionRegistrar,
     @Override
     public void registerBeanDefinitions(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry) {
         GenericBeanDefinition beanDefinition = new GenericBeanDefinition();
+        beanDefinition.setBeanClass(DynamicDataSource.class);
+        beanDefinition.setSynthetic(true);
+        MutablePropertyValues mpv = beanDefinition.getPropertyValues();
+        mpv.addPropertyValue("defaultTargetDataSource", defaultDataSource);
+        mpv.addPropertyValue("targetDataSources", otherDataSources);
+        registry.registerBeanDefinition("dataSource", beanDefinition);
     }
 
     @Override
@@ -44,26 +49,42 @@ public class DynamicDataSourceRegister implements ImportBeanDefinitionRegistrar,
 
 
     }
-    
+
 
     private void init(Environment environment) {
         int i = 0;
+        otherDataSources = new HashMap<>();
         while (true) {
-            Map<String, DataSource> dataSourceMap = getDataSource(environment, "datasource.config[" + i + "]");
-            if (dataSourceMap==null){
+            DataMap dataSourceMap = getDataSource(environment, "datasource.config[" + i + "]");
+            if (dataSourceMap == null) {
                 break;
             }
+            i++;
+            if ("wrong".equals(dataSourceMap.getName())) {
+                continue;
+            }
+            if ("default".equals(dataSourceMap.getName())) {
+                if (defaultDataSource == null) {
+                    defaultDataSource = dataSourceMap.getDataSource();
+                    logger.info("load default datasource: " + dataSourceMap.getName());
+                    continue;
+                }else{
+                    logger.warn("duplicated default dataSource!" + dataSourceMap.getName());
+                    continue;
+                }
+            }
+            otherDataSources.put(dataSourceMap.getName(), dataSourceMap.getDataSource());
+            DataBaseContextHolder.dataSourceList.add(dataSourceMap.getName());
+            logger.info("load datasource :" + dataSourceMap.getName());
 
-                i++;
         }
 
 
     }
 
 
-    private Map<String, DataSource> getDataSource(Environment environment, String prefix) {
-
-        Map<String, DataSource> dataSourceMap = new HashMap<>();
+    private DataMap getDataSource(Environment environment, String prefix) {
+        DataMap dataMap = new DataMap();
         String sourceName = environment.getProperty(prefix + ".sourceName");
         String userName = environment.getProperty(prefix + ".userName");
         String driveClass = environment.getProperty(prefix + ".driveClass");
@@ -74,8 +95,10 @@ public class DynamicDataSourceRegister implements ImportBeanDefinitionRegistrar,
         }
         //如果参数为空则返回null
         if (StringUtils.isEmpty(url) || StringUtils.isEmpty(userName) || StringUtils.isEmpty(driveClass) || StringUtils.isEmpty(password)) {
-            dataSourceMap.put("wrong",null);
-            return dataSourceMap;
+            logger.error("dataSource config is wrong!");
+            dataMap.setName("wrong");
+            dataMap.setDataSource(null);
+            return dataMap;
         }
 
         if (StringUtils.isEmpty(sourceName)) {
@@ -98,8 +121,32 @@ public class DynamicDataSourceRegister implements ImportBeanDefinitionRegistrar,
         dataSource.setRemoveAbandonedTimeout(Integer.parseInt(environment.getProperty("datasource.pool.removeAbandonedTimeout")));
         dataSource.setRemoveAbandonedOnBorrow(Boolean.parseBoolean(environment.getProperty("datasource.pool.removeAbandoned")));
 
-        dataSourceMap.put(sourceName, dataSource);
-        return dataSourceMap;
 
+        dataMap.setName(sourceName);
+        dataMap.setDataSource(dataSource);
+//        dataSourceMap.put(sourceName, dataSource);
+        return dataMap;
+
+    }
+
+    class DataMap {
+        String name;
+        DataSource dataSource;
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public DataSource getDataSource() {
+            return dataSource;
+        }
+
+        public void setDataSource(DataSource dataSource) {
+            this.dataSource = dataSource;
+        }
     }
 }

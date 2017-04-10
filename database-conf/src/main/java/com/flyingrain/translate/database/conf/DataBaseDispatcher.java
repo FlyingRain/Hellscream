@@ -1,6 +1,7 @@
 package com.flyingrain.translate.database.conf;
 
 import com.flyingrain.translate.database.conf.databases.DataBasePro;
+import com.flyingrain.translate.database.conf.test.data.Dao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
@@ -10,20 +11,19 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
-import java.lang.reflect.Method;
-
 /**
  * Created by wally on 4/7/17.
  */
 @Component
-public class DataBaseDispatcher implements ApplicationContextAware,InitializingBean {
+public class DataBaseDispatcher implements ApplicationContextAware, InitializingBean {
 
     private Logger logger = LoggerFactory.getLogger(DataBaseDispatcher.class);
 
-
+    @Autowired
+    Dao dao;
     private DataBasePro dataBasePro;
 
-    private  ApplicationContext applicationContext;
+    private ApplicationContext applicationContext;
 
     @Autowired
     public DataBaseDispatcher(DataBasePro dataBasePro) {
@@ -39,15 +39,9 @@ public class DataBaseDispatcher implements ApplicationContextAware,InitializingB
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        String [] names = applicationContext.getBeanNamesForAnnotation(DataSourceName.class);
-        for (String name :
-                names) {
-            Object o = applicationContext.getBean(name);
-            DataSourceName dataSourceName = o.getClass().getAnnotation(DataSourceName.class);
-            Method methods[] = o.getClass().getDeclaredMethods();
-
-        }
-
+        String[] names = applicationContext.getBeanNamesForAnnotation(DataSourceName.class);
+        dao.test();
+        dao.test2();
 
 
     }

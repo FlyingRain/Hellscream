@@ -3,19 +3,11 @@ datasource:
     - sourceName: default
       userName: root
       password: 123456
-      driveClass: com.mysql.jdbc.Driver
-      url: localhost:3306
+      driveClass: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/test
 
     - sourceName: test
       userName: root
       password: 123456
-      driveClass: com.mysql.jdbc.Driver
-      url: localhost:3306
-  pool:
-    minIdle: 5 #最小空闲链接数
-    maxActive: 150 #最大连接数
-    maxIdle: 20 #最大链接空闲数
-    initialSize: 5 #初始化链接数
-    removeAbandonedTimeout: 10 #超时时间（单位：秒）
-    removeAbandoned: true #自动关闭超时连接
-    maxWait: 1000 #超时等待时间
+      driveClass: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/test2
