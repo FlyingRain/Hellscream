@@ -60,6 +60,10 @@ subprojects{
     dependencies {
         testCompile group: 'junit', name: 'junit', version: '4.11'
         compile group:'com.flyingrain.translate.framework',name:'framework-restwapper',version:'1.0-SNAPSHOT'
+        compile (group:'com.flyingrain.translate.database.conf',name:'database-conf',version:'1.0-SNAPSHOT'){
+            exclude module: 'mysql-connector-java'
+        }
+        compile group: 'mysql', name: 'mysql-connector-java', version: '6.0.6'
     }
 
     uploadArchives{

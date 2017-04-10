@@ -1,0 +1,13 @@
+datasource:
+  config:
+    - sourceName: default
+      userName: root
+      password: 123456
+      driveClass: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/test
+
+    - sourceName: test
+      userName: root
+      password: 123456
+      driveClass: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/test2
