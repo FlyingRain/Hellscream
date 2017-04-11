@@ -62,20 +62,8 @@ public class CollectWordsImpl implements CollectWords {
 
         String result = HttpUtil.sendGet("https://api.shanbay.com/bdc/search/?word=good");
         audioSaver.saveAudiobyUrl("http://media-audio1.qiniu.baydn.com/uk/v/vo/vocabulary_v3.mp3");
-        QueryResult queryResult = paraseResult(result);
     }
 
-    private QueryResult paraseResult(String result) {
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_CONTROL_CHARS, true);
-        try {
-            logger.info("start parse result!");
-            return objectMapper.readValue(result, QueryResult.class);
-        } catch (IOException e) {
-            logger.error("parse result error!result is [{}]", result, e);
-        }
-        return null;
-    }
 
 
     private FileHandler createFileHandler(String path) {

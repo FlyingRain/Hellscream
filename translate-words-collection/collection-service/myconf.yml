@@ -1,2 +1,4 @@
 file:
   maxLoad: 2000
+shanbei:
+  url: https://api.shanbay.com/bdc/search/?word=
