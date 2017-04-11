@@ -1,4 +1,4 @@
-package com.flyingrain.translate.words.collection.service.collect.impl.worddefine;
+package com.flyingrain.translate.words.collection.service.collect.impl.channel.shanbei.worddifine;
 
 /**
  * Created by wally on 4/10/17.

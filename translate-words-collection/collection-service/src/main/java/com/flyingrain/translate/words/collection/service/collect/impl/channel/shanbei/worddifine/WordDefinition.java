@@ -1,4 +1,4 @@
-package com.flyingrain.translate.words.collection.service.collect.impl.worddefine;
+package com.flyingrain.translate.words.collection.service.collect.impl.channel.shanbei.worddifine;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -44,7 +44,6 @@ public class WordDefinition {
     private String us_audio;
 
     private String pronunciation;
-
 
     public Pronunciation getPronunciations() {
         return pronunciations;

@@ -9,5 +9,7 @@ public interface CollectWords {
 
     void collect(String path);
 
-    void collect(List<String> words);
+    void collect(String path,int type);
+
+    void collect(List<String> words,int type);
 }
