@@ -14,7 +14,7 @@ public abstract class ChannelCollect {
         logger.info("start to query word:" + word);
         String queryResult = sendToChannel(word);
         Result channelResult = parseResult(queryResult);
-        if (!channelResult.isSuccess()) {
+        if (channelResult==null||!channelResult.isSuccess()) {
             logger.warn("query failed! " + channelResult);
             return null;
         }

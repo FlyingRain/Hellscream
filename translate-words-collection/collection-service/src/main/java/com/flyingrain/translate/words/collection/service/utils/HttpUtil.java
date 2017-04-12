@@ -2,6 +2,7 @@ package com.flyingrain.translate.words.collection.service.utils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.http.HttpEntity;
+import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -27,17 +28,18 @@ public class HttpUtil {
      * @return 返回
      */
     public static String sendGet(String url) {
+        RequestConfig requestConfig = RequestConfig.custom()
+                .setConnectTimeout(30000)
+                .setSocketTimeout(30000)
+                .build();
         try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
             final HttpGet httpGet = new HttpGet(url);
+            httpGet.setHeader("User-Agent","Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3063.4 Safari/537.36");
             try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
                 logger.info("get response!");
                 final HttpEntity httpEntity = response.getEntity();
-                byte [] a = new byte[1024];
-                int i;
-                String result="";
-                while ((i = httpEntity.getContent().read(a))!=-1){
-                    result = result + new String(a,"UTF-8");
-                }
+
+                String result = EntityUtils.toString(httpEntity);
 
                 System.out.println(result);
                 EntityUtils.consume(httpEntity);

@@ -10,7 +10,7 @@ import org.apache.ibatis.annotations.Select;
  */
 public interface WordTypeRelationsMapper {
 
-    @Insert("insert into word_type_relations (word_id,type_code) values (#{wordId},#{#typeCode})")
+    @Insert("insert into word_type_relations (word_id,type_code) values (#{wordId},#{typeCode})")
     int insertRelation(@Param("wordId") int wordId, @Param("typeCode") int typeCode);
 
     @Select("select * from word_type_relations where word_id=#{wordId} and type_code=#{typeCode}")
