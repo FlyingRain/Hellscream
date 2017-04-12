@@ -1,4 +1,6 @@
 file:
   maxLoad: 2000
+  path: /home/wally/Downloads/单词库/已有单词/托福/
+
 shanbei:
   url: https://api.shanbay.com/bdc/search/?word=

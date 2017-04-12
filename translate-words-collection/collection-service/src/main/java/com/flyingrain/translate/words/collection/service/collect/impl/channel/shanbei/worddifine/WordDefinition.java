@@ -39,14 +39,37 @@ public class WordDefinition {
      */
     private boolean has_audio;
 
+    /**
+     * 单词
+     */
+    private String content;
+
     private String audio;
 
     private String us_audio;
+
+    private String uk_audio;
 
     private String pronunciation;
 
     public Pronunciation getPronunciations() {
         return pronunciations;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public String getUk_audio() {
+        return uk_audio;
+    }
+
+    public void setUk_audio(String uk_audio) {
+        this.uk_audio = uk_audio;
     }
 
     public void setPronunciations(Pronunciation pronunciations) {

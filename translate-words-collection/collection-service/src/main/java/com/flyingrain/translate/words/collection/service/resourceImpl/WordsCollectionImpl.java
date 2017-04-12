@@ -6,6 +6,7 @@ import com.flyingrain.translate.words.collection.service.collect.CollectWords;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 /**
@@ -17,7 +18,8 @@ public class WordsCollectionImpl implements WordsCollection {
     private Logger logger = LoggerFactory.getLogger(WordsCollectionImpl.class);
 
     private CollectWords collectWords;
-
+    @Autowired
+    private Environment environment;
 
     @Autowired
     public WordsCollectionImpl(CollectWords collectWords) {
@@ -25,11 +27,13 @@ public class WordsCollectionImpl implements WordsCollection {
     }
 
 
-
-
-    public String collectWords() {
+    public String collectWords(String fileName, int type) {
         logger.info("start to collect words!");
-        collectWords.collect("");
-        return null;
+        if (fileName == null) {
+            logger.error("fileName is null");
+            return "fileName is null!";
+        }
+        collectWords.collect(environment.getProperty("file.path")+fileName, type);
+        return "starting collect!";
     }
 }

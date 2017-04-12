@@ -1,11 +1,11 @@
 package com.flyingrain.translate.words.collection.service.collect.impl;
 
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.flyingrain.translate.words.collection.model.WordType;
 import com.flyingrain.translate.words.collection.service.collect.CollectWords;
-import com.flyingrain.translate.words.collection.service.collect.impl.channel.shanbei.worddifine.QueryResult;
+import com.flyingrain.translate.words.collection.service.collect.impl.channel.ChannelCollect;
 import com.flyingrain.translate.words.collection.service.collect.impl.filehandler.FileHandler;
 import com.flyingrain.translate.words.collection.service.collect.impl.filehandler.impl.XlsHandler;
+import com.flyingrain.translate.words.collection.service.collect.impl.words.WordDefine;
 import com.flyingrain.translate.words.collection.service.utils.HttpUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,7 +14,6 @@ import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -30,8 +29,13 @@ public class CollectWordsImpl implements CollectWords {
     @Autowired
     private AudioSaver audioSaver;
 
+    @Autowired
+    private ChannelCollect channelCollect;
+    @Autowired
+    private WordSaver wordSaver;
+
     public void collect(String path) {
-        collect(path,WordType.BASIC.type);
+        collect(path, WordType.BASIC.type);
     }
 
     @Override
@@ -59,7 +63,14 @@ public class CollectWordsImpl implements CollectWords {
     }
 
     public void collect(List<String> words,int type) {
+        words.forEach(word->{
+            WordDefine wordDefinition = channelCollect.query(word);
+            boolean result = wordSaver.saveWord(wordDefinition);
+            if(!result){
+                logger.error("fail to save the word !" + word);
+            }
 
+        });
         String result = HttpUtil.sendGet("https://api.shanbay.com/bdc/search/?word=good");
         audioSaver.saveAudiobyUrl("http://media-audio1.qiniu.baydn.com/uk/v/vo/vocabulary_v3.mp3");
     }

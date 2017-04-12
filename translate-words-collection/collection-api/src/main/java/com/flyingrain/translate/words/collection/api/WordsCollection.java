@@ -1,9 +1,6 @@
 package com.flyingrain.translate.words.collection.api;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
 /**
@@ -16,6 +13,6 @@ public interface WordsCollection {
 
     @GET
     @Path("/start/collect")
-    String collectWords();
+    String collectWords(@QueryParam("fileName") String fileName,@QueryParam("type")int type) ;
 
 }

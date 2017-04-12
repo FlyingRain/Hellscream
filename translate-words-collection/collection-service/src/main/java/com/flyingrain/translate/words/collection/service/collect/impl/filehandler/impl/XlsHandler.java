@@ -9,7 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -116,7 +115,7 @@ public class XlsHandler implements FileHandler {
             });
             List<String> words = new ArrayList<>();
             result.forEach(rows -> {
-                words.add(words.get(0));
+                words.add(rows.get(0));
             });
             return words;
         } catch (IOException e) {
