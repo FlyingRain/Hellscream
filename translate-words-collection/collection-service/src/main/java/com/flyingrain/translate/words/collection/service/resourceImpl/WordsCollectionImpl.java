@@ -34,6 +34,6 @@ public class WordsCollectionImpl implements WordsCollection {
             return "fileName is null!";
         }
         collectWords.collect(environment.getProperty("file.path")+fileName, type);
-        return "starting collect!";
+        return "collect success!";
     }
 }

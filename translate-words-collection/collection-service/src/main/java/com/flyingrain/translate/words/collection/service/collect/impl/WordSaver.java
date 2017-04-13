@@ -2,12 +2,10 @@ package com.flyingrain.translate.words.collection.service.collect.impl;
 
 import com.flyingrain.translate.words.collection.model.WordType;
 import com.flyingrain.translate.words.collection.service.collect.impl.words.WordDefine;
-import com.flyingrain.translate.words.collection.service.dao.mapper.ENMeanMapper;
-import com.flyingrain.translate.words.collection.service.dao.mapper.WordMapper;
-import com.flyingrain.translate.words.collection.service.dao.mapper.WordTypeRelationsMapper;
-import com.flyingrain.translate.words.collection.service.dao.model.ENMean;
-import com.flyingrain.translate.words.collection.service.dao.model.Word;
-import com.flyingrain.translate.words.collection.service.dao.model.WordTypeRelations;
+import com.flyingrain.translate.words.collection.service.collect.impl.words.WrongWord;
+import com.flyingrain.translate.words.collection.service.common.AudioType;
+import com.flyingrain.translate.words.collection.service.dao.mapper.*;
+import com.flyingrain.translate.words.collection.service.dao.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +29,10 @@ public class WordSaver {
     @Autowired
     private WordTypeRelationsMapper relationsMapper;
 
+    @Autowired
+    private ErrorWordMapper errorWordMapper;
+    @Autowired
+    private AudioMapper audioMapper;
 
     public boolean saveWord(WordDefine word) {
         SaveResult saveResult = saveWordContent(word);
@@ -41,11 +43,53 @@ public class WordSaver {
         if (!mresult) {
             logger.error("save enMean failed! wordId: " + saveResult.id);
         }
-        boolean tresult = saveTypeRelations(word, saveResult.id);
+        boolean tresult = saveTypeRelations(word.getType(), saveResult.id);
         if (!tresult) {
             logger.error("save relation failed wordId : " + saveResult.id);
         }
+        boolean aresult = saveChannelAudio(word.getUk_audio_address(),word.getUs_audio_address(),saveResult.id);
         return true;
+    }
+
+
+    public int saveErrorWords(WrongWord ww){
+        if(ww==null){
+            return 0;
+        }
+        ErrorWord errorWord = new ErrorWord();
+        errorWord.setError_code(ww.getWrongCode());
+        errorWord.setError_msg(ww.getWrongMsg());
+        errorWord.setType(ww.getType());
+        errorWord.setWord(ww.getWord());
+       return errorWordMapper.insertErrorWord(errorWord);
+    }
+
+    public boolean saveChannelAudio(List<String> ukAudios,List<String> usAudios,int wordId){
+        if(isExistAudio(wordId, AudioType.UK_AUDIO.type)==null){
+            Audio audio = new Audio();
+            audio.setWord_id(wordId);
+            audio.setAudio_type(AudioType.UK_AUDIO.type);
+            audio.setChannel_audio_address(listToString(ukAudios));
+            logger.info("start to save uk channel audio address![{}]",listToString(ukAudios));
+            audioMapper.saveAudio(audio);
+        }else{
+            logger.info("uk audio has existed!");
+        }
+        if(isExistAudio(wordId,AudioType.US_AUDIO.type)==null){
+            Audio audio = new Audio();
+            audio.setWord_id(wordId);
+            audio.setAudio_type(AudioType.US_AUDIO.type);
+            audio.setChannel_audio_address(listToString(usAudios));
+            logger.info("start to save us channel audio address![{}]",listToString(usAudios));
+            audioMapper.saveAudio(audio);
+        }else{
+            logger.info("us audio has existed!");
+        }
+        return true;
+    }
+
+    public Audio isExistAudio(int wordId, String type){
+        return audioMapper.getAudioByWordIdAndType(wordId,type);
     }
 
     private SaveResult saveWordContent(WordDefine word) {
@@ -102,7 +146,7 @@ public class WordSaver {
         return adj.substring(0, adj.length() - 1);
     }
 
-    private boolean isExistEnMean(int wordId) {
+    public boolean isExistEnMean(int wordId) {
         ENMean enMean = enMeanMapper.getMeanByWordId(wordId);
         if (enMean == null) {
             return false;
@@ -110,8 +154,7 @@ public class WordSaver {
         return true;
     }
 
-    private boolean saveTypeRelations(WordDefine wordDefine, int wordId) {
-        int typeCode = wordDefine.getType();
+    public boolean saveTypeRelations(int typeCode, int wordId) {
         if (!WordType.isExist(typeCode)) {
             logger.error("wrong type ! type : " + typeCode);
             return false;
@@ -133,7 +176,7 @@ public class WordSaver {
         return true;
     }
 
-    private Word isExistWord(String word) {
+    public Word isExistWord(String word) {
         return wordMapper.getWord(word);
     }
 

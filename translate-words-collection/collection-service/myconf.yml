@@ -1,5 +1,5 @@
 file:
-  maxLoad: 2000
+  maxLoad: 500
   path: /home/wally/Downloads/单词库/已有单词/托福/
 
 shanbei:

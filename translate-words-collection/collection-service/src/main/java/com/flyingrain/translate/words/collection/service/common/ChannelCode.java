@@ -1,4 +1,4 @@
-package com.flyingrain.translate.words.collection.service.collect.impl;
+package com.flyingrain.translate.words.collection.service.common;
 
 /**
  * Created by wally on 4/12/17.

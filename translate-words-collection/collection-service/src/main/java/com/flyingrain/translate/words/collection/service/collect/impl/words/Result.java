@@ -1,4 +1,4 @@
-package com.flyingrain.translate.words.collection.service.collect.impl.channel;
+package com.flyingrain.translate.words.collection.service.collect.impl.words;
 
 /**
  * Created by wally on 4/11/17.
@@ -9,9 +9,9 @@ public class Result<T> {
 
     private String code;
 
-    private boolean isSuccess;
+    private boolean isSuccess = false;
 
-    private T channelResult;
+    private T queryResult;
 
     public String getMsg() {
         return msg;
@@ -37,12 +37,12 @@ public class Result<T> {
         isSuccess = success;
     }
 
-    public T getChannelResult() {
-        return channelResult;
+    public T getQueryResult() {
+        return queryResult;
     }
 
-    public void setChannelResult(T channelResult) {
-        this.channelResult = channelResult;
+    public void setQueryResult(T queryResult) {
+        this.queryResult = queryResult;
     }
 
     @Override
@@ -51,7 +51,7 @@ public class Result<T> {
                 "msg='" + msg + '\'' +
                 ", code='" + code + '\'' +
                 ", isSuccess=" + isSuccess +
-                ", channelResult=" + channelResult +
+                ", queryResult=" + queryResult +
                 '}';
     }
 }

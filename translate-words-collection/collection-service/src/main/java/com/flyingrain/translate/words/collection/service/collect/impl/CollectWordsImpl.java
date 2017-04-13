@@ -5,7 +5,12 @@ import com.flyingrain.translate.words.collection.service.collect.CollectWords;
 import com.flyingrain.translate.words.collection.service.collect.impl.channel.ChannelCollect;
 import com.flyingrain.translate.words.collection.service.collect.impl.filehandler.FileHandler;
 import com.flyingrain.translate.words.collection.service.collect.impl.filehandler.impl.XlsHandler;
+import com.flyingrain.translate.words.collection.service.collect.impl.words.Result;
 import com.flyingrain.translate.words.collection.service.collect.impl.words.WordDefine;
+import com.flyingrain.translate.words.collection.service.collect.impl.words.WrongWord;
+import com.flyingrain.translate.words.collection.service.common.AudioType;
+import com.flyingrain.translate.words.collection.service.common.ErrorType;
+import com.flyingrain.translate.words.collection.service.dao.model.Word;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +39,7 @@ public class CollectWordsImpl implements CollectWords {
     @Autowired
     private WordSaver wordSaver;
 
-    private static List<ErrorWord> errorWords = new ArrayList<>();
+    private static List<WrongWord> errorWords = new ArrayList<>();
 
     public void collect(String path) {
         collect(path, WordType.BASIC.type);
@@ -60,25 +65,46 @@ public class CollectWordsImpl implements CollectWords {
         if (Counter.isEnd(maxLoad, allNum)) {
             return;
         }
-        List<String> words = fileHandler.handleFile(path, Counter.getNowCount(), maxLoad);
+        List<String> words = fileHandler.handleFile(path, Counter.getNowCount() == maxLoad ? 0 : Counter.getNowCount(), maxLoad);
         collect(words, type);
     }
 
     public void collect(List<String> words, int type) {
         words.forEach(word -> {
-            WordDefine wordDefinition = channelCollect.query(word);
-            if (wordDefinition == null) {
-                errorWords.add(new ErrorWord(word, type));
+            if("portrait".equals(word)){
+                logger.info("come here!");
+            }
+            if (word.trim().contains(" ")) {
+                errorWords.add(new WrongWord(word, type, ErrorType.STRUCTURE_ERROR.msg, ErrorType.STRUCTURE_ERROR.code));
             } else {
-                wordDefinition.setType(type);
-                boolean result = wordSaver.saveWord(wordDefinition);
-                if (!result) {
-                    logger.error("fail to save the word !" + word);
+                Word word1 = wordSaver.isExistWord(word);
+                if (word1 == null || !wordSaver.isExistEnMean(word1.getId()) || (wordSaver.isExistAudio(word1.getId(), AudioType.UK_AUDIO.type) == null) || (wordSaver.isExistAudio(word1.getId(), AudioType.US_AUDIO.type) == null)) {
+                    Result<WordDefine> commonResult = channelCollect.query(word);
+                    WordDefine wordDefinition = commonResult.getQueryResult();
+                    if (!commonResult.isSuccess()) {
+                        errorWords.add(new WrongWord(word, type, commonResult.getMsg(), Integer.parseInt(commonResult.getCode())));
+                    } else {
+                        wordDefinition.setType(type);
+                        boolean result = wordSaver.saveWord(wordDefinition);
+                        if (!result) {
+                            logger.error("fail to save the word !" + word);
+                        }
+                    }
+                } else {
+                    logger.info("word has exist ! word:[{}]", word1.getWord());
+                    wordSaver.saveTypeRelations(type, word1.getId());
                 }
             }
         });
+        logger.info("errorWordNo : " + errorWords.size());
 //        String result = HttpUtil.sendGet("https://api.shanbay.com/bdc/search/?word=good");
-        audioSaver.saveAudiobyUrl("http://media-audio1.qiniu.baydn.com/uk/v/vo/vocabulary_v3.mp3");
+//        audioSaver.saveAudiobyUrl("http://media-audio1.qiniu.baydn.com/uk/v/vo/vocabulary_v3.mp3");
+        errorWords.forEach(errorWord -> {
+            logger.info("start to save errorWord: [{}]",errorWord);
+            wordSaver.saveErrorWords(errorWord);
+                }
+        );
+        errorWords.clear();
     }
 
 
@@ -87,13 +113,4 @@ public class CollectWordsImpl implements CollectWords {
     }
 
 
-    class ErrorWord {
-        String word;
-        int type;
-
-        public ErrorWord(String word, int type) {
-            this.word = word;
-            this.type = type;
-        }
-    }
 }

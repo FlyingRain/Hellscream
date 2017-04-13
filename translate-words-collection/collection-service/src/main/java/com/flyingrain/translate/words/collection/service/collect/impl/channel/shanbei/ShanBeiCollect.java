@@ -2,12 +2,13 @@ package com.flyingrain.translate.words.collection.service.collect.impl.channel.s
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.flyingrain.translate.words.collection.service.collect.impl.ChannelCode;
+import com.flyingrain.translate.words.collection.service.common.ChannelCode;
 import com.flyingrain.translate.words.collection.service.collect.impl.channel.ChannelCollect;
-import com.flyingrain.translate.words.collection.service.collect.impl.channel.Result;
+import com.flyingrain.translate.words.collection.service.collect.impl.words.Result;
 import com.flyingrain.translate.words.collection.service.collect.impl.channel.shanbei.worddifine.QueryResult;
 import com.flyingrain.translate.words.collection.service.collect.impl.channel.shanbei.worddifine.WordDefinition;
 import com.flyingrain.translate.words.collection.service.collect.impl.words.WordDefine;
+import com.flyingrain.translate.words.collection.service.common.ErrorType;
 import com.flyingrain.translate.words.collection.service.utils.HttpUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,7 +26,7 @@ import java.util.List;
  * Created by wally on 4/11/17.
  */
 @Component
-public class ShanBeiCollect extends ChannelCollect{
+public class ShanBeiCollect extends ChannelCollect {
 
     private Logger logger = LoggerFactory.getLogger(ShanBeiCollect.class);
 
@@ -34,29 +35,36 @@ public class ShanBeiCollect extends ChannelCollect{
 
     @Override
     protected String sendToChannel(String word) {
-        logger.info("send "+ word + "to shanbei!");
+        logger.info("send " + word + "to shanbei!");
         String url = environment.getProperty("shanbei.url");
-        if(StringUtils.isEmpty(url)){
+        if (StringUtils.isEmpty(url)) {
             logger.error("shanbei url is null!");
         }
-        return HttpUtil.sendGet(url+word);
+        return HttpUtil.sendGet(url + word);
     }
 
     @Override
     protected Result parseResult(String result) {
         Result<WordDefinition> realResult = new Result<>();
+        if (result==null || result.length() < 20) {
+            logger.warn("result length is abnormal!");
+            realResult.setSuccess(false);
+            realResult.setMsg(result);
+            return realResult;
+        }
+
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_CONTROL_CHARS, true);
         try {
             logger.info("start parse result!");
-           QueryResult queryResult = objectMapper.readValue(result, QueryResult.class);
-           realResult.setCode(queryResult.getStatus_code()+"");
-           realResult.setMsg(queryResult.getMsg());
-           realResult.setChannelResult(queryResult.getData());
-           if("SUCCESS".equals(queryResult.getMsg())){
-               realResult.setSuccess(true);
-           }
-           return realResult;
+            QueryResult queryResult = objectMapper.readValue(result, QueryResult.class);
+            realResult.setCode(queryResult.getStatus_code() + "");
+            realResult.setMsg(queryResult.getMsg());
+            realResult.setQueryResult(queryResult.getData());
+            if ("SUCCESS".equals(queryResult.getMsg())) {
+                realResult.setSuccess(true);
+            }
+            return realResult;
         } catch (IOException e) {
             logger.error("parse result error!result is [{}]", result, e);
         }
@@ -65,21 +73,27 @@ public class ShanBeiCollect extends ChannelCollect{
     }
 
     @Override
-    protected WordDefine transferResult(Result result) {
-        if(result==null){
+    protected Result<WordDefine> transferResult(Result result) {
+        Result<WordDefine> commonResult = new Result<>();
+        if (result == null) {
             logger.error("result is null!");
-            return null;
+            commonResult.setSuccess(false);
+            commonResult.setMsg(ErrorType.NULL_ERROR.msg);
+            commonResult.setCode(ErrorType.NULL_ERROR.code + "");
+            return commonResult;
         }
         WordDefine wordDefine = new WordDefine();
 
-        WordDefinition wordDefinition = (WordDefinition) result.getChannelResult();
-
-        if(wordDefinition==null){
+        WordDefinition wordDefinition = (WordDefinition) result.getQueryResult();
+        commonResult.setMsg(result.getMsg());
+        commonResult.setCode(result.getCode() + "");
+        commonResult.setSuccess(result.isSuccess());
+        if (wordDefinition == null || !result.isSuccess()) {
             logger.error("wordDefinition is null!");
-            return null;
+            return commonResult;
         }
         wordDefine.setChannel_code(ChannelCode.SHANBEI.channelCode);
-        wordDefine.setChannel_word_id(wordDefinition.getId()+"");
+        wordDefine.setChannel_word_id(wordDefinition.getId() + "");
         wordDefine.setUk_pronunciation(wordDefinition.getPronunciations().getUk());
         wordDefine.setUs_pronunciation(wordDefinition.getPronunciations().getUs());
         wordDefine.setEn_adj(wordDefinition.getEn_definitions().getAdj());
@@ -91,20 +105,21 @@ public class ShanBeiCollect extends ChannelCollect{
         wordDefine.setMeans(wordDefinition.getDefinition());
         wordDefine.setUk_audio_address(wordDefinition.getAudio_addresses().getUk());
         wordDefine.setUs_audio_address(wordDefinition.getAudio_addresses().getUs());
-        if(CollectionUtils.isEmpty(wordDefine.getUk_audio_address())){
+        if (CollectionUtils.isEmpty(wordDefine.getUk_audio_address())) {
             List<String> uk = new ArrayList<>();
             uk.add(wordDefinition.getUk_audio());
             wordDefine.setUk_audio_address(uk);
-        }else{
+        } else {
             wordDefine.getUk_audio_address().add(wordDefinition.getUk_audio());
         }
-        if(CollectionUtils.isEmpty(wordDefine.getUs_audio_address())){
+        if (CollectionUtils.isEmpty(wordDefine.getUs_audio_address())) {
             List<String> us = new ArrayList<>();
             us.add(wordDefinition.getUs_audio());
             wordDefine.setUk_audio_address(us);
-        }else{
+        } else {
             wordDefine.getUs_audio_address().add(wordDefinition.getUs_audio());
         }
-        return wordDefine;
+        commonResult.setQueryResult(wordDefine);
+        return commonResult;
     }
 }

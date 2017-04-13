@@ -5,6 +5,8 @@ load:
   - file:databaseConfig.yml
   - file:myconf.yml
 
-
 server:
   port: 8099
+
+logging:
+  file: /home/wally/workspace/myprojects/logs/wordCollect.log

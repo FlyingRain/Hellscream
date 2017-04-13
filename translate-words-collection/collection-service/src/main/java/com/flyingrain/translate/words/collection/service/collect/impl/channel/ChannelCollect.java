@@ -1,5 +1,6 @@
 package com.flyingrain.translate.words.collection.service.collect.impl.channel;
 
+import com.flyingrain.translate.words.collection.service.collect.impl.words.Result;
 import com.flyingrain.translate.words.collection.service.collect.impl.words.WordDefine;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,14 +11,10 @@ import org.slf4j.LoggerFactory;
 public abstract class ChannelCollect {
     private Logger logger = LoggerFactory.getLogger(ChannelCollect.class);
 
-    public WordDefine query(String word) {
+    public Result<WordDefine> query(String word) {
         logger.info("start to query word:" + word);
         String queryResult = sendToChannel(word);
         Result channelResult = parseResult(queryResult);
-        if (channelResult==null||!channelResult.isSuccess()) {
-            logger.warn("query failed! " + channelResult);
-            return null;
-        }
         return transferResult(channelResult);
     }
 
@@ -25,6 +22,6 @@ public abstract class ChannelCollect {
 
     protected abstract Result parseResult(String result);
 
-    protected abstract WordDefine transferResult(Result result);
+    protected abstract Result<WordDefine> transferResult(Result result);
 }
 
