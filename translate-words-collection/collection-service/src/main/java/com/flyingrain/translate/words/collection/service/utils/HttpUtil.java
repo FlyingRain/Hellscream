@@ -20,10 +20,11 @@ public class HttpUtil {
 
     private static Logger logger = LoggerFactory.getLogger(HttpUtil.class);
 
-    private static  ObjectMapper objectMapper = new ObjectMapper();
+    private static ObjectMapper objectMapper = new ObjectMapper();
 
     /**
      * 发送GET请求
+     *
      * @param url 请求地址
      * @return 返回
      */
@@ -34,14 +35,15 @@ public class HttpUtil {
                 .build();
         try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
             final HttpGet httpGet = new HttpGet(url);
-            httpGet.setHeader("User-Agent","Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3063.4 Safari/537.36");
+            httpGet.setHeader("User-Agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3063.4 Safari/537.36");
+//httpGet.setHeader("Authorization","Bearer TOKEN");
             try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
                 logger.info("get response!");
                 final HttpEntity httpEntity = response.getEntity();
 
                 String result = EntityUtils.toString(httpEntity);
 
-                System.out.println(result);
+                System.out.println(result.getBytes().length);
                 EntityUtils.consume(httpEntity);
                 return result;
             }

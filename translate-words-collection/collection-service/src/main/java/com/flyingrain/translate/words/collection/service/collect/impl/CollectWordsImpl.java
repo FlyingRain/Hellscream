@@ -13,6 +13,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -32,6 +33,8 @@ public class CollectWordsImpl implements CollectWords {
     private ChannelCollect channelCollect;
     @Autowired
     private WordSaver wordSaver;
+
+    private static List<ErrorWord> errorWords = new ArrayList<>();
 
     public void collect(String path) {
         collect(path, WordType.BASIC.type);
@@ -54,31 +57,43 @@ public class CollectWordsImpl implements CollectWords {
         } catch (Exception e) {
             logger.warn("maxLoad is invalid! " + environment.getProperty("file.maxLoad") + ",use default value 2000!", e);
         }
-        if(Counter.isEnd(maxLoad,allNum)){
+        if (Counter.isEnd(maxLoad, allNum)) {
             return;
         }
         List<String> words = fileHandler.handleFile(path, Counter.getNowCount(), maxLoad);
-        collect(words,type);
+        collect(words, type);
     }
 
-    public void collect(List<String> words,int type) {
-        words.forEach(word->{
+    public void collect(List<String> words, int type) {
+        words.forEach(word -> {
             WordDefine wordDefinition = channelCollect.query(word);
-            wordDefinition.setType(type);
-            boolean result = wordSaver.saveWord(wordDefinition);
-            if(!result){
-                logger.error("fail to save the word !" + word);
+            if (wordDefinition == null) {
+                errorWords.add(new ErrorWord(word, type));
+            } else {
+                wordDefinition.setType(type);
+                boolean result = wordSaver.saveWord(wordDefinition);
+                if (!result) {
+                    logger.error("fail to save the word !" + word);
+                }
             }
-
         });
 //        String result = HttpUtil.sendGet("https://api.shanbay.com/bdc/search/?word=good");
         audioSaver.saveAudiobyUrl("http://media-audio1.qiniu.baydn.com/uk/v/vo/vocabulary_v3.mp3");
     }
 
 
-
     private FileHandler createFileHandler(String path) {
         return new XlsHandler();
     }
 
+
+    class ErrorWord {
+        String word;
+        int type;
+
+        public ErrorWord(String word, int type) {
+            this.word = word;
+            this.type = type;
+        }
+    }
 }

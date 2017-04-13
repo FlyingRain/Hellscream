@@ -27,4 +27,4 @@ CREATE TABLE `audio` (
   `data_added` datetime(3) DEFAULT CURRENT_TIMESTAMP(3),
   `last_modified` datetime(3) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
