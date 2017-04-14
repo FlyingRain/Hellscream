@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50718
 File Encoding         : 65001
 
-Date: 2017-04-11 18:00:56
+Date: 2017-04-14 15:03:46
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -22,9 +22,10 @@ DROP TABLE IF EXISTS `audio`;
 CREATE TABLE `audio` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `word_id` int(11) NOT NULL,
-  `audio_address` varchar(255) DEFAULT NULL,
-  `audio_type` tinyint(2) DEFAULT NULL,
+  `channel_audio_address` varchar(500) CHARACTER SET utf8 DEFAULT NULL,
+  `audio_address` varchar(500) CHARACTER SET utf8 DEFAULT NULL,
+  `audio_type` varchar(10) DEFAULT NULL,
   `data_added` datetime(3) DEFAULT CURRENT_TIMESTAMP(3),
-  `last_modified` datetime(3) DEFAULT NULL,
+  `last_modified` datetime(3) DEFAULT CURRENT_TIMESTAMP(3),
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2905 DEFAULT CHARSET=latin1;

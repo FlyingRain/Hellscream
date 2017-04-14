@@ -56,6 +56,10 @@ public class WordSaver {
         if(ww==null){
             return 0;
         }
+        if(errorWordMapper.getErrorWord(ww.getWord())!=null){
+            logger.info("error word has exist![{}]",ww.getWord());
+            return 0;
+        }
         ErrorWord errorWord = new ErrorWord();
         errorWord.setError_code(ww.getWrongCode());
         errorWord.setError_msg(ww.getWrongMsg());

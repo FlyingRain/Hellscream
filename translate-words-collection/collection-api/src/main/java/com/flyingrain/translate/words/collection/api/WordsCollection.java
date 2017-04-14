@@ -15,4 +15,7 @@ public interface WordsCollection {
     @Path("/start/collect")
     String collectWords(@QueryParam("fileName") String fileName,@QueryParam("type")int type) ;
 
+
+
+
 }

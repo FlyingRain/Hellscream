@@ -39,7 +39,7 @@ public class CollectWordsImpl implements CollectWords {
     @Autowired
     private WordSaver wordSaver;
 
-    private static List<WrongWord> errorWords = new ArrayList<>();
+    private static final List<WrongWord> errorWords = new ArrayList<>();
 
     public void collect(String path) {
         collect(path, WordType.BASIC.type);
@@ -71,9 +71,6 @@ public class CollectWordsImpl implements CollectWords {
 
     public void collect(List<String> words, int type) {
         words.forEach(word -> {
-            if("portrait".equals(word)){
-                logger.info("come here!");
-            }
             if (word.trim().contains(" ")) {
                 errorWords.add(new WrongWord(word, type, ErrorType.STRUCTURE_ERROR.msg, ErrorType.STRUCTURE_ERROR.code));
             } else {
@@ -99,12 +96,17 @@ public class CollectWordsImpl implements CollectWords {
         logger.info("errorWordNo : " + errorWords.size());
 //        String result = HttpUtil.sendGet("https://api.shanbay.com/bdc/search/?word=good");
 //        audioSaver.saveAudiobyUrl("http://media-audio1.qiniu.baydn.com/uk/v/vo/vocabulary_v3.mp3");
-        errorWords.forEach(errorWord -> {
-            logger.info("start to save errorWord: [{}]",errorWord);
-            wordSaver.saveErrorWords(errorWord);
-                }
-        );
-        errorWords.clear();
+        if (errorWords.size() > 0) {
+            //避免fail-fast
+            synchronized (errorWords) {
+                errorWords.forEach(errorWord -> {
+                            logger.info("start to save errorWord: [{}]", errorWord);
+                            wordSaver.saveErrorWords(errorWord);
+                        }
+                );
+                errorWords.clear();
+            }
+        }
     }
 
 
