@@ -18,6 +18,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
+import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,13 +31,21 @@ public class ShanBeiCollect extends ChannelCollect {
 
     private Logger logger = LoggerFactory.getLogger(ShanBeiCollect.class);
 
+    private String url;
     @Autowired
     private Environment environment;
 
+    private final ObjectMapper objectMapper = new ObjectMapper();;
+
+    @PostConstruct
+    public void init(){
+        objectMapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_CONTROL_CHARS, true);
+        url = environment.getProperty("shanbei.url");
+    }
     @Override
     protected String sendToChannel(String word) {
         logger.info("send " + word + "to shanbei!");
-        String url = environment.getProperty("shanbei.url");
+
         if (StringUtils.isEmpty(url)) {
             logger.error("shanbei url is null!");
         }
@@ -53,8 +62,6 @@ public class ShanBeiCollect extends ChannelCollect {
             return realResult;
         }
 
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_CONTROL_CHARS, true);
         try {
             logger.info("start parse result!");
             QueryResult queryResult = objectMapper.readValue(result, QueryResult.class);

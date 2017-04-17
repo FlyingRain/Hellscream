@@ -8,6 +8,7 @@ import java.util.List;
  * Created by wally on 4/11/17.
  */
 public class WordDefine {
+    private String id;
     /**
      * 单词
      */
@@ -77,6 +78,14 @@ public class WordDefine {
 
 
     public WordDefine() {
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getContent() {
@@ -209,11 +218,14 @@ public class WordDefine {
 
     @Override
     public String toString() {
-        return "Words{" +
-                "content='" + content + '\'' +
+        return "WordDefine{" +
+                "id='" + id + '\'' +
+                ", content='" + content + '\'' +
                 ", uk_pronunciation='" + uk_pronunciation + '\'' +
                 ", us_pronunciation='" + us_pronunciation + '\'' +
                 ", has_audio=" + has_audio +
+                ", uk_audio_address=" + uk_audio_address +
+                ", us_audio_address=" + us_audio_address +
                 ", channel_word_id='" + channel_word_id + '\'' +
                 ", channel_code='" + channel_code + '\'' +
                 ", means='" + means + '\'' +

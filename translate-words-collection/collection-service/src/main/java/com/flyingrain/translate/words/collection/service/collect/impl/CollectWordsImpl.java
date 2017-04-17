@@ -28,16 +28,17 @@ import java.util.List;
 public class CollectWordsImpl implements CollectWords {
 
     private Logger logger = LoggerFactory.getLogger(CollectWordsImpl.class);
-    @Autowired
     private Environment environment;
 
-    @Autowired
-    private AudioSaver audioSaver;
+    private ChannelCollect channelCollect;
+    private WordSaver wordSaver;
 
     @Autowired
-    private ChannelCollect channelCollect;
-    @Autowired
-    private WordSaver wordSaver;
+    public CollectWordsImpl(Environment environment, ChannelCollect channelCollect, WordSaver wordSaver) {
+        this.environment = environment;
+        this.channelCollect = channelCollect;
+        this.wordSaver = wordSaver;
+    }
 
     private static final List<WrongWord> errorWords = new ArrayList<>();
 
@@ -107,6 +108,11 @@ public class CollectWordsImpl implements CollectWords {
                 errorWords.clear();
             }
         }
+    }
+
+    @Override
+    public void collectSentence() {
+
     }
 
 

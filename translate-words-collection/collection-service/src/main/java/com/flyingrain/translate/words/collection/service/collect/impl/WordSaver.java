@@ -167,6 +167,10 @@ public class WordSaver {
             logger.info("relation has been exist!");
             return false;
         }
+        if(WordType.BASIC.type==typeCode){
+            logger.info("basic Type!");
+            return true;
+        }
         relationsMapper.insertRelation(wordId, typeCode);
         return true;
     }
