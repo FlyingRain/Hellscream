@@ -2,7 +2,7 @@ package com.flyingrain.translate.words.collection.service.collect.impl.channel.s
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.flyingrain.translate.words.collection.service.collect.impl.channel.CollectSentence;
+import com.flyingrain.translate.words.collection.service.collect.impl.channel.ChannelCollectSentence;
 import com.flyingrain.translate.words.collection.service.collect.impl.channel.QueryRequest;
 import com.flyingrain.translate.words.collection.service.collect.impl.channel.shanbei.samplesentences.Sentence;
 import com.flyingrain.translate.words.collection.service.collect.impl.channel.shanbei.samplesentences.SentenceResult;
@@ -25,9 +25,9 @@ import java.util.List;
  * Created by wally on 4/17/17.
  */
 @Component
-public class ShanBeiSentence extends CollectSentence {
+public class ShanBeiSentenceChannel extends ChannelCollectSentence {
 
-    private Logger logger = LoggerFactory.getLogger(ShanBeiSentence.class);
+    private Logger logger = LoggerFactory.getLogger(ShanBeiSentenceChannel.class);
 
     private String url;
     @Autowired
@@ -72,13 +72,17 @@ public class ShanBeiSentence extends CollectSentence {
         List<Sentence> sentenceList = channelresult.getData();
         SentenceDefine sentenceDefine = new SentenceDefine();
         List<SentenceDefine.Mysentence>  mysentences = new ArrayList<>();
-        sentenceList.forEach(sentence->{
+        //最多存5个例句
+        int i=0;
+        while (i<5 || i<=sentenceList.size()){
+            Sentence sentence = sentenceList.get(i);
             SentenceDefine.Mysentence mysentence = sentenceDefine.getMySentenceInstance();
             mysentence.setFirst(sentence.getFirst());
             mysentence.setLast(sentence.getLast());
             mysentence.setTranslation(sentence.getTranslation());
             mysentences.add(mysentence);
-        });
+            i++;
+        }
         sentenceDefine.setWord(sentenceList.get(0).getWord());
         sentenceDefine.setChannelWordId(sentenceList.get(0).getVocabulary_id());
         sentenceDefine.setMysentences(mysentences);

@@ -19,9 +19,7 @@ public class WordSentenceProvider {
         List<WordSentence> wordSentences = (List<WordSentence>) param.get("wordSentences");
         StringBuilder stringBuilder = new StringBuilder("insert into word_sentence (sentence,transaction,like,unlike,word_id,channel_id,first,last,word) values ");
         wordSentences.forEach(wordSentence -> {
-            stringBuilder.append("(");
-            stringBuilder.append("'"+wordSentence.getSentence()+"',");
-            stringBuilder.append("'"+wordSentence.getTransaction()+"',");
+            stringBuilder.append("(").append("'"+wordSentence.getSentence()+"',").append("'"+wordSentence.getTransaction()+"',");
             stringBuilder.append(wordSentence.getLike()+",");
             stringBuilder.append(wordSentence.getUnlike()+",");
             stringBuilder.append(wordSentence.getWord_id()+",");

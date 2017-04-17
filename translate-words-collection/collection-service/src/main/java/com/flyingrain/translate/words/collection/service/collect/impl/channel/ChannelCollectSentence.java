@@ -8,9 +8,9 @@ import org.slf4j.LoggerFactory;
 /**
  * Created by wally on 4/17/17.
  */
-public abstract class CollectSentence {
+public abstract class ChannelCollectSentence {
 
-    private Logger logger = LoggerFactory.getLogger(CollectSentence.class);
+    private Logger logger = LoggerFactory.getLogger(ChannelCollectSentence.class);
     public Result<SentenceDefine> querySentence(QueryRequest queryRequest){
         if(queryRequest==null){
             logger.error("query param is null!");

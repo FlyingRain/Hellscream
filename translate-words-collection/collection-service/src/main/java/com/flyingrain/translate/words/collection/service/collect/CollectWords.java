@@ -13,5 +13,4 @@ public interface CollectWords {
 
     void collect(List<String> words,int type);
 
-    void collectSentence();
 }

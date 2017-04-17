@@ -18,9 +18,9 @@ import java.util.List;
  * Created by wally on 4/12/17.
  */
 @Component
-public class WordSaver {
+public class WordManager {
 
-    private Logger logger = LoggerFactory.getLogger(WordSaver.class);
+    private Logger logger = LoggerFactory.getLogger(WordManager.class);
     @Autowired
     private WordMapper wordMapper;
 
@@ -41,11 +41,11 @@ public class WordSaver {
         }
         boolean mresult = saveENMean(word, saveResult.id);
         if (!mresult) {
-            logger.error("save enMean failed! wordId: " + saveResult.id);
+            logger.warn("save enMean failed! wordId: " + saveResult.id);
         }
         boolean tresult = saveTypeRelations(word.getType(), saveResult.id);
         if (!tresult) {
-            logger.error("save relation failed wordId : " + saveResult.id);
+            logger.warn("save relation failed wordId : " + saveResult.id);
         }
         boolean aresult = saveChannelAudio(word.getUk_audio_address(),word.getUs_audio_address(),saveResult.id);
         return true;

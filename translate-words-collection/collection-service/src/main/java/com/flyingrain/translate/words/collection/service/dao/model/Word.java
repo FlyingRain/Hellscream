@@ -10,6 +10,7 @@ public class Word {
     private String word;
     private String channel_word_id;
     private String uk_pronunciation;
+    private int has_sentences;
     private String channel_code;
     private int has_audio;
     private String us_pronunciation;
@@ -28,6 +29,14 @@ public class Word {
 
     public String getWord() {
         return word;
+    }
+
+    public int getHas_sentences() {
+        return has_sentences;
+    }
+
+    public void setHas_sentences(int has_sentences) {
+        this.has_sentences = has_sentences;
     }
 
     public void setWord(String word) {

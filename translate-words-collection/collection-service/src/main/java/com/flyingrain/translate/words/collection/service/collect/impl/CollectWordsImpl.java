@@ -29,15 +29,14 @@ public class CollectWordsImpl implements CollectWords {
 
     private Logger logger = LoggerFactory.getLogger(CollectWordsImpl.class);
     private Environment environment;
-
     private ChannelCollect channelCollect;
-    private WordSaver wordSaver;
+    private WordManager wordManager;
 
     @Autowired
-    public CollectWordsImpl(Environment environment, ChannelCollect channelCollect, WordSaver wordSaver) {
+    public CollectWordsImpl(Environment environment, ChannelCollect channelCollect, WordManager wordManager) {
         this.environment = environment;
         this.channelCollect = channelCollect;
-        this.wordSaver = wordSaver;
+        this.wordManager = wordManager;
     }
 
     private static final List<WrongWord> errorWords = new ArrayList<>();
@@ -75,22 +74,22 @@ public class CollectWordsImpl implements CollectWords {
             if (word.trim().contains(" ")) {
                 errorWords.add(new WrongWord(word, type, ErrorType.STRUCTURE_ERROR.msg, ErrorType.STRUCTURE_ERROR.code));
             } else {
-                Word word1 = wordSaver.isExistWord(word);
-                if (word1 == null || !wordSaver.isExistEnMean(word1.getId()) || (wordSaver.isExistAudio(word1.getId(), AudioType.UK_AUDIO.type) == null) || (wordSaver.isExistAudio(word1.getId(), AudioType.US_AUDIO.type) == null)) {
+                Word word1 = wordManager.isExistWord(word);
+                if (word1 == null || !wordManager.isExistEnMean(word1.getId()) || (wordManager.isExistAudio(word1.getId(), AudioType.UK_AUDIO.type) == null) || (wordManager.isExistAudio(word1.getId(), AudioType.US_AUDIO.type) == null)) {
                     Result<WordDefine> commonResult = channelCollect.query(word);
                     WordDefine wordDefinition = commonResult.getQueryResult();
                     if (!commonResult.isSuccess()) {
                         errorWords.add(new WrongWord(word, type, commonResult.getMsg(), Integer.parseInt(commonResult.getCode())));
                     } else {
                         wordDefinition.setType(type);
-                        boolean result = wordSaver.saveWord(wordDefinition);
+                        boolean result = wordManager.saveWord(wordDefinition);
                         if (!result) {
                             logger.error("fail to save the word !" + word);
                         }
                     }
                 } else {
                     logger.info("word has exist ! word:[{}]", word1.getWord());
-                    wordSaver.saveTypeRelations(type, word1.getId());
+                    wordManager.saveTypeRelations(type, word1.getId());
                 }
             }
         });
@@ -102,17 +101,12 @@ public class CollectWordsImpl implements CollectWords {
             synchronized (errorWords) {
                 errorWords.forEach(errorWord -> {
                             logger.info("start to save errorWord: [{}]", errorWord);
-                            wordSaver.saveErrorWords(errorWord);
+                            wordManager.saveErrorWords(errorWord);
                         }
                 );
                 errorWords.clear();
             }
         }
-    }
-
-    @Override
-    public void collectSentence() {
-
     }
 
 
