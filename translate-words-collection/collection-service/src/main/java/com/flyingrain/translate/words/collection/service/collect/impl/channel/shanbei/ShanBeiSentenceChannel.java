@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.PostConstruct;
@@ -47,8 +48,8 @@ public class ShanBeiSentenceChannel extends ChannelCollectSentence {
             logger.error("sentence url is null!");
             return null;
         }
-        url = url + queryRequest.getChannelWordId();
-        return HttpUtil.sendGet(url);
+        String sendUrl = url + queryRequest.getChannelWordId();
+        return HttpUtil.sendGet(sendUrl);
     }
 
     @Override
@@ -59,6 +60,7 @@ public class ShanBeiSentenceChannel extends ChannelCollectSentence {
             channelResult.setCode(sentenceResult.getStatus_code()+"");
             channelResult.setMsg(sentenceResult.getMsg());
             channelResult.setQueryResult(sentenceResult);
+            channelResult.setSuccess(true);
             return channelResult;
         } catch (IOException e) {
             logger.error("parse result failed!",e);
@@ -72,9 +74,13 @@ public class ShanBeiSentenceChannel extends ChannelCollectSentence {
         List<Sentence> sentenceList = channelresult.getData();
         SentenceDefine sentenceDefine = new SentenceDefine();
         List<SentenceDefine.Mysentence>  mysentences = new ArrayList<>();
+        if(CollectionUtils.isEmpty(sentenceList)){
+            logger.warn("no sentence find [{}]",channelresult.getMsg());
+            return null;
+        }
         //最多存5个例句
         int i=0;
-        while (i<5 || i<=sentenceList.size()){
+        while (i<5 && i<sentenceList.size()){
             Sentence sentence = sentenceList.get(i);
             SentenceDefine.Mysentence mysentence = sentenceDefine.getMySentenceInstance();
             mysentence.setFirst(sentence.getFirst());

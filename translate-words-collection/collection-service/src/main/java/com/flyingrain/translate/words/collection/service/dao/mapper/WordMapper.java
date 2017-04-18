@@ -2,7 +2,6 @@ package com.flyingrain.translate.words.collection.service.dao.mapper;
 
 import com.flyingrain.translate.words.collection.service.dao.model.Word;
 import org.apache.ibatis.annotations.*;
-import org.springframework.util.StringUtils;
 
 import java.util.List;
 
@@ -23,7 +22,7 @@ public interface WordMapper {
     @Select("select * from words where id=#{wordId}")
     Word getWordById(String wordId);
 
-    @Select("select id,word from words where has_sentences=0 limit 1000")
+    @Select("select id,word,channel_word_id from words where has_sentences=0 limit 1000")
     List<Word> getNoSentenceWords();
 
 

@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50718
 File Encoding         : 65001
 
-Date: 2017-04-17 18:13:10
+Date: 2017-04-18 14:11:18
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -21,16 +21,16 @@ SET FOREIGN_KEY_CHECKS=0;
 DROP TABLE IF EXISTS `word_sentence`;
 CREATE TABLE `word_sentence` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `sentence` varchar(500) DEFAULT NULL,
-  `transaction` varchar(500) DEFAULT NULL,
+  `sentence` varchar(1250) DEFAULT NULL,
+  `transaction` varchar(1250) DEFAULT NULL,
   `like` int(4) DEFAULT NULL,
   `unlike` int(4) DEFAULT NULL,
   `word_id` int(11) DEFAULT NULL,
   `channel_id` int(11) DEFAULT NULL,
-  `first` varchar(255) DEFAULT NULL,
-  `last` varchar(255) DEFAULT NULL,
-  `word` varchar(10) DEFAULT NULL,
+  `first` varchar(500) DEFAULT NULL,
+  `last` varchar(500) DEFAULT NULL,
+  `word` varchar(50) DEFAULT NULL,
   `last_modified` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `data_added` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=891 DEFAULT CHARSET=utf8;

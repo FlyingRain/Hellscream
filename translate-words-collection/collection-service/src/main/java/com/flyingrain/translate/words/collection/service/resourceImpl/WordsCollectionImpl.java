@@ -5,7 +5,6 @@ import com.flyingrain.translate.words.collection.api.WordsCollection;
 import com.flyingrain.translate.words.collection.model.Result;
 import com.flyingrain.translate.words.collection.service.collect.CollectSentences;
 import com.flyingrain.translate.words.collection.service.collect.CollectWords;
-import com.flyingrain.translate.words.collection.service.collect.impl.channel.ChannelCollectSentence;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +49,10 @@ public class WordsCollectionImpl implements WordsCollection {
 
     @Override
     public Result<String> collectSentence() {
+        Result<String> result = new Result<>();
         collectSentences.collectSentences();
-        return null;
+        result.setCode("00");
+        result.setMsg("collect success!");
+        return result;
     }
 }

@@ -4,4 +4,4 @@ file:
 
 shanbei:
   url: https://api.shanbay.com/bdc/search/?word=
-  sentence: https://api.shanbay.com/bdc/example/?vocabulary_id=
+  sentence: http://api.shanbay.com/bdc/example/?vocabulary_id=

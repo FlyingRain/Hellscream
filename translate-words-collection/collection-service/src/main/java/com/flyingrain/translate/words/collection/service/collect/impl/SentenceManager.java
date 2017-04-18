@@ -3,6 +3,7 @@ package com.flyingrain.translate.words.collection.service.collect.impl;
 import com.flyingrain.translate.words.collection.service.collect.impl.words.SentenceDefine;
 import com.flyingrain.translate.words.collection.service.dao.mapper.WordMapper;
 import com.flyingrain.translate.words.collection.service.dao.mapper.WordSentenceMapper;
+import com.flyingrain.translate.words.collection.service.dao.model.Word;
 import com.flyingrain.translate.words.collection.service.dao.model.WordSentence;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,19 +32,21 @@ public class SentenceManager {
     public int saveSentence(SentenceDefine sentenceDefine){
         List<WordSentence> wordSentences = new ArrayList<>();
         List<SentenceDefine.Mysentence> mysentences = sentenceDefine.getMysentences();
-
+        Word word = wordMapper.getWord(sentenceDefine.getWord());
         mysentences.forEach(mysentence -> {
             WordSentence wordSentence = new WordSentence();
             wordSentence.setFirst(mysentence.getFirst());
             wordSentence.setLast(mysentence.getLast());
-            wordSentence.setSentence(mysentence.getFirst()+" "+sentenceDefine.getChannelWordId()+" "+mysentence.getLast());
+            wordSentence.setSentence(mysentence.getFirst()+" "+sentenceDefine.getWord()+" "+mysentence.getLast());
             wordSentence.setTransaction(mysentence.getTranslation());
             wordSentence.setLike(mysentence.getLike());
             wordSentence.setUnlike(mysentence.getUnlike());
+            wordSentence.setWord_id(word.getId());
             wordSentence.setWord(sentenceDefine.getWord());
-            wordSentence.setWord_id(sentenceDefine.getWordId());
             wordSentences.add(wordSentence);
         });
+
+
         logger.info("start to update words!" + sentenceDefine.getWord());
         int i = wordMapper.updateWordSentenceStatus(1,sentenceDefine.getWord());
         if(i!=1){

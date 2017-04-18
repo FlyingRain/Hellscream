@@ -6,7 +6,6 @@ import com.flyingrain.translate.words.collection.service.collect.impl.channel.Qu
 import com.flyingrain.translate.words.collection.service.collect.impl.words.Result;
 import com.flyingrain.translate.words.collection.service.collect.impl.words.SentenceDefine;
 import com.flyingrain.translate.words.collection.service.dao.mapper.WordMapper;
-import com.flyingrain.translate.words.collection.service.dao.mapper.WordSentenceMapper;
 import com.flyingrain.translate.words.collection.service.dao.model.Word;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,6 +39,7 @@ public class CollectSentencesImpl implements CollectSentences {
             QueryRequest queryRequest = new QueryRequest();
             queryRequest.setWord(word.getWord());
             queryRequest.setId(word.getId() + "");
+            queryRequest.setChannelWordId(word.getChannel_word_id());
             Result<SentenceDefine> result = channelCollectSentence.querySentence(queryRequest);
             if (result != null)
                 sentenceManager.saveSentence(result.getQueryResult());

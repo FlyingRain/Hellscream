@@ -4,6 +4,7 @@ import com.flyingrain.translate.words.collection.service.dao.model.WordSentence;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.text.MessageFormat;
 import java.util.List;
 import java.util.Map;
 
@@ -14,24 +15,23 @@ public class WordSentenceProvider {
 
     private Logger logger = LoggerFactory.getLogger(WordSentenceProvider.class);
 
-    public String batchInsert(Map param){
+    public String batchInsert(Map param) {
         logger.info("start to generate sql !");
         List<WordSentence> wordSentences = (List<WordSentence>) param.get("wordSentences");
-        StringBuilder stringBuilder = new StringBuilder("insert into word_sentence (sentence,transaction,like,unlike,word_id,channel_id,first,last,word) values ");
-        wordSentences.forEach(wordSentence -> {
-            stringBuilder.append("(").append("'"+wordSentence.getSentence()+"',").append("'"+wordSentence.getTransaction()+"',");
-            stringBuilder.append(wordSentence.getLike()+",");
-            stringBuilder.append(wordSentence.getUnlike()+",");
-            stringBuilder.append(wordSentence.getWord_id()+",");
-            stringBuilder.append(wordSentence.getChannel_id()+",");
-            stringBuilder.append("'"+wordSentence.getFirst()+"',");
-            stringBuilder.append("'"+wordSentence.getLast()+"',");
-            stringBuilder.append("'"+wordSentence.getWord()+"',");
-            stringBuilder.append("),");
-        });
-        String sql = stringBuilder.substring(0,stringBuilder.length()-1);
+        StringBuilder stringBuilder = new StringBuilder("insert into word_sentence (sentence,`transaction`,`like`,unlike,word_id,channel_id,first,last,word) values ");
+        //消息格式化.
+        MessageFormat fm = new MessageFormat("(#'{'wordSentences[{0}].sentence},#'{'wordSentences[{0}].transaction},#'{'wordSentences[{0}].like}," +
+                "#'{'wordSentences[{0}].unlike},#'{'wordSentences[{0}].word_id},#'{'wordSentences[{0}].channel_id},#'{'wordSentences[{0}].first},#'{'wordSentences[{0}].last},#'{'wordSentences[{0}].word})");
 
-        logger.info("get sql [{}]",sql);
+        for (int i = 0; i < wordSentences.size(); i++) {
+            stringBuilder.append(fm.format(new Object[]{i}));
+            if (i < wordSentences.size() - 1)
+                stringBuilder.append(",");
+        }
+
+        String sql = stringBuilder.toString();
+
+        logger.info("get sql [{}]", sql);
         return sql;
     }
 

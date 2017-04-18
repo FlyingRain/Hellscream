@@ -31,14 +31,10 @@ public class HttpUtil {
         try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
             final HttpGet httpGet = new HttpGet(url);
             httpGet.setHeader("User-Agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3063.4 Safari/537.36");
-//httpGet.setHeader("Authorization","Bearer TOKEN");
+            logger.info("start to send to [{}]",url);
             try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
-                logger.info("get response!");
                 final HttpEntity httpEntity = response.getEntity();
-
                 String result = EntityUtils.toString(httpEntity);
-
-                System.out.println(result.getBytes().length);
                 EntityUtils.consume(httpEntity);
                 return result;
             }
