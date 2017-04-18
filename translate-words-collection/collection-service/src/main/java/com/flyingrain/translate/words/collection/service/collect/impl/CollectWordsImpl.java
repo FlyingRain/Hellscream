@@ -39,7 +39,7 @@ public class CollectWordsImpl implements CollectWords {
         this.wordManager = wordManager;
     }
 
-    private static final List<WrongWord> errorWords = new ArrayList<>();
+
 
     public void collect(String path) {
         collect(path, WordType.BASIC.type);
@@ -97,8 +97,6 @@ public class CollectWordsImpl implements CollectWords {
 //        String result = HttpUtil.sendGet("https://api.shanbay.com/bdc/search/?word=good");
 //        audioSaver.saveAudiobyUrl("http://media-audio1.qiniu.baydn.com/uk/v/vo/vocabulary_v3.mp3");
         if (errorWords.size() > 0) {
-            //避免fail-fast
-            synchronized (errorWords) {
                 errorWords.forEach(errorWord -> {
                             logger.info("start to save errorWord: [{}]", errorWord);
                             wordManager.saveErrorWords(errorWord);
@@ -106,7 +104,7 @@ public class CollectWordsImpl implements CollectWords {
                 );
                 errorWords.clear();
             }
-        }
+
     }
 
 
