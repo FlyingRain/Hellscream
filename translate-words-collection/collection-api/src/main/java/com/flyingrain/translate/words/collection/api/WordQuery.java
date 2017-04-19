@@ -1,7 +1,7 @@
 package com.flyingrain.translate.words.collection.api;
 
 import com.flyingrain.translate.words.collection.model.Result;
-import com.flyingrain.translate.words.collection.model.SampleSentence;
+import com.flyingrain.translate.words.collection.model.SentenceDefine;
 import com.flyingrain.translate.words.collection.model.WordResult;
 
 import javax.ws.rs.*;
@@ -22,5 +22,5 @@ public interface WordQuery {
 
     @GET
     @Path("/query/sentence")
-    Result<SampleSentence> querySentence(@QueryParam("wordId") String wordId);
+    Result<SentenceDefine> querySentence(@QueryParam("wordId") int wordId);
 }

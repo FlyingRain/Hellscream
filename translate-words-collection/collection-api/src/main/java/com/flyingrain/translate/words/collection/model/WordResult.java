@@ -29,6 +29,8 @@ public class WordResult {
 
     private List<String> usAudio;
 
+    private String defaultAudio;
+
     public int getWordId() {
         return wordId;
     }
@@ -77,6 +79,14 @@ public class WordResult {
         this.adj = adj;
     }
 
+    public String getDefaultAudio() {
+        return defaultAudio;
+    }
+
+    public void setDefaultAudio(String defaultAudio) {
+        this.defaultAudio = defaultAudio;
+    }
+
     public List<String> getAdv() {
         return adv;
     }
@@ -115,5 +125,23 @@ public class WordResult {
 
     public void setUsAudio(List<String> usAudio) {
         this.usAudio = usAudio;
+    }
+
+    @Override
+    public String toString() {
+        return "WordResult{" +
+                "wordId=" + wordId +
+                ", word='" + word + '\'' +
+                ", mean='" + mean + '\'' +
+                ", v=" + v +
+                ", n=" + n +
+                ", adj=" + adj +
+                ", adv=" + adv +
+                ", ukPronunciation='" + ukPronunciation + '\'' +
+                ", usPronunciation='" + usPronunciation + '\'' +
+                ", ukAudio=" + ukAudio +
+                ", usAudio=" + usAudio +
+                ", defaultAudio='" + defaultAudio + '\'' +
+                '}';
     }
 }

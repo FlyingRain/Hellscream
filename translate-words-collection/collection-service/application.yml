@@ -5,8 +5,10 @@ load:
   - file:databaseConfig.yml
   - file:myconf.yml
 
+#服务端口
 server:
   port: 8099
 
+#log文件地址
 logging:
   file: /home/wally/workspace/myprojects/logs/wordCollect.log

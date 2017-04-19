@@ -1,7 +1,7 @@
 package com.flyingrain.translate.words.collection.service.collect.impl.channel;
 
-import com.flyingrain.translate.words.collection.service.collect.impl.words.Result;
-import com.flyingrain.translate.words.collection.service.collect.impl.words.SentenceDefine;
+import com.flyingrain.translate.words.collection.service.words.Result;
+import com.flyingrain.translate.words.collection.model.SentenceDefine;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

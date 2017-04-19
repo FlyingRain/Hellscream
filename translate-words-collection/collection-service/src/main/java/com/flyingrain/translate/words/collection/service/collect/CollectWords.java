@@ -1,6 +1,7 @@
 package com.flyingrain.translate.words.collection.service.collect;
 
-import com.flyingrain.translate.words.collection.service.collect.impl.words.WrongWord;
+
+import com.flyingrain.translate.words.collection.service.words.WrongWord;
 
 import java.util.ArrayList;
 import java.util.List;

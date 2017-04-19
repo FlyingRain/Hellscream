@@ -1,7 +1,11 @@
+#用于向渠道收集单词的配置
 file:
+  #每次最大查询数量
   maxLoad: 500
+  #待查询单词地址（绝对路径）
   path: /home/wally/Downloads/单词库/已有单词/托福/
 
+#渠道收集单词的url
 shanbei:
   url: https://api.shanbay.com/bdc/search/?word=
   sentence: http://api.shanbay.com/bdc/example/?vocabulary_id=

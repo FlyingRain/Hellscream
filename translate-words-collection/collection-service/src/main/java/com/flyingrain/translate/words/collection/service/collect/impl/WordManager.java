@@ -1,8 +1,8 @@
 package com.flyingrain.translate.words.collection.service.collect.impl;
 
 import com.flyingrain.translate.words.collection.model.WordType;
-import com.flyingrain.translate.words.collection.service.collect.impl.words.WordDefine;
-import com.flyingrain.translate.words.collection.service.collect.impl.words.WrongWord;
+import com.flyingrain.translate.words.collection.service.words.WordDefine;
+import com.flyingrain.translate.words.collection.service.words.WrongWord;
 import com.flyingrain.translate.words.collection.service.common.AudioType;
 import com.flyingrain.translate.words.collection.service.dao.mapper.*;
 import com.flyingrain.translate.words.collection.service.dao.model.*;

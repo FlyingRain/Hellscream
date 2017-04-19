@@ -24,5 +24,5 @@ public interface WordSentenceMapper {
     int batchInsertSentences(@Param("wordSentences")List<WordSentence> wordSentences);
 
     @Select("select * from word_sentence where word_id=#{wordId}")
-    WordSentence getSentenceByWordId(String wordId);
+    List<WordSentence> getSentenceByWordId(int wordId);
 }

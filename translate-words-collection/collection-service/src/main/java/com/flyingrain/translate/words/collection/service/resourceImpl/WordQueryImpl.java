@@ -1,17 +1,19 @@
 package com.flyingrain.translate.words.collection.service.resourceImpl;
 
+import com.flyingrain.translate.framework.annotaions.Resource;
 import com.flyingrain.translate.words.collection.api.WordQuery;
-import com.flyingrain.translate.words.collection.model.Result;
-import com.flyingrain.translate.words.collection.model.SampleSentence;
-import com.flyingrain.translate.words.collection.model.WordResult;
+import com.flyingrain.translate.words.collection.model.*;
 import com.flyingrain.translate.words.collection.service.services.WordServices;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * Created by wally on 4/18/17.
  */
+@Component
+@Resource
 public class WordQueryImpl implements WordQuery {
 
     private Logger logger = LoggerFactory.getLogger(WordQueryImpl.class);
@@ -22,12 +24,26 @@ public class WordQueryImpl implements WordQuery {
     @Override
     public Result<WordResult> queryWord(String word, int type) {
         logger.info("start to query [{}] , type is [{}]",word,type);
+        Result<WordResult> resut = new Result<>();
         WordResult wordResult = wordServices.getWord(word,type);
-        return null;
+        resut.setMsg(ResultType.SUCCESS.desc);
+        resut.setCode(ResultType.FAIL.code);
+        if(wordResult==null){
+            resut.setMsg("can't query this word!");
+            resut.setCode(ResultType.FAIL.code);
+        }
+        resut.setRealResult(wordResult);
+        return resut;
     }
 
     @Override
-    public Result<SampleSentence> querySentence(String wordId) {
-        return null;
+    public Result<SentenceDefine> querySentence(int wordId) {
+        logger.info("start to query sentence for word [{}]",wordId);
+        SentenceDefine sentenceDefine = wordServices.getSentence(wordId);
+        Result<SentenceDefine> result = new Result<>();
+        result.setCode(ResultType.SUCCESS.code);
+        result.setMsg(ResultType.SUCCESS.desc);
+        result.setRealResult(sentenceDefine);
+        return result;
     }
 }

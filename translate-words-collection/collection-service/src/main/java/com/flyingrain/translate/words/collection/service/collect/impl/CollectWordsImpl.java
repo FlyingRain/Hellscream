@@ -5,9 +5,9 @@ import com.flyingrain.translate.words.collection.service.collect.CollectWords;
 import com.flyingrain.translate.words.collection.service.collect.impl.channel.ChannelCollect;
 import com.flyingrain.translate.words.collection.service.collect.impl.filehandler.FileHandler;
 import com.flyingrain.translate.words.collection.service.collect.impl.filehandler.impl.XlsHandler;
-import com.flyingrain.translate.words.collection.service.collect.impl.words.Result;
-import com.flyingrain.translate.words.collection.service.collect.impl.words.WordDefine;
-import com.flyingrain.translate.words.collection.service.collect.impl.words.WrongWord;
+import com.flyingrain.translate.words.collection.service.words.Result;
+import com.flyingrain.translate.words.collection.service.words.WordDefine;
+import com.flyingrain.translate.words.collection.service.words.WrongWord;
 import com.flyingrain.translate.words.collection.service.common.AudioType;
 import com.flyingrain.translate.words.collection.service.common.ErrorType;
 import com.flyingrain.translate.words.collection.service.dao.model.Word;
@@ -18,7 +18,6 @@ import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
