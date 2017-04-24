@@ -1,2 +1,3 @@
 rootProject.name = 'plan-manager'
+include 'plan-api'
 
