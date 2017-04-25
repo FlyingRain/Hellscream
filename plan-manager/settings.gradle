@@ -1,5 +1,5 @@
 rootProject.name = 'plan-manager'
 
 include 'plan-api'
-
+include 'plan-service'
 
