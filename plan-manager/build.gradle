@@ -1,6 +1,7 @@
 group 'com.flyingrain.translate.plan'
 version '1.0-SNAPSHOT'
 
+
 buildscript {
     repositories {
         mavenCentral()
@@ -66,3 +67,4 @@ subprojects {
         }
     }
 }
+
