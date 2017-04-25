@@ -16,4 +16,10 @@ public interface WordTypeRelationsMapper {
     @Select("select * from word_type_relations where word_id=#{wordId} and type_code=#{typeCode}")
     WordTypeRelations getRelation(@Param("wordId") int wordId,@Param("typeCode") int typeCode);
 
+    @Select("select count(1) from word_type_relations group by type_code having type_code=#{type}")
+    Integer getTypeNumber(int type);
+
+    @Select("select count(1) from (select  DISTINCT word_id from word_type_relations ) a")
+    Integer getAllWords();
+
 }

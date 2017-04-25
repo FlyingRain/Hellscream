@@ -8,7 +8,7 @@ import java.util.Date;
 public class WordType {
     private int id;
     private String type_name;
-    private String type_code;
+    private int type_code;
     private Date data_added;
     private Date last_modified;
 
@@ -28,11 +28,11 @@ public class WordType {
         this.type_name = type_name;
     }
 
-    public String getType_code() {
+    public int getType_code() {
         return type_code;
     }
 
-    public void setType_code(String type_code) {
+    public void setType_code(int type_code) {
         this.type_code = type_code;
     }
 

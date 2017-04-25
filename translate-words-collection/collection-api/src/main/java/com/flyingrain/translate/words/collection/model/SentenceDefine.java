@@ -6,13 +6,10 @@ import java.util.List;
  * Created by wally on 4/17/17.
  */
 public class SentenceDefine {
-    private String id;
 
     private String word;
 
     private int wordId;
-
-    private String channelWordId;
 
     private List<Mysentence> mysentences;
 
@@ -72,13 +69,6 @@ public class SentenceDefine {
         return new Mysentence();
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public String getWord() {
         return word;
@@ -96,13 +86,6 @@ public class SentenceDefine {
         this.wordId = wordId;
     }
 
-    public String getChannelWordId() {
-        return channelWordId;
-    }
-
-    public void setChannelWordId(String channelWordId) {
-        this.channelWordId = channelWordId;
-    }
 
     public List<Mysentence> getMysentences() {
         return mysentences;
@@ -115,10 +98,8 @@ public class SentenceDefine {
     @Override
     public String toString() {
         return "SentenceDefine{" +
-                "id='" + id + '\'' +
                 ", word='" + word + '\'' +
-                ", wordId='" + wordId + '\'' +
-                ", channelWordId='" + channelWordId + '\'' +
+                ", wordId=" + wordId +
                 ", mysentences=" + mysentences +
                 '}';
     }

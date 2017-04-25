@@ -29,5 +29,6 @@ public interface WordMapper {
     @Update("update words set has_sentences=#{status} where word=#{word}")
     int updateWordSentenceStatus(@Param("status") int status,@Param("word") String word);
 
-
+    @Select("select count(1) from words")
+    Integer getAllWords();
 }

@@ -1,6 +1,6 @@
 package com.flyingrain.translate.words.collection.service.words;
 
-import com.flyingrain.translate.words.collection.model.WordType;
+import com.flyingrain.translate.words.collection.model.BookType;
 
 import java.util.List;
 
@@ -48,7 +48,7 @@ public class WordDefine {
     /**
      * 类型
      *
-     * @see WordType
+     * @see BookType
      */
     private int type;
     /**

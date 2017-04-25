@@ -1,0 +1,68 @@
+group 'com.flyingrain.translate.plan'
+version '1.0-SNAPSHOT'
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:1.5.2.RELEASE"
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'maven'
+apply plugin: 'org.springframework.boot'
+
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+}
+
+
+subprojects {
+    buildscript {
+        repositories {
+            mavenCentral()
+        }
+        dependencies {
+            classpath "org.springframework.boot:spring-boot-gradle-plugin:1.5.2.RELEASE"
+        }
+    }
+
+    apply plugin: 'java'
+    apply plugin: 'idea'
+    apply plugin: 'maven'
+    apply plugin: 'org.springframework.boot'
+
+    sourceCompatibility = 1.8
+
+    repositories {
+        mavenCentral()
+        mavenLocal()
+    }
+
+    dependencies {
+        testCompile group: 'junit', name: 'junit', version: '4.11'
+        compile group: 'com.flyingrain.translate.framework', name: 'framework-restwapper', version: '1.0-SNAPSHOT'
+        compile(group: 'com.flyingrain.translate.database.conf', name: 'database-conf', version: '1.0-SNAPSHOT') {
+            exclude module: 'mysql-connector-java'
+        }
+        compile group: 'mysql', name: 'mysql-connector-java', version: '6.0.6'
+    }
+
+    uploadArchives {
+        repositories {
+            mavenDeployer {
+                repository(url: uri('/home/wally/repository'))
+            }
+        }
+    }
+}

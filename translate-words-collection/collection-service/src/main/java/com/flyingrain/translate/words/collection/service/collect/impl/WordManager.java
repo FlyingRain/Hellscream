@@ -1,6 +1,6 @@
 package com.flyingrain.translate.words.collection.service.collect.impl;
 
-import com.flyingrain.translate.words.collection.model.WordType;
+import com.flyingrain.translate.words.collection.model.BookType;
 import com.flyingrain.translate.words.collection.service.words.WordDefine;
 import com.flyingrain.translate.words.collection.service.words.WrongWord;
 import com.flyingrain.translate.words.collection.service.common.AudioType;
@@ -159,7 +159,7 @@ public class WordManager {
     }
 
     public boolean saveTypeRelations(int typeCode, int wordId) {
-        if (!WordType.isExist(typeCode)) {
+        if (!BookType.isExist(typeCode)) {
             logger.error("wrong type ! type : " + typeCode);
             return false;
         }
@@ -167,7 +167,7 @@ public class WordManager {
             logger.info("relation has been exist!");
             return false;
         }
-        if(WordType.BASIC.type==typeCode){
+        if(BookType.BASIC.type==typeCode){
             logger.info("basic Type!");
             return true;
         }

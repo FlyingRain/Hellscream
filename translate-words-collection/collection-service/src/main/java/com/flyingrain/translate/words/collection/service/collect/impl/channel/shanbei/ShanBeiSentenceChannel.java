@@ -90,7 +90,6 @@ public class ShanBeiSentenceChannel extends ChannelCollectSentence {
             i++;
         }
         sentenceDefine.setWord(sentenceList.get(0).getWord());
-        sentenceDefine.setChannelWordId(sentenceList.get(0).getVocabulary_id());
         sentenceDefine.setMysentences(mysentences);
 
         Result<SentenceDefine> realResult = new Result<>();

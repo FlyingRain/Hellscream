@@ -1,6 +1,6 @@
 package com.flyingrain.translate.words.collection.service.collect.impl;
 
-import com.flyingrain.translate.words.collection.model.WordType;
+import com.flyingrain.translate.words.collection.model.BookType;
 import com.flyingrain.translate.words.collection.service.collect.CollectWords;
 import com.flyingrain.translate.words.collection.service.collect.impl.channel.ChannelCollect;
 import com.flyingrain.translate.words.collection.service.collect.impl.filehandler.FileHandler;
@@ -41,7 +41,7 @@ public class CollectWordsImpl implements CollectWords {
 
 
     public void collect(String path) {
-        collect(path, WordType.BASIC.type);
+        collect(path, BookType.BASIC.type);
     }
 
     @Override

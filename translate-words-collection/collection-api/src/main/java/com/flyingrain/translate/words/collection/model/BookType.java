@@ -3,7 +3,7 @@ package com.flyingrain.translate.words.collection.model;
 /**
  * Created by wally on 4/11/17.
  */
-public enum WordType {
+public enum BookType {
 
     BASIC(1,"基础词汇"),
     TOEFL_BASIC(50,"托福基本词汇"),
@@ -19,14 +19,14 @@ public enum WordType {
 
     public String description;
 
-    WordType(int type, String description) {
+    BookType(int type, String description) {
         this.type = type;
         this.description = description;
     }
 
     public static boolean isExist(int code){
-        WordType wordTypes[] = WordType.values();
-        for (WordType w : wordTypes) {
+        BookType bookTypes[] = BookType.values();
+        for (BookType w : bookTypes) {
             if (w.type == code) {
                 return true;
             }
