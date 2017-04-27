@@ -10,7 +10,11 @@ public class PlanRequest {
     /**
      * 书本ID
      */
-    private String bookId;
+    private int bookId;
+    /**
+     * 书名
+     */
+    private String bookName;
     /**
      * 计划类型1，按时间2，按数量
      */
@@ -28,11 +32,20 @@ public class PlanRequest {
      */
     private int userId;
 
-    public String getBookId() {
+    public String getBookName() {
+        return bookName;
+    }
+
+    public PlanRequest setBookName(String bookName) {
+        this.bookName = bookName;
+        return this;
+    }
+
+    public int getBookId() {
         return bookId;
     }
 
-    public void setBookId(String bookId) {
+    public void setBookId(int bookId) {
         this.bookId = bookId;
     }
 

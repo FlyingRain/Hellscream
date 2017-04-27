@@ -6,13 +6,13 @@ import java.util.Date;
  * Created by wally on 4/25/17.
  */
 public class Plan {
-    private int planId;
+    private int id;
 
     private int planType;
 
     private int planStatus;
 
-    private Date deadLine;
+    private Date deadline;
 
     private Date endDate;
 
@@ -22,12 +22,13 @@ public class Plan {
 
     private int number;
 
-    public int getPlanId() {
-        return planId;
+    public int getId() {
+        return id;
     }
 
-    public void setPlanId(int planId) {
-        this.planId = planId;
+    public Plan setId(int id) {
+        this.id = id;
+        return this;
     }
 
     public int getPlanType() {
@@ -46,12 +47,13 @@ public class Plan {
         this.planStatus = planStatus;
     }
 
-    public Date getDeadLine() {
-        return deadLine;
+    public Date getDeadline() {
+        return deadline;
     }
 
-    public void setDeadLine(Date deadLine) {
-        this.deadLine = deadLine;
+    public Plan setDeadline(Date deadline) {
+        this.deadline = deadline;
+        return this;
     }
 
     public Date getEndDate() {

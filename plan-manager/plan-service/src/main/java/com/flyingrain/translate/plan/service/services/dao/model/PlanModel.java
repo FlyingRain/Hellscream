@@ -10,7 +10,7 @@ public class PlanModel {
 
     private String user_id;
 
-    private String plan_type;
+    private int plan_type;
 
     private String book_name;
 
@@ -22,7 +22,7 @@ public class PlanModel {
 
     private int book_id;
 
-    private int is_over;
+    private int status;
 
     private Date data_added;
 
@@ -60,11 +60,11 @@ public class PlanModel {
         this.user_id = user_id;
     }
 
-    public String getPlan_type() {
+    public int getPlan_type() {
         return plan_type;
     }
 
-    public void setPlan_type(String plan_type) {
+    public void setPlan_type(int plan_type) {
         this.plan_type = plan_type;
     }
 
@@ -108,11 +108,11 @@ public class PlanModel {
         this.book_id = book_id;
     }
 
-    public int getIs_over() {
-        return is_over;
+    public int getStatus() {
+        return status;
     }
 
-    public void setIs_over(int is_over) {
-        this.is_over = is_over;
+    public void setStatus(int status) {
+        this.status = status;
     }
 }

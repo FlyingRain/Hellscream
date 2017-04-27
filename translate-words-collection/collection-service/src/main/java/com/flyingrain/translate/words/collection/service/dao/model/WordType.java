@@ -9,8 +9,28 @@ public class WordType {
     private int id;
     private String type_name;
     private int type_code;
+    private String belong;
+    private int user_id;
     private Date data_added;
     private Date last_modified;
+
+    public String getBelong() {
+        return belong;
+    }
+
+    public WordType setBelong(String belong) {
+        this.belong = belong;
+        return this;
+    }
+
+    public int getUser_id() {
+        return user_id;
+    }
+
+    public WordType setUser_id(int user_id) {
+        this.user_id = user_id;
+        return this;
+    }
 
     public int getId() {
         return id;
