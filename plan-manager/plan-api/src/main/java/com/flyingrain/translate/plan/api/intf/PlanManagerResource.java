@@ -1,6 +1,7 @@
 package com.flyingrain.translate.plan.api.intf;
 
 import com.flyingrain.translate.plan.api.request.PlanRequest;
+import com.flyingrain.translate.plan.api.response.ModifyResult;
 import com.flyingrain.translate.plan.api.response.Plan;
 import com.flyingrain.translate.plan.api.response.Result;
 
@@ -22,5 +23,9 @@ public interface PlanManagerResource {
 
     @GET
     @Path("/query")
-    Result<List<Plan>> queryPlan(@QueryParam("planId") int planId,@QueryParam("userId")int userId);
+    Result<List<Plan>> queryPlan(@QueryParam("planId") Integer planId,@QueryParam("userId")Integer userId);
+
+    @POST
+    @Path("/modify")
+    Result<ModifyResult> modifyPlan(PlanRequest planRequest);
 }

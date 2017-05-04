@@ -11,6 +11,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -24,10 +26,9 @@ public class PlanServiceImpl implements PlanService {
     private PlanMapper planMapper;
 
     @Override
-    public int makePlan(PlanRequest planRequest) {
+    public Integer makePlan(PlanRequest planRequest) {
         PlanModel planModel = new PlanModel();
         planModel.setBook_id(planRequest.getBookId());
-        planModel.setBook_name(planRequest.getBookName());
         planModel.setDeadline(planRequest.getDeadline());
         planModel.setWord_number(planRequest.getNumber());
         planModel.setPlan_type(planRequest.getPlanType());
@@ -38,10 +39,26 @@ public class PlanServiceImpl implements PlanService {
 
 
     @Override
-    public List<Plan> queryPlan(Integer planId,int userId) {
-        if(planId==null){
+    public List<Plan> queryPlan(Integer planId, int userId) {
+        if (planId == null) {
             return planMapper.getPlans(userId);
+        } else {
+            Plan plan = planMapper.getPlan(planId);
+            List<Plan> plans = new ArrayList<>();
+            plans.add(plan);
+            return plans;
         }
-        return null;
+    }
+
+    @Override
+    public int modifyPlan(PlanRequest planRequest) {
+        PlanModel planModel = new PlanModel();
+        planModel.setBook_id(planRequest.getBookId());
+        planModel.setDeadline(planRequest.getDeadline());
+        planModel.setWord_number(planRequest.getNumber());
+        planModel.setPlan_type(planRequest.getPlanType());
+        planModel.setStatus(PlanStatus.UNDERWAY.status);
+        logger.info("start to update plan [{}]", planModel);
+        return planMapper.updatePlan(planModel);
     }
 }

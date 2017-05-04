@@ -12,8 +12,6 @@ public class PlanModel {
 
     private int plan_type;
 
-    private String book_name;
-
     private Date endDate;
 
     private Date deadline;
@@ -68,14 +66,6 @@ public class PlanModel {
         this.plan_type = plan_type;
     }
 
-    public String getBook_name() {
-        return book_name;
-    }
-
-    public void setBook_name(String book_name) {
-        this.book_name = book_name;
-    }
-
     public Date getEndDate() {
         return endDate;
     }
@@ -114,5 +104,21 @@ public class PlanModel {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "PlanModel{" +
+                "id='" + id + '\'' +
+                ", user_id='" + user_id + '\'' +
+                ", plan_type=" + plan_type +
+                ", endDate=" + endDate +
+                ", deadline=" + deadline +
+                ", word_number=" + word_number +
+                ", book_id=" + book_id +
+                ", status=" + status +
+                ", data_added=" + data_added +
+                ", last_modified=" + last_modified +
+                '}';
     }
 }

@@ -1,5 +1,7 @@
 package com.flyingrain.translate.plan.api.request;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 import java.util.Date;
 
 /**
@@ -10,14 +12,13 @@ public class PlanRequest {
     /**
      * 书本ID
      */
+    @NotBlank
     private int bookId;
-    /**
-     * 书名
-     */
-    private String bookName;
+
     /**
      * 计划类型1，按时间2，按数量
      */
+    @NotBlank
     private int planType;
     /**
      * 截止日期
@@ -30,16 +31,10 @@ public class PlanRequest {
     /**
      * 用户ID
      */
+    @NotBlank
     private int userId;
 
-    public String getBookName() {
-        return bookName;
-    }
 
-    public PlanRequest setBookName(String bookName) {
-        this.bookName = bookName;
-        return this;
-    }
 
     public int getBookId() {
         return bookId;
