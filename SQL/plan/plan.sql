@@ -2,15 +2,15 @@
 Navicat MySQL Data Transfer
 
 Source Server         : localhost_3306
-Source Server Version : 50717
+Source Server Version : 50718
 Source Host           : localhost:3306
 Source Database       : plan
 
 Target Server Type    : MYSQL
-Target Server Version : 50717
+Target Server Version : 50718
 File Encoding         : 65001
 
-Date: 2017-04-24 10:15:50
+Date: 2017-04-26 16:15:41
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -23,13 +23,14 @@ CREATE TABLE `plan` (
   `id` int(11) NOT NULL,
   `user_id` int(11) DEFAULT NULL,
   `plan_type` tinyint(2) DEFAULT NULL,
+  `book_name` varchar(50) DEFAULT NULL,
+  `end_date` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   `deadline` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   `word_number` int(3) DEFAULT NULL,
   `book_id` int(11) DEFAULT NULL,
-  `is_over` int(3) DEFAULT NULL,
-  `date_added` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+  `status` int(3) DEFAULT NULL,
+  `data_added` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
   `last_modified` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3),
   PRIMARY KEY (`id`),
   KEY `userIndx` (`user_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-SET FOREIGN_KEY_CHECKS=1;

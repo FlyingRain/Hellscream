@@ -22,5 +22,5 @@ public interface PlanManagerResource {
 
     @GET
     @Path("/query")
-    Result<List<Plan>> queryPlan(@QueryParam("planId") int planId);
+    Result<List<Plan>> queryPlan(@QueryParam("planId") int planId,@QueryParam("userId")int userId);
 }

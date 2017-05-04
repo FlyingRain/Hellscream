@@ -23,7 +23,7 @@ public class PlanManagerResourceImpl implements PlanManagerResource{
     }
 
     @Override
-    public Result<List<Plan>> queryPlan(int planId) {
+    public Result<List<Plan>> queryPlan(int planId,int userId) {
         return null;
     }
 }

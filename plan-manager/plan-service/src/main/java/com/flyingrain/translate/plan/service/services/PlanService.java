@@ -12,6 +12,6 @@ public interface PlanService {
 
     int makePlan(PlanRequest planRequest);
 
-    List<Plan> queryPlan(Integer planId);
+    List<Plan> queryPlan(Integer planId,int userId);
 
 }
