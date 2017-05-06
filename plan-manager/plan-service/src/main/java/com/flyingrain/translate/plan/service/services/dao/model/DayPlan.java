@@ -20,7 +20,7 @@ public class DayPlan {
 
     private String word_ids;
 
-    private String is_complete;
+    private String status;
 
     private Date data_added;
 
@@ -98,11 +98,11 @@ public class DayPlan {
         this.word_ids = word_ids;
     }
 
-    public String getIs_complete() {
-        return is_complete;
+    public String getStatus() {
+        return status;
     }
 
-    public void setIs_complete(String is_complete) {
-        this.is_complete = is_complete;
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

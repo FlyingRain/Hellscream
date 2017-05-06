@@ -15,6 +15,8 @@ public class UserWordRelation {
 
     private int proficiency;
 
+    private int plan_id;
+
     private Date data_added;
 
     private Date last_modified;
@@ -37,6 +39,14 @@ public class UserWordRelation {
 
     public int getWord_id() {
         return word_id;
+    }
+
+    public int getPlan_id() {
+        return plan_id;
+    }
+
+    public void setPlan_id(int plan_id) {
+        this.plan_id = plan_id;
     }
 
     public void setWord_id(int word_id) {

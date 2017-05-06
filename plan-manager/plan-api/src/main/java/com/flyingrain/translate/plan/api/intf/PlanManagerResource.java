@@ -16,15 +16,30 @@ import java.util.List;
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public interface PlanManagerResource {
-
+    /**
+     * 制定计划
+     * @param planRequest 计划内容
+     * @return
+     */
     @POST
     @Path("/make")
     Result<Integer> makePlan(PlanRequest planRequest);
 
+    /**
+     * 查询计划
+     * @param planId 计划Id
+     * @param userId 用户ID
+     * @return 计划列表
+     */
     @GET
     @Path("/query")
     Result<List<Plan>> queryPlan(@QueryParam("planId") Integer planId,@QueryParam("userId")Integer userId);
 
+    /**
+     * 修改计划
+     * @param planRequest 修改后的计划
+     * @return 修改结果
+     */
     @POST
     @Path("/modify")
     Result<ModifyResult> modifyPlan(PlanRequest planRequest);
