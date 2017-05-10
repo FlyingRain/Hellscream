@@ -14,6 +14,11 @@ public class Plan {
 
     private Date deadline;
 
+    /**
+     * 已完成的单词数量
+     */
+    private int completeNumber;
+
     private Date endDate;
 
     private int bookId;
@@ -54,6 +59,14 @@ public class Plan {
     public Plan setDeadline(Date deadline) {
         this.deadline = deadline;
         return this;
+    }
+
+    public int getCompleteNumber() {
+        return completeNumber;
+    }
+
+    public void setCompleteNumber(int completeNumber) {
+        this.completeNumber = completeNumber;
     }
 
     public Date getEndDate() {

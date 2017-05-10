@@ -18,6 +18,8 @@ public class PlanModel {
 
     private int word_number;
 
+    private int complete_number;
+
     private int book_id;
 
     private int status;
@@ -60,6 +62,14 @@ public class PlanModel {
 
     public int getPlan_type() {
         return plan_type;
+    }
+
+    public int getComplete_number() {
+        return complete_number;
+    }
+
+    public void setComplete_number(int complete_number) {
+        this.complete_number = complete_number;
     }
 
     public void setPlan_type(int plan_type) {

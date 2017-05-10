@@ -13,7 +13,7 @@ import javax.ws.rs.core.MediaType;
 @Path("plan")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public interface PlanGeneratorResource {
+public interface TaskGeneratorResource {
 
     /**
      * 生成用户的每日计划

@@ -5,14 +5,14 @@ import java.util.Date;
 /**
  * Created by wally on 5/4/17.
  */
-public interface PlanGenerator {
+public interface TaskGenerator {
 
     /**
      * 生成已返回计划状态的下一天计划
       * @return
      */
-    String generatePlans();
+    String generateTasks();
 
-    String generatePlan(String userId, String planId, Date planDate);
+    String generateTask(String userId, String planId);
 
 }

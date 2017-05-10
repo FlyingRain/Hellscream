@@ -1,6 +1,7 @@
 package com.flyingrain.translate.plan.service.services.common;
 
 /**
+ * 计划状态枚举
  * Created by wally on 4/26/17.
  */
 public enum PlanStatus {
