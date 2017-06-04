@@ -3,8 +3,10 @@ package com.flyingrain.translate.plan.service.impl;
 import com.flyingrain.translate.framework.annotaions.Resource;
 import com.flyingrain.translate.plan.api.intf.TaskGeneratorResource;
 import com.flyingrain.translate.plan.api.response.Result;
+import com.flyingrain.translate.plan.service.services.TaskGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 
@@ -17,9 +19,12 @@ import org.springframework.stereotype.Component;
 public class TaskGeneratorResourceImpl implements TaskGeneratorResource {
 
     private Logger logger = LoggerFactory.getLogger(TaskGeneratorResourceImpl.class);
+    @Autowired
+    private TaskGenerator taskGenerator;
 
     @Override
     public Result<String> generate() {
+        taskGenerator.generateTasks();
 
         return null;
     }

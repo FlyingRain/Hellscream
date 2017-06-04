@@ -5,6 +5,8 @@ import com.flyingrain.translate.plan.api.intf.TaskResource;
 import com.flyingrain.translate.plan.api.request.TaskResult;
 import com.flyingrain.translate.plan.api.response.Result;
 import com.flyingrain.translate.plan.api.response.Task;
+import com.flyingrain.translate.plan.service.services.TaskGenerator;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -13,6 +15,8 @@ import org.springframework.stereotype.Component;
 @Resource
 @Component
 public class TaskResourceImpl implements TaskResource{
+
+
 
     @Override
     public Result<Task> getUserPlanTask(Integer planId, Integer userId) {

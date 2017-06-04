@@ -6,6 +6,7 @@ import com.flyingrain.translate.plan.service.services.dao.mapper.DayPlanMapper;
 import com.flyingrain.translate.plan.service.services.dao.mapper.UserWordRelationMapper;
 import com.flyingrain.translate.plan.service.services.dao.model.DayPlan;
 import com.flyingrain.translate.plan.service.services.utils.DateUtil;
+import com.flyingrain.translate.words.collection.api.BookQuery;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,14 +27,19 @@ public class TaskGeneratorImpl implements TaskGenerator {
     private DayPlanMapper dayPlanMapper;
     @Autowired
     private UserWordRelationMapper userWordRelationMapper;
+    @Autowired
+    private BookQuery bookQuery;
 
 
     @Override
     public String generateTasks() {
+        bookQuery.getBookList();
         Date startDate = DateUtil.getTodayZeroDay();
         Date endDate = DateUtil.addDay(startDate,1);
         List<DayPlan> dayPlans = dayPlanMapper.getLatestDayPlans(TaskStatus.COMPLETE.value,startDate,endDate);
         logger.info("start generate [{}] tasks!",dayPlans.size());
+
+
 
         return null;
     }

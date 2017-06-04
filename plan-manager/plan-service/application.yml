@@ -1,0 +1,14 @@
+serverPrefix: /translate
+
+load:
+  yaml:
+    - file:databaseConfig.yml
+    - file:myconf.yml
+  properties:
+    - file:resource.properties
+
+server:
+  port: 8099
+
+logging:
+  file: /home/wally/workspace/myprojects/logs/plan.log

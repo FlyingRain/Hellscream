@@ -1,0 +1,13 @@
+datasource:
+  config:
+    - sourceName: default
+      userName: root
+      password: 123456
+      driveClass: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/plan?useUnicode=true&characterEncoding=UTF-8
+
+    - sourceName: test
+      userName: root
+      password: 123456
+      driveClass: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/test2?useUnicode=true&amp;characterEncoding=UTF-8

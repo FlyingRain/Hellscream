@@ -10,7 +10,7 @@ import javax.ws.rs.core.MediaType;
 /**
  * Created by wally on 4/26/17.
  */
-@Path("plan")
+@Path("/plan")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public interface TaskGeneratorResource {

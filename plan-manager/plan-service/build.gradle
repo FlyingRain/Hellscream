@@ -4,5 +4,6 @@ version '1.0-SNAPSHOT'
 
 dependencies {
     compile project(':plan-api')
+    compile group: 'com.flyingrain.translate.words.collection', name: 'collection-api',version: '1.0-SNAPSHOT'
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
