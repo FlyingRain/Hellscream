@@ -1,6 +1,9 @@
 package com.flyingrain.translate.framework.wrapper.impl;
 
+import com.flyingrain.translate.framework.common.RestTypeConstants;
 import com.flyingrain.translate.framework.wrapper.Wrapper;
+import com.flyingrain.translate.framework.wrapper.handler.Handler;
+import com.flyingrain.translate.framework.wrapper.handler.Request;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +20,7 @@ import java.io.InputStreamReader;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
+import java.util.Map;
 
 /**
  * Created by wally on 4/5/17.
@@ -28,7 +32,10 @@ public class RestWrapper implements InvocationHandler,EnvironmentAware {
 
     private static Environment environment;
 
-    public static <T> T  wrapper(Class<T> className) {
+    @Autowired
+    private Map<String,Handler> handlerMap;
+
+    public <T> T  wrapper(Class<T> className) {
         if (className == null) {
             throw new RuntimeException("no resource to be wrapped!");
         }
@@ -69,13 +76,22 @@ public class RestWrapper implements InvocationHandler,EnvironmentAware {
         DELETE delete = method.getAnnotation(DELETE.class);
         PUT put = method.getAnnotation(PUT.class);
 
+        Request request = new Request();
+        request.setMethod(method);
+        request.setParams(args);
+        request.setUrl(url);
+
+        if(get!=null){
+            Handler getHandler = handlerMap.get(RestTypeConstants.GET);
+            return getHandler.dohandle()
+        }
         return null;
     }
 
 
-    private String getUrl(Class proxy) {
-        String url = "";
 
+
+    private String getUrl(Class proxy) {
         InputStream inputStream = proxy.getClass().getResourceAsStream("/config/apiConfig.properties");
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
         String nameAndValue = null;
@@ -88,7 +104,6 @@ public class RestWrapper implements InvocationHandler,EnvironmentAware {
         if (temps.length < 2) {
             throw new RuntimeException("error apiConfig!" + nameAndValue);
         }
-        String name = temps[0];
         String value = temps[1];
 
         return environment.getProperty(value);

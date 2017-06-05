@@ -1,5 +1,6 @@
 package com.flyingrain.translate.framework.wrapper.handler;
 
+import java.lang.reflect.Method;
 import java.util.Map;
 
 /**
@@ -9,13 +10,9 @@ public class Request {
 
     private String url;
 
-    private String type;
+    private Method method;
 
-    private Map<String,String> queryParam;
-
-    private Map<String,String> pathParam;
-
-    private Map param;
+    private Object params[];
 
 
     public String getUrl() {
@@ -26,46 +23,19 @@ public class Request {
         this.url = url;
     }
 
-    public String getType() {
-        return type;
+    public Method getMethod() {
+        return method;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setMethod(Method method) {
+        this.method = method;
     }
 
-    public Map<String, String> getQueryParam() {
-        return queryParam;
+    public Object[] getParams() {
+        return params;
     }
 
-    public void setQueryParam(Map<String, String> queryParam) {
-        this.queryParam = queryParam;
-    }
-
-    public Map<String, String> getPathParam() {
-        return pathParam;
-    }
-
-    public void setPathParam(Map<String, String> pathParam) {
-        this.pathParam = pathParam;
-    }
-
-    public Map getParam() {
-        return param;
-    }
-
-    public void setParam(Map param) {
-        this.param = param;
-    }
-
-    @Override
-    public String toString() {
-        return "Request{" +
-                "url='" + url + '\'' +
-                ", type='" + type + '\'' +
-                ", queryParam=" + queryParam +
-                ", pathParam=" + pathParam +
-                ", param=" + param +
-                '}';
+    public void setParams(Object[] params) {
+        this.params = params;
     }
 }

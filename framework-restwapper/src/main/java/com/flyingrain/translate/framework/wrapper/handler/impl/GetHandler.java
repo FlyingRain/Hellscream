@@ -6,12 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
+import javax.ws.rs.GET;
 import javax.ws.rs.client.Client;
 
 /**
  * Created by wally on 4/6/17.
  */
-@Component("getHandler")
+@Component("get")
 public class GetHandler implements Handler {
     @Autowired
     @Qualifier("jerseyClient")
