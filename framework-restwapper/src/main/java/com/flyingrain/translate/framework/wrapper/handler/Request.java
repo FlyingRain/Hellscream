@@ -14,6 +14,14 @@ public class Request {
 
     private Object params[];
 
+    public Request() {
+    }
+
+    public Request(String url, Method method, Object[] params) {
+        this.url = url;
+        this.method = method;
+        this.params = params;
+    }
 
     public String getUrl() {
         return url;

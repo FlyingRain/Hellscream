@@ -83,7 +83,11 @@ public class RestWrapper implements InvocationHandler,EnvironmentAware {
 
         if(get!=null){
             Handler getHandler = handlerMap.get(RestTypeConstants.GET);
-            return getHandler.dohandle()
+            return getHandler.dohandle(request,method.getReturnType());
+        }
+        else if(post!=null){
+            Handler postHandler = handlerMap.get(RestTypeConstants.POST);
+            return postHandler.dohandle(request,method.getReturnType());
         }
         return null;
     }
