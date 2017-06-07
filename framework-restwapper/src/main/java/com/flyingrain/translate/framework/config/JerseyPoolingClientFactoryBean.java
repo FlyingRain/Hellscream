@@ -1,5 +1,6 @@
 package com.flyingrain.translate.framework.config;
 
+import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.glassfish.jersey.client.ClientConfig;
 import org.glassfish.jersey.apache.connector.*;
@@ -87,7 +88,7 @@ public class JerseyPoolingClientFactoryBean implements FactoryBean<Client>, Init
             connectionManager.setDefaultMaxPerRoute(defaultMaxPreRoute);
             clientConfig.property(ApacheClientProperties.CONNECTION_MANAGER, connectionManager);
         }
-        client = ClientBuilder.newClient(clientConfig);
+        client = ClientBuilder.newClient(clientConfig).register(JacksonJsonProvider.class);
 
 
     }
