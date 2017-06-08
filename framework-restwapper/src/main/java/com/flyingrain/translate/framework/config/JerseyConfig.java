@@ -16,6 +16,8 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Created by wally on 4/1/17.
@@ -40,6 +42,7 @@ public class JerseyConfig extends ResourceConfig implements InitializingBean, Ap
             logger.info("start to upload resources : " + name);
             resources.add(applicationContext.getBean(name).getClass());
         }
+        resources = Stream.of(names).map(name -> applicationContext.getBean(name).getClass())
 
         servletRegistrationBean.addInitParameter(ServletProperties.JAXRS_APPLICATION_CLASS,MyApplication.class.getName());
     }

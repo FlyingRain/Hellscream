@@ -13,9 +13,14 @@ import org.springframework.stereotype.Component;
 @Resource
 public class TestResourceImpl implements TestResource {
    Logger logger = LoggerFactory.getLogger(TestResource.class);
+
     @Override
-    public String getTest() {
-        logger.info("get request!");
-        return "success!";
+    public String getTest(String path, String query) {
+        return null;
+    }
+
+    @Override
+    public String testPost(String a) {
+        return null;
     }
 }

@@ -1,7 +1,6 @@
 package com.flyingrain.translate.framework.wrapper.impl;
 
 import com.flyingrain.translate.framework.common.RestTypeConstants;
-import com.flyingrain.translate.framework.wrapper.Wrapper;
 import com.flyingrain.translate.framework.wrapper.handler.Handler;
 import com.flyingrain.translate.framework.wrapper.handler.Request;
 import org.slf4j.Logger;
@@ -54,9 +53,6 @@ public class RestWrapper implements InvocationHandler,EnvironmentAware {
 
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-        if ("toString".equals(method.getName()) || "equals".equals(method.getName())) {
-            return method.invoke(proxy, args);
-        }
         String url = getUrl(wrapType);
         if(StringUtils.isEmpty(url)){
             logger.error("url is null!");
