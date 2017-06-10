@@ -12,8 +12,6 @@ import org.springframework.context.annotation.ComponentScan;
  * Created by wally on 6/8/17.
  */
 @TestConfiguration
-@ComponentScan(basePackages = "com.flyingrain.translate")
-@EnableAutoConfiguration
 public class Config {
 
     @Bean

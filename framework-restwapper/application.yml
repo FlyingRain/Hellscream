@@ -3,7 +3,7 @@ serverPrefix: /translate
 #需要装载的配置文件
 load:
  properties:
-   - resource.properties
+   - file:resource.properties
  yaml:
    - file:myconf.yml
 

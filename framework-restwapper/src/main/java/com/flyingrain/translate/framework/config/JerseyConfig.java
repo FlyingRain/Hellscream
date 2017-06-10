@@ -37,15 +37,12 @@ public class JerseyConfig extends ResourceConfig implements InitializingBean, Ap
     public void afterPropertiesSet() throws Exception {
         resources = new ArrayList<>();
         String names[] = applicationContext.getBeanNamesForAnnotation(Resource.class);
-        for (String name :
-                names) {
-            logger.info("start to upload resources : " + name);
-            resources.add(applicationContext.getBean(name).getClass());
-        }
-        resources = Stream.of(names).map(name -> applicationContext.getBean(name).getClass())
-
+        resources = Stream.of(names)
+                .map(name->applicationContext.getBean(name).getClass())
+                .collect(Collectors.toList());
         servletRegistrationBean.addInitParameter(ServletProperties.JAXRS_APPLICATION_CLASS,MyApplication.class.getName());
     }
+
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {

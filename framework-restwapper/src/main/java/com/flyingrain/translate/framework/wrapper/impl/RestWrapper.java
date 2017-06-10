@@ -25,7 +25,7 @@ import java.util.Map;
  * Created by wally on 4/5/17.
  */
 @Component
-public class RestWrapper implements InvocationHandler,EnvironmentAware {
+public class RestWrapper implements EnvironmentAware {
 
     private Logger logger = LoggerFactory.getLogger(RestWrapper.class);
 
@@ -34,79 +34,13 @@ public class RestWrapper implements InvocationHandler,EnvironmentAware {
     @Autowired
     private Map<String,Handler> handlerMap;
 
+
     public <T> T  wrapper(Class<T> className) {
         if (className == null) {
             throw new RuntimeException("no resource to be wrapped!");
         }
-
-        return (T) Proxy.newProxyInstance(Thread.currentThread().getContextClassLoader(), new Class[]{className}, new RestWrapper(className));
-    }
-
-    public RestWrapper() {
-    }
-
-    private Class wrapType;
-
-    public RestWrapper(Class wrapType) {
-        this.wrapType = wrapType;
-    }
-
-    @Override
-    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-        String url = getUrl(wrapType);
-        if(StringUtils.isEmpty(url)){
-            logger.error("url is null!");
-            return null;
-        }
-
-        Path classPath = proxy.getClass().getAnnotation(Path.class);
-        Path methodPath = method.getAnnotation(Path.class);
-        if (classPath != null) {
-            url += classPath.value();
-        }
-        if (methodPath != null) {
-            url += methodPath.value();
-        }
-        GET get = method.getAnnotation(GET.class);
-        POST post = method.getAnnotation(POST.class);
-        DELETE delete = method.getAnnotation(DELETE.class);
-        PUT put = method.getAnnotation(PUT.class);
-
-        Request request = new Request();
-        request.setMethod(method);
-        request.setParams(args);
-        request.setUrl(url);
-
-        if(get!=null){
-            Handler getHandler = handlerMap.get(RestTypeConstants.GET);
-            return getHandler.dohandle(request,method.getReturnType());
-        }
-        else if(post!=null){
-            Handler postHandler = handlerMap.get(RestTypeConstants.POST);
-            return postHandler.dohandle(request,method.getReturnType());
-        }
-        return null;
-    }
-
-
-
-
-    private String getUrl(Class proxy) {
-        InputStream inputStream = proxy.getClass().getResourceAsStream("/config/apiConfig.properties");
-        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-        String nameAndValue = null;
-        try {
-            nameAndValue = reader.readLine();
-        } catch (IOException e) {
-            logger.error("read file failed!",e);
-        }
-        String temps[] = nameAndValue.split("=");
-        if (temps.length < 2) {
-            throw new RuntimeException("error apiConfig!" + nameAndValue);
-        }
-        String value = temps[1];
-
-        return environment.getProperty(value);
+        logger.info("wrapper interface [{}]",className.getName());
+        return (T) Proxy.newProxyInstance(Thread.currentThread().getContextClassLoader(), new Class[]{className}, new ProxyHandler(handlerMap,className,environment));
     }
 
     @Override
