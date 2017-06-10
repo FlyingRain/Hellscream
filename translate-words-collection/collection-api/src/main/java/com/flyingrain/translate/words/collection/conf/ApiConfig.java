@@ -14,12 +14,14 @@ import org.springframework.context.annotation.Configuration;
 public class ApiConfig {
 
     @Bean
-    BookQuery bookQuery(){
-        return RestWrapper.wrapper(BookQuery.class);
+    @Autowired
+    BookQuery bookQuery(RestWrapper restWrapper){
+        return restWrapper.wrapper(BookQuery.class);
     }
 
     @Bean
-    WordQuery wordQuery(){
-        return RestWrapper.wrapper(WordQuery.class);
+    @Autowired
+    WordQuery wordQuery(RestWrapper restWrapper){
+        return restWrapper.wrapper(WordQuery.class);
     }
 }
