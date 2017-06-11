@@ -33,12 +33,16 @@ public class TaskGeneratorImpl implements TaskGenerator {
 
     @Override
     public String generateTasks() {
-        bookQuery.getBookList();
         Date startDate = DateUtil.getTodayZeroDay();
         Date endDate = DateUtil.addDay(startDate,1);
         List<DayPlan> dayPlans = dayPlanMapper.getLatestDayPlans(TaskStatus.COMPLETE.value,startDate,endDate);
         logger.info("start generate [{}] tasks!",dayPlans.size());
 
+
+        dayPlans.forEach(dayPlan -> {
+            String planId = dayPlan.
+
+        });
 
 
         return null;

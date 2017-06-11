@@ -3,6 +3,7 @@ package com.flyingrain.translate.plan.api.response;
 import java.util.List;
 
 /**
+ * 单词
  * Created by wally on 6/1/17.
  */
 public class Word {

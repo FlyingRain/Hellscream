@@ -2,16 +2,21 @@ package com.flyingrain.translate.words.collection.service.resourceImpl;
 
 import com.flyingrain.translate.framework.annotaions.Resource;
 import com.flyingrain.translate.words.collection.api.BookQuery;
-import com.flyingrain.translate.words.collection.model.Book;
-import com.flyingrain.translate.words.collection.model.Result;
-import com.flyingrain.translate.words.collection.model.ResultType;
+import com.flyingrain.translate.words.collection.request.BookWords;
+import com.flyingrain.translate.words.collection.result.Book;
+import com.flyingrain.translate.words.collection.result.Result;
+import com.flyingrain.translate.words.collection.result.ResultType;
+import com.flyingrain.translate.words.collection.result.WordResult;
+import com.flyingrain.translate.words.collection.service.dao.model.WordTypeRelations;
 import com.flyingrain.translate.words.collection.service.services.BookService;
+import com.flyingrain.translate.words.collection.service.services.WordServices;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,6 +30,8 @@ public class BookQueryImpl implements BookQuery{
 
     @Autowired
     private BookService bookService;
+    @Autowired
+    private WordServices wordServices;
 
     @Override
     public Result<List<Book>> getBookList() {
@@ -48,5 +55,13 @@ public class BookQueryImpl implements BookQuery{
         result.setCode(ResultType.SUCCESS.code);
         result.setRealResult(book);
         return result;
+    }
+
+    @Override
+    public List<WordResult> getBookWords(BookWords bookWords) {
+        List<WordTypeRelations> wordIds = bookService.getWordIds(bookWords.getBookId(),bookWords.getWordIds(),bookWords.getNumber());
+        List<WordResult> wordResults = new ArrayList<>();
+        wordServices.getWord()
+        return null;
     }
 }

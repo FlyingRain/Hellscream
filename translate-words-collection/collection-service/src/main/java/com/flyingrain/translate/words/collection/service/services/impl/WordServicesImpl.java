@@ -1,6 +1,6 @@
 package com.flyingrain.translate.words.collection.service.services.impl;
 
-import com.flyingrain.translate.words.collection.model.WordResult;
+import com.flyingrain.translate.words.collection.result.WordResult;
 import com.flyingrain.translate.words.collection.service.collect.CollectWords;
 import com.flyingrain.translate.words.collection.service.common.AudioType;
 import com.flyingrain.translate.words.collection.service.dao.mapper.AudioMapper;
@@ -12,7 +12,7 @@ import com.flyingrain.translate.words.collection.service.dao.model.ENMean;
 import com.flyingrain.translate.words.collection.service.dao.model.Word;
 import com.flyingrain.translate.words.collection.service.dao.model.WordSentence;
 import com.flyingrain.translate.words.collection.service.services.WordServices;
-import com.flyingrain.translate.words.collection.model.SentenceDefine;
+import com.flyingrain.translate.words.collection.result.SentenceDefine;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -128,5 +128,10 @@ public class WordServicesImpl implements WordServices {
         sentenceDefine.setWord(wordSentences.get(0).getWord());
         sentenceDefine.setMysentences(mysentences);
         return sentenceDefine;
+    }
+
+    @Override
+    public WordResult getWordById(int wordId) {
+        return null;
     }
 }

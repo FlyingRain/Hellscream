@@ -3,6 +3,7 @@ package com.flyingrain.translate.plan.api.response;
 import java.util.List;
 
 /**
+ * 每日任务
  * Created by wally on 5/4/17.
  */
 public class Task {

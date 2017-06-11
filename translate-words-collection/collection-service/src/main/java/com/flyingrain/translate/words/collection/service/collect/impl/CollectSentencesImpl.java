@@ -4,7 +4,7 @@ import com.flyingrain.translate.words.collection.service.collect.CollectSentence
 import com.flyingrain.translate.words.collection.service.collect.impl.channel.ChannelCollectSentence;
 import com.flyingrain.translate.words.collection.service.collect.impl.channel.QueryRequest;
 import com.flyingrain.translate.words.collection.service.words.Result;
-import com.flyingrain.translate.words.collection.model.SentenceDefine;
+import com.flyingrain.translate.words.collection.result.SentenceDefine;
 import com.flyingrain.translate.words.collection.service.dao.mapper.WordMapper;
 import com.flyingrain.translate.words.collection.service.dao.model.Word;
 import org.slf4j.Logger;

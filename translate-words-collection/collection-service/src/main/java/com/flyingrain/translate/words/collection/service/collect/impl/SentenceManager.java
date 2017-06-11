@@ -1,6 +1,6 @@
 package com.flyingrain.translate.words.collection.service.collect.impl;
 
-import com.flyingrain.translate.words.collection.model.SentenceDefine;
+import com.flyingrain.translate.words.collection.result.SentenceDefine;
 import com.flyingrain.translate.words.collection.service.dao.mapper.WordMapper;
 import com.flyingrain.translate.words.collection.service.dao.mapper.WordSentenceMapper;
 import com.flyingrain.translate.words.collection.service.dao.model.Word;

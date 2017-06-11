@@ -1,7 +1,9 @@
 package com.flyingrain.translate.words.collection.api;
 
-import com.flyingrain.translate.words.collection.model.Book;
-import com.flyingrain.translate.words.collection.model.Result;
+import com.flyingrain.translate.words.collection.request.BookWords;
+import com.flyingrain.translate.words.collection.result.Book;
+import com.flyingrain.translate.words.collection.result.Result;
+import com.flyingrain.translate.words.collection.result.WordResult;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -22,6 +24,10 @@ public interface BookQuery {
     @GET
     @Path("/query/book")
     Result<Book> getBook(@QueryParam("bookType") int type);
+
+    @POST
+    @Path("/query/bookWords")
+    List<WordResult> getBookWords(BookWords bookWords);
 
 
 }

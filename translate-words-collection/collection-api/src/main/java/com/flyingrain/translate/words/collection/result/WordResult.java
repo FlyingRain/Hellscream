@@ -1,4 +1,4 @@
-package com.flyingrain.translate.words.collection.model;
+package com.flyingrain.translate.words.collection.result;
 
 import java.util.List;
 

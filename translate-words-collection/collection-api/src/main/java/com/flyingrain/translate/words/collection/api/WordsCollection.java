@@ -1,6 +1,6 @@
 package com.flyingrain.translate.words.collection.api;
 
-import com.flyingrain.translate.words.collection.model.Result;
+import com.flyingrain.translate.words.collection.result.Result;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;

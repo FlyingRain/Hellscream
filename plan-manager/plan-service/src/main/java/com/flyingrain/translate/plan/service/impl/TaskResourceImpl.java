@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
+ * 每日任务
  * Created by wally on 5/4/17.
  */
 @Resource

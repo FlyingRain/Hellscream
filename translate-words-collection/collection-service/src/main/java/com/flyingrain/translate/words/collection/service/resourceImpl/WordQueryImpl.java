@@ -2,7 +2,10 @@ package com.flyingrain.translate.words.collection.service.resourceImpl;
 
 import com.flyingrain.translate.framework.annotaions.Resource;
 import com.flyingrain.translate.words.collection.api.WordQuery;
-import com.flyingrain.translate.words.collection.model.*;
+import com.flyingrain.translate.words.collection.result.Result;
+import com.flyingrain.translate.words.collection.result.ResultType;
+import com.flyingrain.translate.words.collection.result.SentenceDefine;
+import com.flyingrain.translate.words.collection.result.WordResult;
 import com.flyingrain.translate.words.collection.service.services.WordServices;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

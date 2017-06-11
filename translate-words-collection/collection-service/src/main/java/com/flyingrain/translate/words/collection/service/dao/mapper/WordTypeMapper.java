@@ -16,4 +16,4 @@ public interface WordTypeMapper {
     @Select("select id,type_name,type_code from word_types where type_code=#{type}")
     WordType getWordType(int type);
 
-}
+    }
