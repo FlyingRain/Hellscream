@@ -51,6 +51,11 @@ public class PlanServiceImpl implements PlanService {
     }
 
     @Override
+    public List<Plan> querySpecificPlan(int userId, int status) {
+        return null;
+    }
+
+    @Override
     public int modifyPlan(PlanRequest planRequest) {
         PlanModel planModel = new PlanModel();
         planModel.setBook_id(planRequest.getBookId());

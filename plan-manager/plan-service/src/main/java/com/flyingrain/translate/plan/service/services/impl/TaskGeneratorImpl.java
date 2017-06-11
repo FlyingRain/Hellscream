@@ -1,5 +1,6 @@
 package com.flyingrain.translate.plan.service.services.impl;
 
+import com.flyingrain.translate.plan.service.services.PlanService;
 import com.flyingrain.translate.plan.service.services.TaskGenerator;
 import com.flyingrain.translate.plan.service.services.common.TaskStatus;
 import com.flyingrain.translate.plan.service.services.dao.mapper.DayPlanMapper;
@@ -7,6 +8,7 @@ import com.flyingrain.translate.plan.service.services.dao.mapper.UserWordRelatio
 import com.flyingrain.translate.plan.service.services.dao.model.DayPlan;
 import com.flyingrain.translate.plan.service.services.utils.DateUtil;
 import com.flyingrain.translate.words.collection.api.BookQuery;
+import com.flyingrain.translate.words.collection.request.BookWords;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +31,8 @@ public class TaskGeneratorImpl implements TaskGenerator {
     private UserWordRelationMapper userWordRelationMapper;
     @Autowired
     private BookQuery bookQuery;
+    @Autowired
+    private PlanService planService;
 
 
     @Override
@@ -38,6 +42,20 @@ public class TaskGeneratorImpl implements TaskGenerator {
         List<DayPlan> dayPlans = dayPlanMapper.getLatestDayPlans(TaskStatus.COMPLETE.value,startDate,endDate);
         logger.info("start generate [{}] tasks!",dayPlans.size());
 
+        dayPlans.stream()
+                .map(dayPlan -> planService.queryPlan(dayPlan.getPlan_id(),dayPlan.getUser_id()))
+                .flatMap(List::stream)
+                .forEach(plan->{
+                    int number = plan.getNumber();
+                    if(number!=0){
+                        BookWords bookWords = new BookWords();
+                        bookWords.setNumber(number);
+                        bookWords.setBookId(plan.getBookId());
+                        bookWords.setWordIds();
+                        bookQuery.
+                    }
+
+                });
 
         dayPlans.forEach(dayPlan -> {
             String planId = dayPlan.

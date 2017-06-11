@@ -17,7 +17,21 @@ public interface PlanService {
      */
     Integer makePlan(PlanRequest planRequest);
 
+    /**
+     * 查看用户所有计划
+     * @param planId
+     * @param userId
+     * @return
+     */
     List<Plan> queryPlan(Integer planId,int userId);
+
+    /**
+     * 查询指定状态的计划
+     * @param userId
+     * @param status
+     * @return
+     */
+    List<Plan> querySpecificPlan(int userId,int status);
 
     int modifyPlan(PlanRequest planRequest);
 
