@@ -44,4 +44,13 @@ public class BookWords {
     public void setNumber(int number) {
         this.number = number;
     }
+
+    @Override
+    public String toString() {
+        return "BookWords{" +
+                "wordIds=" + wordIds +
+                ", bookId=" + bookId +
+                ", number=" + number +
+                '}';
+    }
 }

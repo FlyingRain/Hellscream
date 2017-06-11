@@ -20,7 +20,7 @@ public interface WordMapper {
     Word getWord(String word);
 
     @Select("select * from words where id=#{wordId}")
-    Word getWordById(String wordId);
+    Word getWordById(int wordId);
 
     @Select("select id,word,channel_word_id from words where has_sentences=0 limit 1000")
     List<Word> getNoSentenceWords();

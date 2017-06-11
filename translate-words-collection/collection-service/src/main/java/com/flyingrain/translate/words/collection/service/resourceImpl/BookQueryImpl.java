@@ -61,7 +61,14 @@ public class BookQueryImpl implements BookQuery{
     public List<WordResult> getBookWords(BookWords bookWords) {
         List<WordTypeRelations> wordIds = bookService.getWordIds(bookWords.getBookId(),bookWords.getWordIds(),bookWords.getNumber());
         List<WordResult> wordResults = new ArrayList<>();
-        wordServices.getWord()
-        return null;
+        if(CollectionUtils.isEmpty(wordIds)){
+            logger.info("word collection is null![{}]",bookWords);
+            return wordResults;
+        }
+        wordIds.stream().map(WordTypeRelations::getWord_id).forEach(wordId->{
+            WordResult wordResult = wordServices.getWordById(wordId);
+            wordResults.add(wordResult);
+        });
+        return wordResults;
     }
 }
