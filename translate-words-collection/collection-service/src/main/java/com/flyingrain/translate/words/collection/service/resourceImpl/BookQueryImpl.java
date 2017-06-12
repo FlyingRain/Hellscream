@@ -18,6 +18,7 @@ import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by wally on 4/21/17.
@@ -65,10 +66,7 @@ public class BookQueryImpl implements BookQuery{
             logger.info("word collection is null![{}]",bookWords);
             return wordResults;
         }
-        wordIds.stream().map(WordTypeRelations::getWord_id).forEach(wordId->{
-            WordResult wordResult = wordServices.getWordById(wordId);
-            wordResults.add(wordResult);
-        });
+        wordResults = wordIds.stream().map(wordTypeRelation -> wordServices.getWordById(wordTypeRelation.getWord_id())).collect(Collectors.toList());
         return wordResults;
     }
 }
