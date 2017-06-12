@@ -12,9 +12,9 @@ public class BookWords {
     private List<Integer> wordIds;
 
     /**
-     * 书本Id
+     * 书本类型
      */
-    private int bookId;
+    private int bookType;
 
     /**
      * 取出的个数
@@ -29,12 +29,12 @@ public class BookWords {
         this.wordIds = wordIds;
     }
 
-    public int getBookId() {
-        return bookId;
+    public int getBookType() {
+        return bookType;
     }
 
-    public void setBookId(int bookId) {
-        this.bookId = bookId;
+    public void setBookType(int bookType) {
+        this.bookType = bookType;
     }
 
     public int getNumber() {
@@ -49,7 +49,7 @@ public class BookWords {
     public String toString() {
         return "BookWords{" +
                 "wordIds=" + wordIds +
-                ", bookId=" + bookId +
+                ", bookType=" + bookType +
                 ", number=" + number +
                 '}';
     }

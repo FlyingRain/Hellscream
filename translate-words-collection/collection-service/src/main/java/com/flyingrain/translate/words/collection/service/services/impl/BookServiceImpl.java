@@ -61,6 +61,9 @@ public class BookServiceImpl implements BookService {
     @Override
     public Book getBookByType(int type) {
         WordType wordType = wordTypeMapper.getWordType(type);
+        if(wordType==null){
+            return null;
+        }
         Book book = new Book();
         book.setName(wordType.getType_name());
         book.setType(type);

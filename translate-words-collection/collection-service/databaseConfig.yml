@@ -5,10 +5,10 @@ datasource:
       userName: root
       password: 123456
       driveClass: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://localhost:3306/translate?useUnicode=true&characterEncoding=UTF-8
+      url: jdbc:mysql://localhost:3306/translate?useUnicode=true&characterEncoding=UTF-8&useSSL=false
 
     - sourceName: test
       userName: root
       password: 123456
       driveClass: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://localhost:3306/test2?useUnicode=true&amp;characterEncoding=UTF-8
+      url: jdbc:mysql://localhost:3306/test2?useUnicode=true&amp;characterEncoding=UTF-8&useSSL=false

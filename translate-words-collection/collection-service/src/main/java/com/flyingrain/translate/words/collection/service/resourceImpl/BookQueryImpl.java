@@ -59,7 +59,7 @@ public class BookQueryImpl implements BookQuery{
 
     @Override
     public List<WordResult> getBookWords(BookWords bookWords) {
-        List<WordTypeRelations> wordIds = bookService.getWordIds(bookWords.getBookId(),bookWords.getWordIds(),bookWords.getNumber());
+        List<WordTypeRelations> wordIds = bookService.getWordIds(bookWords.getBookType(),bookWords.getWordIds(),bookWords.getNumber());
         List<WordResult> wordResults = new ArrayList<>();
         if(CollectionUtils.isEmpty(wordIds)){
             logger.info("word collection is null![{}]",bookWords);
