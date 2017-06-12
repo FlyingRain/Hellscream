@@ -28,7 +28,7 @@ public interface DayPlanMapper {
      * @return
      */
     @Select("select id,status,user_id,plan_id,last_modified from recite_day_plan a where EXISTS (select 1 from (select user_id,plan_id,MAX(last_modified) as last_modified from recite_day_plan group by user_id,plan_id HAVING user_id=#{userId} and plan_id=#{planId} ) b where a.user_id=b.user_id and a.plan_id=b.plan_id and a.last_modified=b.last_modified)")
-    DayPlan getLatestDayPlan(@Param("userId")int userId,@Param("planId") int planId);
+    DayPlan getDayPlanById(@Param("userId")int userId,@Param("planId") int planId);
 
     /**
      * 根据日期和状态查询所有用户

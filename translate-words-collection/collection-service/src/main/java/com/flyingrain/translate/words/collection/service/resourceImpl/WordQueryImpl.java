@@ -49,4 +49,9 @@ public class WordQueryImpl implements WordQuery {
         result.setRealResult(sentenceDefine);
         return result;
     }
+
+    @Override
+    public WordResult querySingleWord(int wordId) {
+        return wordServices.getWordById(wordId);
+    }
 }

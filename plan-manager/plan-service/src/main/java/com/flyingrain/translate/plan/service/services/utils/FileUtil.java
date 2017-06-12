@@ -7,6 +7,7 @@ import org.springframework.util.StringUtils;
 import java.io.*;
 
 /**
+ * 文件工具类
  * Created by wally on 5/11/17.
  */
 public class FileUtil {
@@ -25,7 +26,8 @@ public class FileUtil {
             logger.info("file not exists! start create file :[{}]",path);
             try {
                 if(!file.createNewFile()){
-                    throw new RuntimeException("createFile failed! " + path);
+                    logger.error("create file failed!");
+                    return false;
                 }
             } catch (IOException e) {
                 logger.error("create file failed! [{}]",path);

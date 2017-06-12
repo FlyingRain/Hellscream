@@ -13,6 +13,6 @@ public interface TaskGenerator {
      */
     String generateTasks();
 
-    String generateTask(String userId, String planId);
+    String generateTask(int userId, int planId);
 
 }

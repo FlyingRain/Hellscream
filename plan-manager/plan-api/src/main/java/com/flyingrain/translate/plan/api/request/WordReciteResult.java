@@ -3,7 +3,7 @@ package com.flyingrain.translate.plan.api.request;
 /**
  * Created by wul on 5/6/17.
  */
-public class WordResult {
+public class WordReciteResult {
 
     private String wordId;
 

@@ -105,4 +105,20 @@ public class DayPlan {
     public void setStatus(String status) {
         this.status = status;
     }
+
+    @Override
+    public String toString() {
+        return "DayPlan{" +
+                "id=" + id +
+                ", user_id=" + user_id +
+                ", plan_id=" + plan_id +
+                ", complete_time=" + complete_time +
+                ", plan_date=" + plan_date +
+                ", score=" + score +
+                ", word_ids='" + word_ids + '\'' +
+                ", status='" + status + '\'' +
+                ", data_added=" + data_added +
+                ", last_modified=" + last_modified +
+                '}';
+    }
 }

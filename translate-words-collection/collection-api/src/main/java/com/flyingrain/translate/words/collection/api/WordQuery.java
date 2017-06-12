@@ -23,4 +23,8 @@ public interface WordQuery {
     @GET
     @Path("/query/sentence")
     Result<SentenceDefine> querySentence(@QueryParam("wordId") int wordId);
+
+    @GET
+    @Path("/query/singleWord")
+    WordResult querySingleWord(@QueryParam("wordId")int wordId);
 }

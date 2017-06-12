@@ -17,7 +17,7 @@ public class TaskResult {
 
     private Date completeDate;
 
-    private List<WordResult> wordResults;
+    private List<WordReciteResult> wordReciteResults;
 
     public String getTaskId() {
         return taskId;
@@ -51,12 +51,12 @@ public class TaskResult {
         this.completeDate = completeDate;
     }
 
-    public List<WordResult> getWordResults() {
-        return wordResults;
+    public List<WordReciteResult> getWordReciteResults() {
+        return wordReciteResults;
     }
 
-    public void setWordResults(List<WordResult> wordResults) {
-        this.wordResults = wordResults;
+    public void setWordReciteResults(List<WordReciteResult> wordReciteResults) {
+        this.wordReciteResults = wordReciteResults;
     }
 
     @Override
@@ -66,7 +66,7 @@ public class TaskResult {
                 ", userId='" + userId + '\'' +
                 ", status='" + status + '\'' +
                 ", completeDate=" + completeDate +
-                ", wordResults=" + wordResults +
+                ", wordResults=" + wordReciteResults +
                 '}';
     }
 }
