@@ -53,7 +53,6 @@ public class TaskGeneratorImpl implements TaskGenerator {
     private TaskCache taskCache;
 
 
-
     @Override
     public String generateTasks() {
         Date startDate = DateUtil.getTodayZeroDay();
@@ -84,7 +83,7 @@ public class TaskGeneratorImpl implements TaskGenerator {
         DayPlan newDayPlan = getNewDayPlan(dayPlan, wordIds);
         dayPlanMapper.insertDayPlan(newDayPlan);
         //缓存生成的Task
-        taskCache.cacheTask(task,newDayPlan);
+        taskCache.cacheTask(task, newDayPlan);
         return task;
     }
 
@@ -158,14 +157,14 @@ public class TaskGeneratorImpl implements TaskGenerator {
     }
 
     @Override
-    public Task generateTask(int userId, int planId,Date planDate) {
-        DayPlan dayPlan = dayPlanMapper.getDayPlanById(userId, planId);
+    public Task generateTask(int userId, int planId, Date planDate) {
+        DayPlan dayPlan = dayPlanMapper.getDayPlan(userId, planDate);
         if (dayPlan == null) {
-            logger.error("dayPlan is null!");
-            return null;
+
+            DayPlan latestDayPlan = dayPlanMapper.getDayPlanById(userId, planId);
         }
         Task task = taskCache.getTask(dayPlan);
-        if(task!=null){
+        if (task != null) {
             return task;
         }
         List<WordResult> newWords = getNewWords(dayPlan);
