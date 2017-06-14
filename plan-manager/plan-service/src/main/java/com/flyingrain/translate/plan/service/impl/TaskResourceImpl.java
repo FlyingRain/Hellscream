@@ -9,6 +9,8 @@ import com.flyingrain.translate.plan.service.services.TaskGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
+
 /**
  * 每日任务
  * Created by wally on 5/4/17.
@@ -17,11 +19,15 @@ import org.springframework.stereotype.Component;
 @Component
 public class TaskResourceImpl implements TaskResource{
 
-
+    @Autowired
+    private TaskGenerator taskGenerator;
 
     @Override
-    public Result<Task> getUserPlanTask(Integer planId, Integer userId) {
-        return null;
+    public Result<Task> getUserPlanTask(Integer planId, Integer userId, Date planDate) {
+
+
+        Task task = taskGenerator.generateTask(userId,planId,planDate);
+        return new Result<>("00","success",task);
     }
 
     @Override

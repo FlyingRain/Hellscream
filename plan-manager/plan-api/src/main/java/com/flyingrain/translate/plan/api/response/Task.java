@@ -47,4 +47,15 @@ public class Task {
     public void setOldWords(List<Word> oldWords) {
         this.oldWords = oldWords;
     }
+
+
+    @Override
+    public String toString() {
+        return "Task{" +
+                "wordNumber=" + wordNumber +
+                ", newWordNumber=" + newWordNumber +
+                ", newWords=" + newWords +
+                ", oldWords=" + oldWords +
+                '}';
+    }
 }

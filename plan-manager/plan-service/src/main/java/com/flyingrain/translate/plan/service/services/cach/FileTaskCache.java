@@ -1,0 +1,89 @@
+package com.flyingrain.translate.plan.service.services.cach;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.flyingrain.translate.plan.api.response.Task;
+import com.flyingrain.translate.plan.service.services.TaskCache;
+import com.flyingrain.translate.plan.service.services.dao.model.DayPlan;
+import com.flyingrain.translate.plan.service.services.utils.FileUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
+
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.concurrent.ConcurrentHashMap;
+
+/**
+ * 任务缓存(文件)
+ * Created by wally on 6/13/17.
+ */
+@Component
+public class FileTaskCache implements TaskCache {
+
+    private Logger logger = LoggerFactory.getLogger(FileTaskCache.class);
+
+    private ConcurrentHashMap<Integer, String> filePathCache = new ConcurrentHashMap<>();
+
+    private ObjectMapper objectMapper = new ObjectMapper();
+
+    @Override
+    public Task getTask(DayPlan dayPlan) {
+        String filePath = filePathCache.get(dayPlan.getId());
+        if (StringUtils.isEmpty(filePath)) {
+            filePath = getFilePath(dayPlan);
+        }
+        if(FileUtil.isExit(filePath)){
+            String taskString = FileUtil.readFile(filePath);
+            try {
+                return objectMapper.readValue(taskString,Task.class);
+            } catch (IOException e) {
+                logger.error("deserialize task failed! content is :[{}]",taskString);
+                logger.error("IOException ",e);
+            }
+        }
+        logger.info("file not exits![{}]",filePath);
+        return null;
+    }
+
+    @Override
+    public void cacheTask(Task task, DayPlan dayPlan) {
+        String filePath = getFilePath(dayPlan);
+        String path = filePathCache.putIfAbsent(dayPlan.getId(), filePath);
+        if (path != null) {
+            logger.error("there has been a task int the cache [{}]", dayPlan);
+            return;
+        }
+        String taskString = taskToString(task);
+        FileUtil.saveFile(filePath, taskString);
+    }
+
+    private String taskToString(Task task) {
+        if (task == null) {
+            logger.error("task is null!");
+            return "";
+        }
+        String result = "";
+        try {
+            result = objectMapper.writeValueAsString(task);
+        } catch (JsonProcessingException e) {
+            logger.error("transfer to json failed ![{}]", task);
+            logger.error("exception is JsonProcessingException", e);
+        }
+        return result;
+    }
+
+
+    private String getFilePath(DayPlan dayPlan) {
+        String userHome = System.getProperty("user.home");
+        SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+        Date taskDate = dayPlan.getPlan_date();
+        Path path = Paths.get(userHome, "plan", "task", format.format(taskDate), dayPlan.getUser_id() + ".txt");
+        return path.toAbsolutePath().toString();
+
+    }
+}

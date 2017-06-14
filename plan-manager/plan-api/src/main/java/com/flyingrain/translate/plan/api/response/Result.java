@@ -11,6 +11,15 @@ public class Result<T> {
 
     private T realResult;
 
+    public Result() {
+    }
+
+    public Result(String code, String msg, T realResult) {
+        this.code = code;
+        this.msg = msg;
+        this.realResult = realResult;
+    }
+
     public String getCode() {
         return code;
     }

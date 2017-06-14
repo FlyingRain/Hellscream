@@ -25,7 +25,7 @@ public class TaskGeneratorResourceImpl implements TaskGeneratorResource {
     @Override
     public Result<String> generate() {
         taskGenerator.generateTasks();
-
-        return null;
+        logger.info("complete generate!");
+        return new Result<>("00", "success", "generate success!");
     }
 }
