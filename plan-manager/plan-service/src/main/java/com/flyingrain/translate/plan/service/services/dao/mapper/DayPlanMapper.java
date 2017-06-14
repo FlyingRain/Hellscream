@@ -18,8 +18,8 @@ public interface DayPlanMapper {
             "#{dayPlan.score},#{dayPlan.plan_id})")
     int insertDayPlan(@Param("dayPlan") DayPlan dayPlan);
 
-    @Select("select word_ids,status,user_id,plan_date,complete_time,score,plan_id from recite_day_plan where user_id=#{userId} and plan_date>#{planDate}")
-    DayPlan getDayPlan(@Param("userId") int userId, @Param("planDate")Date planDate);
+    @Select("select word_ids,status,user_id,plan_date,complete_time,score,plan_id from recite_day_plan where user_id=#{userId} and plan_date>#{planDate} and plan_date<#{planEndDate}")
+    DayPlan getDayPlan(@Param("userId") int userId, @Param("planStartDate")Date planStartDate ,@Param("planEndDate") Date planEndDate);
 
     /**
      * 获取用户最近一次计划的情况

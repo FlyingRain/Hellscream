@@ -31,6 +31,11 @@ public class FileTaskCache implements TaskCache {
 
     private ObjectMapper objectMapper = new ObjectMapper();
 
+    /**
+     * 从缓存中查找文件
+     * @param dayPlan
+     * @return
+     */
     @Override
     public Task getTask(DayPlan dayPlan) {
         String filePath = filePathCache.get(dayPlan.getId());
@@ -50,6 +55,11 @@ public class FileTaskCache implements TaskCache {
         return null;
     }
 
+    /**
+     * 添加任务到缓存中
+     * @param task
+     * @param dayPlan
+     */
     @Override
     public void cacheTask(Task task, DayPlan dayPlan) {
         String filePath = getFilePath(dayPlan);

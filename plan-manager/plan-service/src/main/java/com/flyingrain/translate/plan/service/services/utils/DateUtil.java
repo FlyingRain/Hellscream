@@ -31,4 +31,16 @@ public class DateUtil {
         return calendar.getTime();
     }
 
+
+    /**
+     * 获取指定日期的凌晨时间
+     * @param date
+     * @return
+     */
+    public static Date getDateZeroDay(Date date){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.set(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH),0,0,0);
+        return calendar.getTime();
+    }
 }

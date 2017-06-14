@@ -59,7 +59,7 @@ public class TaskGeneratorImpl implements TaskGenerator {
         Date endDate = DateUtil.addDay(startDate, 1);
         List<DayPlan> dayPlans = dayPlanMapper.getLatestDayPlans(TaskStatus.COMPLETE.value, startDate, endDate);
         logger.info("start generate [{}] tasks!", dayPlans.size());
-        dayPlans.forEach(this::generateTasks);
+        dayPlans.forEach(dayPlan -> generateTasks(dayPlan, null));
         return "generate success!";
     }
 
@@ -69,7 +69,7 @@ public class TaskGeneratorImpl implements TaskGenerator {
      * @param dayPlan
      * @return
      */
-    private Task generateTasks(DayPlan dayPlan) {
+    private Task generateTasks(DayPlan dayPlan, Date planDate) {
         if (dayPlan == null) {
             logger.error("dayPlan is null!");
             return null;
@@ -80,7 +80,7 @@ public class TaskGeneratorImpl implements TaskGenerator {
         Task task = taskCreator.getTask(newWords, oldWords);
         //插入新增任务
         List<Integer> wordIds = Stream.of(newWords, oldWords).flatMap(List::stream).map(WordResult::getWordId).collect(Collectors.toList());
-        DayPlan newDayPlan = getNewDayPlan(dayPlan, wordIds);
+        DayPlan newDayPlan = getNewDayPlan(dayPlan, wordIds, planDate);
         dayPlanMapper.insertDayPlan(newDayPlan);
         //缓存生成的Task
         taskCache.cacheTask(task, newDayPlan);
@@ -88,15 +88,14 @@ public class TaskGeneratorImpl implements TaskGenerator {
     }
 
 
-    private DayPlan getNewDayPlan(DayPlan dayPlan, List<Integer> wordIds) {
-        //获取任务起始日期
-        Date startDate = DateUtil.addDay(DateUtil.getTodayZeroDay(), 1);
-
+    private DayPlan getNewDayPlan(DayPlan dayPlan, List<Integer> wordIds, Date planDate) {
+        Date startDate = (planDate == null ? DateUtil.addDay(DateUtil.getTodayZeroDay(), 1) : planDate);
         DayPlan newDayPlan = new DayPlan();
         newDayPlan.setStatus(TaskStatus.PROCESSING.value);
         newDayPlan.setPlan_date(startDate);
         wordIds.stream().map(Object::toString).reduce((a, b) -> a + "," + b).ifPresent(newDayPlan::setWord_ids);
         newDayPlan.setPlan_id(dayPlan.getPlan_id());
+        newDayPlan.setUser_id(dayPlan.getUser_id());
         newDayPlan.setStatus(TaskStatus.PROCESSING.value);
         return newDayPlan;
     }
@@ -156,23 +155,37 @@ public class TaskGeneratorImpl implements TaskGenerator {
         return realWordIds;
     }
 
+    /**
+     * 获取个人当日的计划
+     * @param userId
+     * @param planId
+     * @param planDate
+     * @return
+     */
     @Override
     public Task generateTask(int userId, int planId, Date planDate) {
-        DayPlan dayPlan = dayPlanMapper.getDayPlan(userId, planDate);
+        Date planStartDate = DateUtil.getDateZeroDay(planDate);
+        Date planEndDate = DateUtil.addDay(planStartDate,1);
+        DayPlan dayPlan = dayPlanMapper.getDayPlan(userId, planStartDate,planEndDate);
+        //如果计划尚未生成则检查
         if (dayPlan == null) {
-
+            logger.info("no task cache start to generate task!");
             DayPlan latestDayPlan = dayPlanMapper.getDayPlanById(userId, planId);
+            //如果最近一次计划未完成则返回已有计划
+            if (latestDayPlan.getStatus() == TaskStatus.PROCESSING.value) {
+                return taskCache.getTask(latestDayPlan);
+            } else {
+                //如果完成则生成新的计划并返回
+                return generateTasks(latestDayPlan, planDate);
+            }
         }
+        //否则从缓存中取
         Task task = taskCache.getTask(dayPlan);
         if (task != null) {
             return task;
         }
-        List<WordResult> newWords = getNewWords(dayPlan);
-        List<WordResult> oldWords = getOldWords(dayPlan);
-        //获取计划内容
-        Task result = taskCreator.getTask(newWords, oldWords);
-
-        return result;
+        logger.error("");
+        return null;
     }
 
 
