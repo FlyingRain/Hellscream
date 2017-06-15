@@ -13,6 +13,7 @@ buildscript {
 
 repositories {
     mavenCentral()
+    mavenLocal()
 }
 
 apply plugin: 'java'
@@ -23,12 +24,12 @@ apply plugin: 'org.springframework.boot'
 
 
 
-sourceCompatibility=1.8
+sourceCompatibility = 1.8
 
-uploadArchives{
-    repositories{
-        mavenDeployer{
-            repository(url:uri('/home/wally/repository'))
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: uri('/home/wally/repository'))
         }
     }
 }
@@ -43,8 +44,7 @@ dependencies {
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-jetty', version: '1.5.2.RELEASE'
     compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.3'
     compile group: 'org.glassfish.jersey.connectors', name: 'jersey-apache-connector', version: '2.25.1'
-    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.5'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '1.5.3.RELEASE'
-
+    compile group: 'com.flyingrain.translate.framework.lang', name: 'framework-lang', version: '1.0-SNAPSHOT'
 }
 

@@ -1,8 +1,8 @@
 package com.flyingrain.translate.framework.lang.utils;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.util.StringUtils;
 
 import java.io.*;
 import java.nio.file.Path;

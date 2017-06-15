@@ -8,7 +8,8 @@ load:
    - file:myconf.yml
 
 
-
+server:
+  port: 8099
 
 logging:
   file: /home/wally/workspace/myprojects/logs/restwapper.log
