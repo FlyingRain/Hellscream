@@ -7,9 +7,19 @@ package com.flyingrain.translate.framework.lang;
 public final class FlyException extends RuntimeException {
     private static final long serialVersionUID = -5617150674111598844L;
 
+    /**
+     * 异常错误码
+     */
     private String exCode;
-
+    /**
+     * 异常描述
+     */
     private String exMsg;
+
+    /**
+     * 异常事件
+     */
+    private Object exceptionEvent;
 
     public FlyException(String exCode, String exMsg) {
         super(exMsg);
