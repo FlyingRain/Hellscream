@@ -5,7 +5,6 @@ import com.flyingrain.translate.words.collection.api.BookQuery;
 import com.flyingrain.translate.words.collection.request.BookWords;
 import com.flyingrain.translate.words.collection.result.Book;
 import com.flyingrain.translate.words.collection.result.Result;
-import com.flyingrain.translate.words.collection.result.ResultType;
 import com.flyingrain.translate.words.collection.result.WordResult;
 import com.flyingrain.translate.words.collection.service.dao.model.WordTypeRelations;
 import com.flyingrain.translate.words.collection.service.services.BookService;
@@ -35,27 +34,18 @@ public class BookQueryImpl implements BookQuery{
     private WordServices wordServices;
 
     @Override
-    public Result<List<Book>> getBookList() {
+    public List<Book> getBookList() {
         List<Book> books = bookService.getAllBooks();
         Result<List<Book>> result = new Result<>();
         if(CollectionUtils.isEmpty(books)){
             logger.warn("there is no book in database!");
         }
-        result.setCode(ResultType.SUCCESS.code);
-        result.setMsg(ResultType.SUCCESS.desc);
-        result.setRealResult(books);
-
-        return result;
+        return books;
     }
 
     @Override
-    public Result<Book> getBook(int type) {
-        Book book = bookService.getBookByType(type);
-        Result<Book> result = new Result<>();
-        result.setMsg(ResultType.SUCCESS.desc);
-        result.setCode(ResultType.SUCCESS.code);
-        result.setRealResult(book);
-        return result;
+    public Book getBook(int type) {
+        return bookService.getBookByType(type);
     }
 
     @Override

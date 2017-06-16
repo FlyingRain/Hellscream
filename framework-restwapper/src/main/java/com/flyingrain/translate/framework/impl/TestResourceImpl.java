@@ -3,10 +3,15 @@ package com.flyingrain.translate.framework.impl;
 import com.flyingrain.translate.framework.annotaions.Resource;
 import com.flyingrain.translate.framework.api.TestResource;
 import com.flyingrain.translate.framework.api.TestResourceProxy;
-import com.flyingrain.translate.framework.lang.FlyException;
+import com.flyingrain.translate.framework.api.param.MyParam;
+import com.flyingrain.translate.framework.api.param.MyResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by wally on 4/5/17.
@@ -16,9 +21,21 @@ import org.springframework.stereotype.Component;
 public class TestResourceImpl implements TestResourceProxy {
     Logger logger = LoggerFactory.getLogger(TestResource.class);
 
+    @Autowired
+    private TestResource resource;
 
     @Override
-    public String testProxy() {
-        throw new FlyException("asdf", "我的异常");
+    public MyResult testProxy() {
+        return resource.testPost(new MyParam("asd", "asffasd"));
+    }
+
+    @Override
+    public MyResult testWebTarget(MyParam a) {
+        List<String> ll = new ArrayList<>();
+        ll.add("adfa");
+        MyResult myResult = new MyResult();
+        myResult.setA("result");
+        myResult.setIds(ll);
+        return myResult;
     }
 }

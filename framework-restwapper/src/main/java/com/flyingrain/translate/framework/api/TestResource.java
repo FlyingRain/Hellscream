@@ -1,5 +1,8 @@
 package com.flyingrain.translate.framework.api;
 
+import com.flyingrain.translate.framework.api.param.MyParam;
+import com.flyingrain.translate.framework.api.param.MyResult;
+
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
@@ -17,5 +20,5 @@ public interface TestResource {
 
     @Path("/post")
     @POST
-    String testPost(String a);
+    MyResult testPost(MyParam a);
 }

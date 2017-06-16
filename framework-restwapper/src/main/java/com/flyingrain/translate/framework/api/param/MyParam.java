@@ -14,6 +14,9 @@ public class MyParam {
         this.b = b;
     }
 
+    public MyParam() {
+    }
+
     public String getA() {
         return a;
     }

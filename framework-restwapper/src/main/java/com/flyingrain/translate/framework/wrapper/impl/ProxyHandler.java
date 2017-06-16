@@ -65,11 +65,11 @@ public class ProxyHandler implements InvocationHandler {
 
         if(get!=null){
             Handler getHandler = handlerMap.get(RestTypeConstants.GET);
-            return getHandler.dohandle(request,method.getReturnType());
+            return getHandler.doHandle(request,method.getReturnType());
         }
         else if(post!=null){
             Handler postHandler = handlerMap.get(RestTypeConstants.POST);
-            return postHandler.dohandle(request,method.getReturnType());
+            return postHandler.doHandle(request,method.getReturnType());
         }
         return null;
     }

@@ -1,9 +1,9 @@
 package com.flyingrain.translate.framework.api;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import com.flyingrain.translate.framework.api.param.MyParam;
+import com.flyingrain.translate.framework.api.param.MyResult;
+
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
 /**
@@ -16,5 +16,9 @@ public interface TestResourceProxy {
 
     @GET
     @Path("/resource/proxy")
-    String testProxy();
+    MyResult testProxy();
+
+    @POST
+    @Path("/webtarget")
+    MyResult testWebTarget(MyParam a);
 }

@@ -2,7 +2,6 @@ package com.flyingrain.translate.framework.wrapper;
 
 import com.flyingrain.translate.framework.api.TestResource;
 import com.flyingrain.translate.framework.config.AppConfig;
-import com.flyingrain.translate.framework.starter.Starter;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +24,7 @@ public class TestWrapper {
     @Test
     public void testWrapper() {
 
-        String result = testResource.testPost("test");
+        //String result = testResource.testPost("test");
 
     }
 

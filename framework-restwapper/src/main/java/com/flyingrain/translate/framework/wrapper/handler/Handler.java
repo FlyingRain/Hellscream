@@ -5,6 +5,6 @@ package com.flyingrain.translate.framework.wrapper.handler;
  */
 public interface Handler {
 
-    <T> T dohandle(Request request,Class<T> returnType);
+    <T> T doHandle(Request request, Class<T> returnType);
 
 }
