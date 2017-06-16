@@ -21,4 +21,8 @@ public interface TestResourceProxy {
     @POST
     @Path("/webtarget")
     MyResult testWebTarget(MyParam a);
+
+    @GET
+    @Path("/common")
+    String testCommon();
 }

@@ -20,6 +20,6 @@ public interface TaskGeneratorResource {
      * @return 结果
      */
     @Path("/generate/dayPlan")
-    Result<String> generate();
+    String generate();
 
 }

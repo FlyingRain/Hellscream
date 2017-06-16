@@ -24,7 +24,7 @@ public interface TaskResource {
      */
     @GET
     @Path("/getTask")
-    Result<Task> getUserPlanTask(@QueryParam("planId")Integer planId, @QueryParam("userId")Integer userId, @QueryParam("planDate")Date planDate);
+    Task getUserPlanTask(@QueryParam("planId")Integer planId, @QueryParam("userId")Integer userId, @QueryParam("planDate")Date planDate);
 
 
     /**

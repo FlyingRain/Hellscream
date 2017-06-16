@@ -2,12 +2,13 @@ package com.flyingrain.translate.plan.service.services.cach;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.flyingrain.translate.framework.lang.utils.FileUtil;
 import com.flyingrain.translate.plan.api.response.Task;
 import com.flyingrain.translate.plan.service.services.TaskCache;
 import com.flyingrain.translate.plan.service.services.dao.model.DayPlan;
-import com.flyingrain.translate.plan.service.services.utils.FileUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
@@ -26,6 +27,9 @@ import java.util.concurrent.ConcurrentHashMap;
 public class FileTaskCache implements TaskCache {
 
     private Logger logger = LoggerFactory.getLogger(FileTaskCache.class);
+
+    @Value("${plan.savePath}")
+    private String rootPath;
 
     private ConcurrentHashMap<Integer, String> filePathCache = new ConcurrentHashMap<>();
 
@@ -92,7 +96,7 @@ public class FileTaskCache implements TaskCache {
         String userHome = System.getProperty("user.home");
         SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
         Date taskDate = dayPlan.getPlan_date();
-        Path path = Paths.get(userHome, "plan", "task", format.format(taskDate), dayPlan.getUser_id() + ".txt");
+        Path path = Paths.get(rootPath, "plan", "task", format.format(taskDate), dayPlan.getUser_id() + ".txt");
         return path.toAbsolutePath().toString();
 
     }

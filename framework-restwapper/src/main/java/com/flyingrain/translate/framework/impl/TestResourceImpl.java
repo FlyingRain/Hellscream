@@ -38,4 +38,9 @@ public class TestResourceImpl implements TestResourceProxy {
         myResult.setIds(ll);
         return myResult;
     }
+
+    @Override
+    public String testCommon() {
+        return "common response!";
+    }
 }

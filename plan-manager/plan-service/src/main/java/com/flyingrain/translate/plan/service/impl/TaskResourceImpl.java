@@ -23,11 +23,8 @@ public class TaskResourceImpl implements TaskResource{
     private TaskGenerator taskGenerator;
 
     @Override
-    public Result<Task> getUserPlanTask(Integer planId, Integer userId, Date planDate) {
-
-
-        Task task = taskGenerator.generateTask(userId,planId,planDate);
-        return new Result<>("00","success",task);
+    public Task getUserPlanTask(Integer planId, Integer userId, Date planDate) {
+        return taskGenerator.generateTask(userId,planId,planDate);
     }
 
     @Override

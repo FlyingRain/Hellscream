@@ -23,7 +23,7 @@ public interface PlanManagerResource {
      */
     @POST
     @Path("/make")
-    Result<Integer> makePlan(PlanRequest planRequest);
+    Integer makePlan(PlanRequest planRequest);
 
     /**
      * 查询计划
@@ -33,7 +33,7 @@ public interface PlanManagerResource {
      */
     @GET
     @Path("/query")
-    Result<List<Plan>> queryPlan(@QueryParam("planId") Integer planId,@QueryParam("userId")Integer userId);
+    List<Plan> queryPlan(@QueryParam("planId") Integer planId,@QueryParam("userId")Integer userId);
 
     /**
      * 修改计划
@@ -42,5 +42,5 @@ public interface PlanManagerResource {
      */
     @POST
     @Path("/modify")
-    Result<ModifyResult> modifyPlan(PlanRequest planRequest);
+    ModifyResult modifyPlan(PlanRequest planRequest);
 }

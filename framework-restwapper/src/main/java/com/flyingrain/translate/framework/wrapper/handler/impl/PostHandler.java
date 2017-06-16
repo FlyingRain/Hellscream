@@ -58,6 +58,7 @@ public class PostHandler implements Handler {
         //jersey处理genericType的方法
         Result result = response.readEntity(new GenericType<Result>(){});
         if(result.getRealResult()!=null && result.getRealResult() instanceof LinkedHashMap){
+            logger.info("get response from server:[{}]",result.getRealResult());
             return ObjectUtil.mapToObject((Map<String, Object>) result.getRealResult(),returnType);
         }
         return (T) result.getRealResult();

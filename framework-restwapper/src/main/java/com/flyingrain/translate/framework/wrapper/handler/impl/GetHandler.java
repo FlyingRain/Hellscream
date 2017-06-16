@@ -46,6 +46,7 @@ public class GetHandler implements Handler {
         Result result = response.readEntity(new GenericType<Result>(){});
         logger.info("get response {[]}",result);
         if(result.getRealResult()!=null && result.getRealResult() instanceof LinkedHashMap){
+            logger.info("get response from server:[{}]",result.getRealResult());
             return ObjectUtil.mapToObject((Map<String, Object>) result.getRealResult(),returnType);
         }
         return (T) result.getRealResult();
