@@ -1,7 +1,6 @@
 package com.flyingrain.translate.plan.api.intf;
 
 import com.flyingrain.translate.plan.api.request.TaskResult;
-import com.flyingrain.translate.plan.api.response.Result;
 import com.flyingrain.translate.plan.api.response.Task;
 
 import javax.ws.rs.*;
@@ -34,6 +33,6 @@ public interface TaskResource {
      */
     @POST
     @Path("/synchronize/TaskResult")
-    Result<String> synchronizeTaskResult(TaskResult taskResult);
+    String synchronizeTaskResult(TaskResult taskResult);
 
 }

@@ -17,10 +17,28 @@ public interface PlanMapper {
     @Options(useGeneratedKeys = true,keyProperty = "plan.id")
     Integer insertPlan(@Param("plan")PlanModel plan);
 
-
+    /**
+     * 获取用户的所有计划
+     * @param userId
+     * @return
+     */
     @Select("select id,user_id,plan_type,end_date,deadline,word_number,book_id,status from plan where user_id=#{userId}")
     List<Plan> getPlans(@Param("userId") int userId);
 
+
+    /**
+     * 根据状态获取用户计划
+     * @param userId
+     * @param status
+     * @return
+     */
+    @Select("select id,user_id,plan_type,end_date,deadline,word_number,book_id,status from plan where user_id=#{userId} and status=#{status}")
+    List<Plan> getUserPlanByStatus(@Param("userId")int userId,@Param("status") int status);
+    /**
+     * 查询计划
+     * @param planId
+     * @return
+     */
     @Select("select id,user_id,plan_type,end_date,deadline,word_number,book_id,status from plan where  id=#{planId}")
     Plan getPlan(@Param("planId")int planId);
 

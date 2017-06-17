@@ -9,6 +9,11 @@ import java.util.Date;
  * Created by wally on 4/25/17.
  */
 public class PlanRequest {
+
+    /**
+     * 计划Id
+     */
+    private int id;
     /**
      * 书本ID
      */
@@ -68,11 +73,31 @@ public class PlanRequest {
         this.number = number;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public int getUserId() {
         return userId;
     }
 
     public void setUserId(int userId) {
         this.userId = userId;
+    }
+
+    @Override
+    public String toString() {
+        return "PlanRequest{" +
+                "id=" + id +
+                ", bookId=" + bookId +
+                ", planType=" + planType +
+                ", deadline=" + deadline +
+                ", number=" + number +
+                ", userId=" + userId +
+                '}';
     }
 }

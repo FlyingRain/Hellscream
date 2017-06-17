@@ -4,6 +4,7 @@ import com.flyingrain.translate.plan.service.services.dao.model.DayPlan;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.Date;
 import java.util.List;
@@ -36,4 +37,7 @@ public interface DayPlanMapper {
      */
     @Select("select id,user_id,plan_id from recite_day_plan  where status=#{status} and last_modified>#{startDate} and last_modified<#{endDate}")
     List<DayPlan> getLatestDayPlans(@Param("status") int status,@Param("date")Date startDate,@Param("endDate")Date endDate);
+
+    @Update("update recite_day_plan set status=#{status} where id=#{taskId}")
+    int updateTaskStatus(@Param("status")int status,@Param("taskId") int taskId);
 }

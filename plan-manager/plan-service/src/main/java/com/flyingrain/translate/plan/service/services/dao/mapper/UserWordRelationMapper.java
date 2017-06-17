@@ -36,6 +36,8 @@ public interface UserWordRelationMapper {
     @Update("update user_word_relation set proficiency=#{userWordRelation} where user_id=#{userWordRelation.user_id} and word_id=#{userWordRelation.word_id}")
     int updateproficiency(@Param("userWordRelation") UserWordRelation wordRelation);
 
+    @Delete("delete from user_word_relation where plan_id=#{planId}")
+    int deletePlanProficiency(@Param("planId")int planId);
     /**
      * 查询某个计划的所有单词
      * @param userId

@@ -15,5 +15,10 @@ public interface TaskCache {
      */
     Task getTask(DayPlan dayPlan);
 
+    /**
+     * 缓存任务
+     * @param task
+     * @param dayPlan
+     */
     void cacheTask(Task task,DayPlan dayPlan);
 }

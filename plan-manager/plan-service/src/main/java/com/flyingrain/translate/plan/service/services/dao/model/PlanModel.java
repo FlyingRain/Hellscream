@@ -6,7 +6,7 @@ import java.util.Date;
  * Created by wally on 4/25/17.
  */
 public class PlanModel {
-    private String id;
+    private int id;
 
     private String user_id;
 
@@ -44,11 +44,11 @@ public class PlanModel {
         this.last_modified = last_modified;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

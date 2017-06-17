@@ -9,37 +9,37 @@ import java.util.List;
  */
 public class TaskResult {
 
-    private String taskId;
+    private int taskId;
 
-    private String userId;
+    private int userId;
 
-    private String status;
+    private int status;
 
     private Date completeDate;
 
     private List<WordReciteResult> wordReciteResults;
 
-    public String getTaskId() {
+    public int getTaskId() {
         return taskId;
     }
 
-    public void setTaskId(String taskId) {
+    public void setTaskId(int taskId) {
         this.taskId = taskId;
     }
 
-    public String getUserId() {
+    public int getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(int userId) {
         this.userId = userId;
     }
 
-    public String getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 
