@@ -8,15 +8,17 @@ import java.util.Date;
 public class PlanModel {
     private int id;
 
-    private String user_id;
+    private int user_id;
 
     private int plan_type;
 
-    private Date endDate;
+    private Date end_date;
 
     private Date deadline;
 
     private int word_number;
+
+    private int all_word_number;
 
     private int complete_number;
 
@@ -27,6 +29,14 @@ public class PlanModel {
     private Date data_added;
 
     private Date last_modified;
+
+    public int getAll_word_number() {
+        return all_word_number;
+    }
+
+    public void setAll_word_number(int all_word_number) {
+        this.all_word_number = all_word_number;
+    }
 
     public Date getData_added() {
         return data_added;
@@ -52,11 +62,11 @@ public class PlanModel {
         this.id = id;
     }
 
-    public String getUser_id() {
+    public int getUser_id() {
         return user_id;
     }
 
-    public void setUser_id(String user_id) {
+    public void setUser_id(int user_id) {
         this.user_id = user_id;
     }
 
@@ -76,12 +86,12 @@ public class PlanModel {
         this.plan_type = plan_type;
     }
 
-    public Date getEndDate() {
-        return endDate;
+    public Date getEnd_date() {
+        return end_date;
     }
 
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
+    public void setEnd_date(Date end_date) {
+        this.end_date = end_date;
     }
 
     public Date getDeadline() {
@@ -122,7 +132,7 @@ public class PlanModel {
                 "id='" + id + '\'' +
                 ", user_id='" + user_id + '\'' +
                 ", plan_type=" + plan_type +
-                ", endDate=" + endDate +
+                ", end_date=" + end_date +
                 ", deadline=" + deadline +
                 ", word_number=" + word_number +
                 ", book_id=" + book_id +

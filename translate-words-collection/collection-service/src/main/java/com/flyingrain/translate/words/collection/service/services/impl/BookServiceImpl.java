@@ -75,6 +75,7 @@ public class BookServiceImpl implements BookService {
             Integer number = wordTypeRelationsMapper.getTypeNumber(type);
             book.setWordNumber(number==null?0:number);
         }
+        logger.info("return book :[{}]",book);
         return book;
     }
 

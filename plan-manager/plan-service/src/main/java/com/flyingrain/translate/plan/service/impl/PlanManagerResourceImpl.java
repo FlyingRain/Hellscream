@@ -31,7 +31,6 @@ public class PlanManagerResourceImpl implements PlanManagerResource {
     @Override
     public Integer makePlan(PlanRequest planRequest) {
         logger.info("get make plan request : [{}]", planRequest);
-        Result<Integer> result = new Result<>();
         return planService.makePlan(planRequest);
 
     }

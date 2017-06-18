@@ -8,7 +8,7 @@ load:
     - file:resource.properties
 
 server:
-  port: 8099
+  port: 8098
 
 logging:
   file: /home/wally/workspace/myprojects/logs/plan.log

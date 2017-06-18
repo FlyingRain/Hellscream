@@ -19,12 +19,20 @@ public class Plan {
      */
     private int completeNumber;
 
+    /**
+     * 单词总量
+     */
+    private int allNumber;
+
     private Date endDate;
 
     private int bookId;
 
     private String bookName;
 
+    /**
+     * 计划每日背诵的单词数量
+     */
     private int number;
 
     public int getId() {
@@ -34,6 +42,14 @@ public class Plan {
     public Plan setId(int id) {
         this.id = id;
         return this;
+    }
+
+    public int getAllNumber() {
+        return allNumber;
+    }
+
+    public void setAllNumber(int allNumber) {
+        this.allNumber = allNumber;
     }
 
     public int getPlanType() {

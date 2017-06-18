@@ -21,14 +21,6 @@ public interface UserWordRelationMapper {
     int insertProficiency(@Param("userWordRelation")UserWordRelation wordRelation);
 
     /**
-     * 查询用户某个计划中某个单词的熟练度
-     * @param userWordRelation
-     * @return
-     */
-    @Select("select user_id,word_id,proficiency from user_word_relation where user_id=#{userWordRelation.userId} and word_id=#{userWordRelation.wordId} and plan_id=#{userWordRelation.plan_id})")
-    int getproficiency(@Param("userWordRelation")UserWordRelation userWordRelation);
-
-    /**
      * 更新某个单词的熟练度
      * @param wordRelation
      * @return
@@ -49,6 +41,16 @@ public interface UserWordRelationMapper {
 
 
     /**
+     * 获取某个单词的熟练度
+     * @param userId
+     * @param planId
+     * @param wordId
+     * @return
+     */
+    @Select("select proficiency from user_word_relation where user_id=#{userId} and plan_id=#{planId} and word_id=#{wordId}")
+    UserWordRelation getWordProficiency(@Param("userId")int userId,@Param("planId")int planId,@Param("wordId")int wordId);
+
+    /**
      * 根据熟练度获取单词
      * @param userId
      * @param planId
@@ -58,13 +60,11 @@ public interface UserWordRelationMapper {
     @Select("select user_id,plan_id,proficiency,word_id from user_word_relation where user_id=#{userId} and plan_id=#{planId} and proficiency=#{proficiency}")
     List<UserWordRelation> getWordsByProficiency(@Param("userId")int userId,@Param("planId")int planId,@Param("proficiency")int proficiency);
     /**
-     * 批量插入数据
+     * 批量插入数据(如果重复则更新数据)
      * @param userWordRelations
      * @return
      */
     @InsertProvider(type = UserWordRelationProvider.class,method = "batchInsert")
-    int batchInsert(@Param("userWordRelations")List<UserWordRelation> userWordRelations);
+    int batchInsertOnDuplicat(@Param("userWordRelations")List<UserWordRelation> userWordRelations);
 
-    
-    int batchUpdate(@Param("userWordRelations") List<UserWordRelation> userWordRelations);
 }

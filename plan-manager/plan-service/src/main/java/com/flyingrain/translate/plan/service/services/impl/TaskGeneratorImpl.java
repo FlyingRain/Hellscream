@@ -57,9 +57,13 @@ public class TaskGeneratorImpl implements TaskGenerator {
     public String generateTasks() {
         Date startDate = DateUtil.getTodayZeroDay();
         Date endDate = DateUtil.addDay(startDate, 1);
+        //补漏，生成下一天的任务
         List<DayPlan> dayPlans = dayPlanMapper.getLatestDayPlans(TaskStatus.COMPLETE.value, startDate, endDate);
-        logger.info("start generate [{}] tasks!", dayPlans.size());
-        dayPlans.forEach(dayPlan -> generateTasks(dayPlan, null));
+        if (!CollectionUtils.isEmpty(dayPlans)) {
+            logger.info("start generate [{}] tasks!", dayPlans.size());
+            dayPlans.forEach(dayPlan -> generateTasks(dayPlan, null));
+
+        }
         return "generate success!";
     }
 
@@ -157,6 +161,7 @@ public class TaskGeneratorImpl implements TaskGenerator {
 
     /**
      * 获取个人当日的计划
+     *
      * @param userId
      * @param planId
      * @param planDate
@@ -165,8 +170,8 @@ public class TaskGeneratorImpl implements TaskGenerator {
     @Override
     public Task generateTask(int userId, int planId, Date planDate) {
         Date planStartDate = DateUtil.getDateZeroDay(planDate);
-        Date planEndDate = DateUtil.addDay(planStartDate,1);
-        DayPlan dayPlan = dayPlanMapper.getDayPlan(userId, planStartDate,planEndDate);
+        Date planEndDate = DateUtil.addDay(planStartDate, 1);
+        DayPlan dayPlan = dayPlanMapper.getDayPlan(userId, planStartDate, planEndDate);
         //如果计划尚未生成则检查
         if (dayPlan == null) {
             logger.info("no task cache start to generate task!");

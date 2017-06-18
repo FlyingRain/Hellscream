@@ -12,8 +12,8 @@ import java.util.List;
  */
 public interface PlanMapper {
 
-    @Insert("insert into plan (user_id,plan_type,deadline,word_number,book_id,end_date,status) values " +
-            "(#{plan.user_id},#{plan.plan_type},#{plan.deadline},#{plan.word_number},#{plan.book_id},#{plan.end_date},#{plan.status})")
+    @Insert("insert into plan (user_id,plan_type,deadline,word_number,all_word_number,book_id,end_date,status) values " +
+            "(#{plan.user_id},#{plan.plan_type},#{plan.deadline},#{plan.word_number},#{plan.all_word_number},#{plan.book_id},#{plan.end_date},#{plan.status})")
     @Options(useGeneratedKeys = true,keyProperty = "plan.id")
     Integer insertPlan(@Param("plan")PlanModel plan);
 
@@ -22,8 +22,8 @@ public interface PlanMapper {
      * @param userId
      * @return
      */
-    @Select("select id,user_id,plan_type,end_date,deadline,word_number,book_id,status from plan where user_id=#{userId}")
-    List<Plan> getPlans(@Param("userId") int userId);
+    @Select("select id,user_id,plan_type,end_date,all_word_number,deadline,word_number,book_id,status from plan where user_id=#{userId}")
+    List<PlanModel> getPlans(@Param("userId") int userId);
 
 
     /**
@@ -33,17 +33,17 @@ public interface PlanMapper {
      * @return
      */
     @Select("select id,user_id,plan_type,end_date,deadline,word_number,book_id,status from plan where user_id=#{userId} and status=#{status}")
-    List<Plan> getUserPlanByStatus(@Param("userId")int userId,@Param("status") int status);
+    List<PlanModel> getUserPlanByStatus(@Param("userId")int userId,@Param("status") int status);
     /**
      * 查询计划
      * @param planId
      * @return
      */
     @Select("select id,user_id,plan_type,end_date,deadline,word_number,book_id,status from plan where  id=#{planId}")
-    Plan getPlan(@Param("planId")int planId);
+    PlanModel getPlan(@Param("planId")int planId);
 
 
-    @Update("update plan set plan_type=#{plan.plan_type},deadline=#{plan.deadline},book_id=#{plan.book_id},word_number=#{plan.word_number},status=#{plan.status} where id={plan.id}")
+    @Update("update plan set plan_type=#{plan.plan_type},all_word_number=#{plan.all_word_number},deadline=#{plan.deadline},book_id=#{plan.book_id},word_number=#{plan.word_number},status=#{plan.status} where id=#{plan.id}")
     int updatePlan(@Param("plan")PlanModel planModel);
 
     @Update("update plan set end_date=#{endDate},status=#{status} where id=#{planId}")

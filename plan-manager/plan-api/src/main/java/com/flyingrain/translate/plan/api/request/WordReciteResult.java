@@ -1,22 +1,25 @@
 package com.flyingrain.translate.plan.api.request;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 /**
  * Created by wul on 5/6/17.
  */
 public class WordReciteResult {
 
-    private String wordId;
+    @NotBlank
+    private int wordId;
 
     /**
      * 单词熟练度
      */
     private int proficiency;
 
-    public String getWordId() {
+    public int getWordId() {
         return wordId;
     }
 
-    public void setWordId(String wordId) {
+    public void setWordId(int wordId) {
         this.wordId = wordId;
     }
 

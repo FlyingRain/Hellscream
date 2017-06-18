@@ -31,10 +31,16 @@ public class UserWordRelationProvider {
 
         for (int i = 0; i < userWordRelations.size(); i++) {
             String format = messageFormat.format(new Object[]{i});
-            sqlBuilder.append("(").append(format).append("),");
+            sqlBuilder.append("(").append(format).append(")");
+            if(i<userWordRelations.size()-1){
+                sqlBuilder.append(",");
+            }
         }
-        String sql = sqlBuilder.substring(0,sqlBuilder.length()-1);
+        sqlBuilder.append(" on duplicate key set proficiency=values(proficiency) ");
+        String sql = sqlBuilder.toString();
         logger.info("get sql : [{}]",sql);
         return sql;
     }
+
+
 }

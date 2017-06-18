@@ -22,6 +22,8 @@ public class Word {
 
     private List<String> adv;
 
+    private List<String> simple;
+
     private String ukPronunciation;
 
     private String usPronunciation;
@@ -31,6 +33,14 @@ public class Word {
     private List<String> usAudio;
 
     private String defaultAudio;
+
+    public List<String> getSimple() {
+        return simple;
+    }
+
+    public void setSimple(List<String> simple) {
+        this.simple = simple;
+    }
 
     public int getWordId() {
         return wordId;
