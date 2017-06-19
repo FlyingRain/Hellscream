@@ -65,6 +65,6 @@ public interface UserWordRelationMapper {
      * @return
      */
     @InsertProvider(type = UserWordRelationProvider.class,method = "batchInsert")
-    int batchInsertOnDuplicat(@Param("userWordRelations")List<UserWordRelation> userWordRelations);
+    int batchInsertOnDuplicate(@Param("userWordRelations")List<UserWordRelation> userWordRelations);
 
 }

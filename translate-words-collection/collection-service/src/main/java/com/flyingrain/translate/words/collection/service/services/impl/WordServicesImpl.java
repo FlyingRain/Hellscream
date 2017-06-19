@@ -60,7 +60,9 @@ public class WordServicesImpl implements WordServices {
                 return null;
             }
         }
-        return transfer(myWord);
+        SentenceDefine define = getSentence(myWord.getId());
+
+        return transfer(myWord, define);
     }
 
     @Override
@@ -89,13 +91,14 @@ public class WordServicesImpl implements WordServices {
         return sentenceDefine;
     }
 
-    private WordResult transfer(Word myWord) {
+    private WordResult transfer(Word myWord, SentenceDefine define) {
         WordResult wordResult = new WordResult();
         wordResult.setWord(myWord.getWord());
         wordResult.setMean(myWord.getMean());
         wordResult.setUkPronunciation(myWord.getUk_pronunciation());
         wordResult.setUsPronunciation(myWord.getUs_pronunciation());
         wordResult.setWordId(myWord.getId());
+        wordResult.setSamples(getSentence(myWord.getId()));
         ENMean enMean = enMeanMapper.getMeanByWordId(myWord.getId());
         if (enMean != null) {
             if (!StringUtils.isEmpty(enMean.getAdj()))
@@ -136,10 +139,11 @@ public class WordServicesImpl implements WordServices {
     @Override
     public WordResult getWordById(int wordId) {
         Word myWord = wordMapper.getWordById(wordId);
-        if(myWord==null){
-            logger.error("no word exist! wordId is [{}]",wordId);
+        SentenceDefine define = getSentence(wordId);
+        if (myWord == null) {
+            logger.error("no word exist! wordId is [{}]", wordId);
         }
 
-        return transfer(myWord);
+        return transfer(myWord, define);
     }
 }

@@ -16,6 +16,7 @@ import com.flyingrain.translate.words.collection.api.BookQuery;
 import com.flyingrain.translate.words.collection.api.WordQuery;
 import com.flyingrain.translate.words.collection.request.BookWords;
 import com.flyingrain.translate.words.collection.result.WordResult;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -123,9 +124,11 @@ public class TaskGeneratorImpl implements TaskGenerator {
 
         Plan plan = plans.get(0);
         String wordIdString = dayPlan.getWord_ids();
-        String wordIds[] = wordIdString.split(",");
-        List<String> wordIdList = Arrays.asList(wordIds);
-
+        List<String> wordIdList = new ArrayList<>();
+        if(StringUtils.isNotEmpty(wordIdString)) {
+            String wordIds[] = wordIdString.split(",");
+            wordIdList = Arrays.asList(wordIds);
+        }
         BookWords bookWords = new BookWords();
         bookWords.setWordIds(transferToInteger(wordIdList));
         bookWords.setBookType(plan.getBookId());
@@ -175,7 +178,15 @@ public class TaskGeneratorImpl implements TaskGenerator {
         //如果计划尚未生成则检查
         if (dayPlan == null) {
             logger.info("no task cache start to generate task!");
-            DayPlan latestDayPlan = dayPlanMapper.getDayPlanById(userId, planId);
+            DayPlan latestDayPlan = dayPlanMapper.getUserLatestTask(userId, planId);
+            //如果是第一次生成计划则构造dayPlan
+            if(latestDayPlan==null){
+                latestDayPlan = new DayPlan();
+                latestDayPlan.setPlan_id(planId);
+                latestDayPlan.setUser_id(userId);
+                latestDayPlan.setStatus(TaskStatus.COMPLETE.value);
+            }
+
             //如果最近一次计划未完成则返回已有计划
             if (latestDayPlan.getStatus() == TaskStatus.PROCESSING.value) {
                 return taskCache.getTask(latestDayPlan);

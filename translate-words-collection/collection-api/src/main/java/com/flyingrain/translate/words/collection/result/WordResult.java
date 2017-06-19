@@ -3,6 +3,7 @@ package com.flyingrain.translate.words.collection.result;
 import java.util.List;
 
 /**
+ * 单词结果
  * Created by wally on 4/14/17.
  */
 public class WordResult {
@@ -30,9 +31,22 @@ public class WordResult {
     private List<String> usAudio;
 
     private String defaultAudio;
+    /**
+     * 单词例句
+     */
+    private SentenceDefine samples;
 
     public int getWordId() {
         return wordId;
+    }
+
+
+    public SentenceDefine getSamples() {
+        return samples;
+    }
+
+    public void setSamples(SentenceDefine samples) {
+        this.samples = samples;
     }
 
     public void setWordId(int wordId) {
