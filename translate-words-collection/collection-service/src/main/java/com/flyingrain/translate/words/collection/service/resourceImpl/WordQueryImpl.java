@@ -25,29 +25,15 @@ public class WordQueryImpl implements WordQuery {
     private WordServices wordServices;
 
     @Override
-    public Result<WordResult> queryWord(String word, int type) {
+    public WordResult queryWord(String word, int type) {
         logger.info("start to query [{}] , type is [{}]",word,type);
-        Result<WordResult> resut = new Result<>();
-        WordResult wordResult = wordServices.getWord(word,type);
-        resut.setMsg(ResultType.SUCCESS.desc);
-        resut.setCode(ResultType.FAIL.code);
-        if(wordResult==null){
-            resut.setMsg("can't query this word!");
-            resut.setCode(ResultType.FAIL.code);
-        }
-        resut.setRealResult(wordResult);
-        return resut;
+        return wordServices.getWord(word,type);
     }
 
     @Override
-    public Result<SentenceDefine> querySentence(int wordId) {
+    public SentenceDefine querySentence(int wordId) {
         logger.info("start to query sentence for word [{}]",wordId);
-        SentenceDefine sentenceDefine = wordServices.getSentence(wordId);
-        Result<SentenceDefine> result = new Result<>();
-        result.setCode(ResultType.SUCCESS.code);
-        result.setMsg(ResultType.SUCCESS.desc);
-        result.setRealResult(sentenceDefine);
-        return result;
+        return wordServices.getSentence(wordId);
     }
 
     @Override

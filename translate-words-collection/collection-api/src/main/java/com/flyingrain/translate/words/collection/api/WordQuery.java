@@ -17,12 +17,12 @@ public interface WordQuery {
 
     @GET
     @Path("/query/word")
-    Result<WordResult> queryWord(@QueryParam("word") String word,@QueryParam("type") int type);
+    WordResult queryWord(@QueryParam("word") String word,@QueryParam("type") int type);
 
 
     @GET
     @Path("/query/sentence")
-    Result<SentenceDefine> querySentence(@QueryParam("wordId") int wordId);
+    SentenceDefine querySentence(@QueryParam("wordId") int wordId);
 
     @GET
     @Path("/query/singleWord")

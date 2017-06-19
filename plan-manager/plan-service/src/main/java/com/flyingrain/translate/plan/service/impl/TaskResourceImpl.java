@@ -48,7 +48,6 @@ public class TaskResourceImpl implements TaskResource {
     }
 
     @Override
-
     public String synchronizeTaskResult(TaskResult taskResult) {
         //更新结果
         updateTask(taskResult);
