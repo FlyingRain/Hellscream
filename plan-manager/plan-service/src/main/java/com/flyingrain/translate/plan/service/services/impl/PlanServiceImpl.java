@@ -55,8 +55,8 @@ public class PlanServiceImpl implements PlanService {
         try {
             planId = planMapper.insertPlan(planModel);
         } catch (Exception e) {
-            logger.error("insert plan error!",e);
-            throw new FlyException(PlanExceptionCode.MAKE_PLAN_FALURE.getCode(),PlanExceptionCode.MAKE_PLAN_FALURE.getMsg());
+            logger.error("insert plan error!", e);
+            throw new FlyException(PlanExceptionCode.MAKE_PLAN_FALURE.getCode(), PlanExceptionCode.MAKE_PLAN_FALURE.getMsg());
         }
         List<PlanModel> plans = planMapper.getUserPlanByStatus(planRequest.getUserId(), PlanStatus.UNDERWAY.status);
         if (CollectionUtils.isEmpty(plans) || plans.size() > 1) {
@@ -93,10 +93,13 @@ public class PlanServiceImpl implements PlanService {
     @Transactional
     public int modifyPlan(PlanRequest planRequest) {
         PlanModel planModel = new PlanModel();
+        PlanModel oldPlan = planMapper.getPlan(planRequest.getId());
+        boolean changeBook = (planModel.getBook_id() == oldPlan.getBook_id());
         planModel.setId(planRequest.getId());
         planModel.setBook_id(planRequest.getBookId());
         Book book = bookQuery.getBook(planRequest.getBookId());
-        planModel.setAll_word_number(book.getWordNumber());
+        planModel.setAll_word_number(changeBook ? book.getWordNumber() : oldPlan.getAll_word_number());
+        planModel.setComplete_number(changeBook ? 0 : oldPlan.getComplete_number());
         planModel.setDeadline(planRequest.getDeadline());
         planModel.setWord_number(planRequest.getNumber());
         planModel.setPlan_type(planRequest.getPlanType());
@@ -106,7 +109,8 @@ public class PlanServiceImpl implements PlanService {
         if (updateNumber != 1) {
             throw new FlyException(PlanExceptionCode.MODIFY_PLAN_FAILURE.getCode());
         }
-        relationMapper.deletePlanProficiency(planRequest.getId());
+        if (changeBook)
+            relationMapper.deletePlanProficiency(planRequest.getId());
         return updateNumber;
     }
 
@@ -118,6 +122,7 @@ public class PlanServiceImpl implements PlanService {
         plan.setDeadline(model.getDeadline());
         plan.setEndDate(model.getEnd_date());
         plan.setNumber(model.getWord_number());
+        plan.setUserId(model.getUser_id());
         plan.setAllNumber(model.getAll_word_number());
         plan.setPlanStatus(model.getStatus());
         plan.setPlanType(model.getPlan_type());

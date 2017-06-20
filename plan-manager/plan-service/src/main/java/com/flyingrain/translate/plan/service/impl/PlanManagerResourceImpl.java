@@ -6,8 +6,6 @@ import com.flyingrain.translate.plan.api.intf.PlanManagerResource;
 import com.flyingrain.translate.plan.api.request.PlanRequest;
 import com.flyingrain.translate.plan.api.response.ModifyResult;
 import com.flyingrain.translate.plan.api.response.Plan;
-import com.flyingrain.translate.plan.api.response.Result;
-import com.flyingrain.translate.plan.api.response.ResultType;
 import com.flyingrain.translate.plan.service.common.PlanExceptionCode;
 import com.flyingrain.translate.plan.service.services.PlanService;
 import org.slf4j.Logger;

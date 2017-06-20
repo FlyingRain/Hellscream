@@ -21,7 +21,7 @@ public class PlanRequest {
     private int bookId;
 
     /**
-     * 计划类型1，按时间2，按数量
+     * 计划类型1，按数量2，按时间
      */
     @NotBlank
     private int planType;

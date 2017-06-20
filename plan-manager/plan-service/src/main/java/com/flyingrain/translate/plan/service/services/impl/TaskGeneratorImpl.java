@@ -6,6 +6,7 @@ import com.flyingrain.translate.plan.api.response.Task;
 import com.flyingrain.translate.plan.service.services.PlanService;
 import com.flyingrain.translate.plan.service.services.TaskCache;
 import com.flyingrain.translate.plan.service.services.TaskGenerator;
+import com.flyingrain.translate.plan.service.services.common.PlanType;
 import com.flyingrain.translate.plan.service.services.common.TaskStatus;
 import com.flyingrain.translate.plan.service.services.common.WordProficiency;
 import com.flyingrain.translate.plan.service.services.dao.mapper.DayPlanMapper;
@@ -52,6 +53,8 @@ public class TaskGeneratorImpl implements TaskGenerator {
     private TaskCreator taskCreator;
     @Autowired
     private TaskCache taskCache;
+    @Autowired
+    private DayWordNumberCalculator calculator;
 
 
     @Override
@@ -125,14 +128,18 @@ public class TaskGeneratorImpl implements TaskGenerator {
         Plan plan = plans.get(0);
         String wordIdString = dayPlan.getWord_ids();
         List<String> wordIdList = new ArrayList<>();
-        if(StringUtils.isNotEmpty(wordIdString)) {
+        if (StringUtils.isNotEmpty(wordIdString)) {
             String wordIds[] = wordIdString.split(",");
             wordIdList = Arrays.asList(wordIds);
         }
         BookWords bookWords = new BookWords();
         bookWords.setWordIds(transferToInteger(wordIdList));
         bookWords.setBookType(plan.getBookId());
-        bookWords.setNumber(plan.getNumber());
+        if (PlanType.BYNUMBER.getType()==(plan.getPlanStatus())) {
+            bookWords.setNumber(plan.getNumber());
+        }else if(PlanType.BYDEADLINE.getType()==plan.getPlanType()){
+            bookWords.setNumber(calculator.calculateDayWordNumber(plan,userWordRelationMapper.getPlanWords(plan.getUserId(),plan.getId())));
+        }
 
         return bookQuery.getBookWords(bookWords);
     }
@@ -180,7 +187,7 @@ public class TaskGeneratorImpl implements TaskGenerator {
             logger.info("no task cache start to generate task!");
             DayPlan latestDayPlan = dayPlanMapper.getUserLatestTask(userId, planId);
             //如果是第一次生成计划则构造dayPlan
-            if(latestDayPlan==null){
+            if (latestDayPlan == null) {
                 latestDayPlan = new DayPlan();
                 latestDayPlan.setPlan_id(planId);
                 latestDayPlan.setUser_id(userId);

@@ -6,6 +6,8 @@ import com.flyingrain.translate.framework.lang.utils.FileUtil;
 import com.flyingrain.translate.plan.api.response.Task;
 import com.flyingrain.translate.plan.service.services.TaskCache;
 import com.flyingrain.translate.plan.service.services.dao.model.DayPlan;
+import com.googlecode.concurrentlinkedhashmap.ConcurrentLinkedHashMap;
+import com.googlecode.concurrentlinkedhashmap.Weighers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,7 +19,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * 任务缓存(文件)
@@ -31,7 +32,7 @@ public class FileTaskCache implements TaskCache {
     @Value("${plan.savePath}")
     private String rootPath;
 
-    private ConcurrentHashMap<Integer, String> filePathCache = new ConcurrentHashMap<>();
+    private ConcurrentLinkedHashMap<Integer, String> filePathCache = new ConcurrentLinkedHashMap.Builder<Integer,String>().weigher(Weighers.singleton()).maximumWeightedCapacity(1000).build();
 
     private ObjectMapper objectMapper = new ObjectMapper();
 

@@ -31,13 +31,13 @@ public interface UserWordRelationMapper {
     @Delete("delete from user_word_relation where plan_id=#{planId}")
     int deletePlanProficiency(@Param("planId")int planId);
     /**
-     * 查询某个计划的所有单词
+     * 查询某个计划的所有单词数量
      * @param userId
      * @param planId
      * @return
      */
-    @Select("select user_id,plan_id,proficiency,word_id from user_word_relation where user_id=#{userId} and plan_id=#{planId} ")
-    List<UserWordRelation> getPlanWords(@Param("userId") int userId,@Param("planId")int planId);
+    @Select("select count(1) from user_word_relation where user_id=#{userId} and plan_id=#{planId} ")
+    int getPlanWords(@Param("userId") int userId,@Param("planId")int planId);
 
 
     /**

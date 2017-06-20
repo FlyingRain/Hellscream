@@ -39,7 +39,7 @@ public class GetHandler implements Handler {
     @Override
     public <T> T doHandle(Request request, Class<T> returnType) {
         String url = getUrl(request);
-        logger.info("start to send get message : url {[]}", request.getUrl());
+        logger.info("start to send get message : url {[]}", url);
         WebTarget target = client.target(url);
         //jersey处理genericType的方法
         Response response = target.request().get();

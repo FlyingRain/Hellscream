@@ -63,12 +63,12 @@ public interface PlanMapper {
      * @param planModel
      * @return
      */
-    @Update("update plan set plan_type=#{plan.plan_type},all_word_number=#{plan.all_word_number},deadline=#{plan.deadline},book_id=#{plan.book_id},word_number=#{plan.word_number},status=#{plan.status} where id=#{plan.id}")
+    @Update("update plan set complete_number=#{plan.complete_number},plan_type=#{plan.plan_type},all_word_number=#{plan.all_word_number},deadline=#{plan.deadline},book_id=#{plan.book_id},word_number=#{plan.word_number},status=#{plan.status} where id=#{plan.id}")
     int updatePlan(@Param("plan")PlanModel planModel);
 
     @Update("update plan set end_date=#{endDate},status=#{status} where id=#{planId}")
     int setEndDate(@Param("endDate")Date endDate,@Param("planId") int id,@Param("status") int status);
 
-    @Update("update plan set status=#{status} where id=#{planId}")
-    int updatePlanStatus(@Param("status")int status,@Param("planId")int id);
+    @Update("update plan set status=#{status},complete_number=#{number} where id=#{planId}")
+    int updatePlanStatus(@Param("number")int number,@Param("status")int status,@Param("planId")int id);
 }

@@ -13,5 +13,5 @@ public interface TaskSychronize {
      * @param result
      * @return
      */
-    String SychronizeTask(TaskResult result);
+    String SynchronizeTask(TaskResult result);
 }

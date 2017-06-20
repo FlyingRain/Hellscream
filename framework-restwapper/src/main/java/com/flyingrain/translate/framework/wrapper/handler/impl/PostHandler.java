@@ -45,7 +45,6 @@ public class PostHandler implements Handler {
     public <T> T doHandle(Request request, Class<T> returnType) {
         Method method = request.getMethod();
         String url = request.getUrl();
-        url = "http://localhost:8099/translate/test/webtarget";
         WebTarget webTarget = client.target(url);
         Object params[] = request.getParams();
         Class[] types = method.getParameterTypes();
