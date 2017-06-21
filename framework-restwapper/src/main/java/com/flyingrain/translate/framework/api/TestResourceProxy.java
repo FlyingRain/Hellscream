@@ -5,6 +5,7 @@ import com.flyingrain.translate.framework.api.param.MyResult;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.util.Date;
 
 /**
  * Created by wally on 6/10/17.
@@ -24,5 +25,5 @@ public interface TestResourceProxy {
 
     @GET
     @Path("/common")
-    String testCommon();
+    String testCommon(@QueryParam("date")Date date);
 }

@@ -2,6 +2,7 @@ package com.flyingrain.translate.framework.config;
 
 import com.flyingrain.translate.framework.annotaions.Resource;
 import com.flyingrain.translate.framework.exceptionHandler.AppExceptionHandler;
+import com.flyingrain.translate.framework.filter.RequestFilter;
 import com.flyingrain.translate.framework.filter.ResponseFilter;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.servlet.ServletProperties;
@@ -43,6 +44,7 @@ public class JerseyConfig extends ResourceConfig implements InitializingBean, Ap
                 .map(name->applicationContext.getBean(name).getClass())
                 .collect(Collectors.toList());
         resources.add(AppExceptionHandler.class);
+        resources.add(RequestFilter.class);
         resources.add(ResponseFilter.class);
         servletRegistrationBean.addInitParameter(ServletProperties.JAXRS_APPLICATION_CLASS,MyApplication.class.getName());
 

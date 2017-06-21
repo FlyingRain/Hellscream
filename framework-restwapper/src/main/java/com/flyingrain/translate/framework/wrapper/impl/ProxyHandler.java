@@ -1,6 +1,7 @@
 package com.flyingrain.translate.framework.wrapper.impl;
 
 import com.flyingrain.translate.framework.common.RestTypeConstants;
+import com.flyingrain.translate.framework.lang.utils.ResourceLoader;
 import com.flyingrain.translate.framework.wrapper.handler.Handler;
 import com.flyingrain.translate.framework.wrapper.handler.Request;
 import org.slf4j.Logger;
@@ -75,7 +76,7 @@ public class ProxyHandler implements InvocationHandler {
     }
 
     private String getUrl(Class proxy) {
-        InputStream inputStream = proxy.getClass().getResourceAsStream("/config/apiConfig.properties");
+        InputStream inputStream = ResourceLoader.loadResourceAsStream(proxy);
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
         String nameAndValue = null;
         try {
