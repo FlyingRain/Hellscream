@@ -5,6 +5,7 @@ import com.flyingrain.translate.framework.api.param.MyResult;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.util.List;
 
 /**
  * Created by wally on 4/1/17.
@@ -20,5 +21,5 @@ public interface TestResource {
 
     @Path("/post")
     @POST
-    MyResult testPost(MyParam a);
+    List<MyResult> testPost(MyParam a);
 }

@@ -1,6 +1,7 @@
 package com.flyingrain.translate.plan.service.services.impl;
 
 import com.flyingrain.translate.framework.lang.FlyException;
+import com.flyingrain.translate.framework.lang.utils.DateUtil;
 import com.flyingrain.translate.plan.api.request.PlanRequest;
 import com.flyingrain.translate.plan.api.response.Plan;
 import com.flyingrain.translate.plan.service.common.PlanExceptionCode;
@@ -45,7 +46,7 @@ public class PlanServiceImpl implements PlanService {
         Book book = bookQuery.getBook(planRequest.getBookId());
         planModel.setAll_word_number(book.getWordNumber());
         planModel.setBook_id(planRequest.getBookId());
-        planModel.setDeadline(planRequest.getDeadline());
+        planModel.setDeadline(DateUtil.formatDateDefault(planRequest.getDeadline()));
         planModel.setWord_number(planRequest.getNumber());
         planModel.setUser_id(planRequest.getUserId());
         planModel.setPlan_type(planRequest.getPlanType());
@@ -100,7 +101,7 @@ public class PlanServiceImpl implements PlanService {
         Book book = bookQuery.getBook(planRequest.getBookId());
         planModel.setAll_word_number(changeBook ? book.getWordNumber() : oldPlan.getAll_word_number());
         planModel.setComplete_number(changeBook ? 0 : oldPlan.getComplete_number());
-        planModel.setDeadline(planRequest.getDeadline());
+        planModel.setDeadline(DateUtil.formatDateDefault(planRequest.getDeadline()));
         planModel.setWord_number(planRequest.getNumber());
         planModel.setPlan_type(planRequest.getPlanType());
         planModel.setStatus(PlanStatus.UNDERWAY.status);

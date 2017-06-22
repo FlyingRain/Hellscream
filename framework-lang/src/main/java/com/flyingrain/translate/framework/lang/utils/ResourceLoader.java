@@ -16,40 +16,42 @@ import java.util.Enumeration;
  */
 public class ResourceLoader {
 
-    private static final String LOADPATH="config/apiConfig.properties";
+    private static final String LOADPATH = "config/apiConfig.properties";
 
     private static Logger logger = LoggerFactory.getLogger(ResourceLoader.class);
+
     /**
      * 获取jar包中的配置文件
+     *
      * @param classType
      * @return
      */
-    public static InputStream loadResourceAsStream(Class<?> classType){
+    public static InputStream loadResourceAsStream(Class<?> classType) {
         String classPath = classType.getResource("").getPath();
-        String jarPath = classPath.substring(0,classPath.indexOf("jar"));
+        String jarPath = classPath.contains("jar")?classPath.substring(0, classPath.indexOf("jar")):"";
         Enumeration<URL> urlEnumeration;
         try {
-           urlEnumeration =  classType.getClassLoader().getResources(LOADPATH);
+            urlEnumeration = classType.getClassLoader().getResources(LOADPATH);
         } catch (IOException e) {
-            logger.error("get resource urls failed!",e);
-            throw new FlyException(FrameworkExceptionCode.SYSERROR.getCode(),FrameworkExceptionCode.SYSERROR.getMsg());
+            logger.error("get resource urls failed!", e);
+            throw new FlyException(FrameworkExceptionCode.SYSERROR.getCode(), FrameworkExceptionCode.SYSERROR.getMsg());
         }
-        while(urlEnumeration.hasMoreElements()){
+        while (urlEnumeration.hasMoreElements()) {
             URL url = urlEnumeration.nextElement();
             String resourcePath = url.getPath();
-            String resourceJarPath = resourcePath.substring(0,resourcePath.indexOf("jar"));
+            String resourceJarPath = resourcePath.contains("jar")?resourcePath.substring(0, resourcePath.indexOf("jar")):"";
             //同一个jar包中,则返回配置文件流
-            if(jarPath.equals(resourceJarPath)){
+            if (jarPath.equals(resourceJarPath)) {
                 try {
                     return url.openConnection().getInputStream();
                 } catch (IOException e) {
-                    logger.error("open url failed ! url:[{}]",url.getPath());
-                    logger.error("exception is ",e);
-                    throw new FlyException(FrameworkExceptionCode.SYSERROR.getCode(),FrameworkExceptionCode.SYSERROR.getMsg());
+                    logger.error("open url failed ! url:[{}]", url.getPath());
+                    logger.error("exception is ", e);
+                    throw new FlyException(FrameworkExceptionCode.SYSERROR.getCode(), FrameworkExceptionCode.SYSERROR.getMsg());
                 }
             }
         }
-        logger.info("no resource found![{}]",classType.getName());
+        logger.info("no resource found![{}]", classType.getName());
         return null;
 
     }

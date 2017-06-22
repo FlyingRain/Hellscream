@@ -135,7 +135,7 @@ public class TaskGeneratorImpl implements TaskGenerator {
         BookWords bookWords = new BookWords();
         bookWords.setWordIds(transferToInteger(wordIdList));
         bookWords.setBookType(plan.getBookId());
-        if (PlanType.BYNUMBER.getType()==(plan.getPlanStatus())) {
+        if (PlanType.BYNUMBER.getType()==(plan.getPlanType())) {
             bookWords.setNumber(plan.getNumber());
         }else if(PlanType.BYDEADLINE.getType()==plan.getPlanType()){
             bookWords.setNumber(calculator.calculateDayWordNumber(plan,userWordRelationMapper.getPlanWords(plan.getUserId(),plan.getId())));

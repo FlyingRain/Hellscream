@@ -2,8 +2,6 @@ package com.flyingrain.translate.plan.api.request;
 
 import org.hibernate.validator.constraints.NotBlank;
 
-import java.util.Date;
-
 /**
  * 新建计划
  * Created by wally on 4/25/17.
@@ -28,7 +26,7 @@ public class PlanRequest {
     /**
      * 截止日期
      */
-    private Date deadline;
+    private String deadline;
     /**
      * 每日单词数量
      */
@@ -57,11 +55,11 @@ public class PlanRequest {
         this.planType = planType;
     }
 
-    public Date getDeadline() {
+    public String getDeadline() {
         return deadline;
     }
 
-    public void setDeadline(Date deadline) {
+    public void setDeadline(String deadline) {
         this.deadline = deadline;
     }
 

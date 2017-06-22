@@ -1,7 +1,6 @@
 package com.flyingrain.translate.framework.wrapper.handler.impl;
 
 import com.flyingrain.translate.framework.lang.common.Result;
-import com.flyingrain.translate.framework.lang.utils.ObjectUtil;
 import com.flyingrain.translate.framework.wrapper.handler.Handler;
 import com.flyingrain.translate.framework.wrapper.handler.Request;
 import org.apache.commons.lang3.ArrayUtils;
@@ -20,8 +19,6 @@ import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.Response;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 /**
  * 处理get方法
@@ -34,7 +31,10 @@ public class GetHandler implements Handler {
 
     @Autowired
     @Qualifier("jerseyClient")
-    Client client;
+    private Client client;
+
+    @Autowired
+    private ResultResolver resultResolver;
 
     @Override
     public <T> T doHandle(Request request, Class<T> returnType) {
@@ -45,11 +45,7 @@ public class GetHandler implements Handler {
         Response response = target.request().get();
         Result result = response.readEntity(new GenericType<Result>(){});
         logger.info("get response {[]}",result);
-        if(result.getRealResult()!=null && result.getRealResult() instanceof LinkedHashMap){
-            logger.info("get response from server:[{}]",result.getRealResult());
-            return ObjectUtil.mapToObject((Map<String, Object>) result.getRealResult(),returnType);
-        }
-        return (T) result.getRealResult();
+        return (T) resultResolver.resolve(result.getRealResult(),request.getMethod());
 
     }
 

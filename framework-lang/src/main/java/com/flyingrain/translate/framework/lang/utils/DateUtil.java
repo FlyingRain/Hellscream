@@ -1,12 +1,51 @@
 package com.flyingrain.translate.framework.lang.utils;
 
+import com.flyingrain.translate.framework.lang.FlyException;
+import com.flyingrain.translate.framework.lang.common.FrameworkExceptionCode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
 /**
+ * 日期工具
  * Created by wally on 5/11/17.
  */
 public class DateUtil {
+
+    private static Logger logger = LoggerFactory.getLogger(DateUtil.class);
+
+    private static SimpleDateFormat defaultFormat = new SimpleDateFormat("yyyy/MM/dd");
+
+    /**
+     * 默认格式化：yyyy/MM/dd
+     * @param date
+     * @return
+     */
+    public static Date formatDateDefault(String date){
+        try {
+            return defaultFormat.parse(date);
+        } catch (ParseException e) {
+            logger.error("date format exception ",e);
+            throw new FlyException(FrameworkExceptionCode.DATEFORMATERROR.getCode(),FrameworkExceptionCode.DATEFORMATERROR.getMsg());
+        }
+    }
+
+    public static Date formatDate(String date,String dateFormat){
+        SimpleDateFormat format = new SimpleDateFormat(dateFormat);
+        try {
+            return format.parse(date);
+        } catch (ParseException e) {
+            logger.error("format date exception!",e);
+            throw  new FlyException(FrameworkExceptionCode.DATEFORMATERROR.getCode(),FrameworkExceptionCode.DATEFORMATERROR.getMsg());
+
+        }
+    }
+
+
     /**
      * 对日期进行以天为单位的操作
      * @param date

@@ -26,18 +26,20 @@ public class TestResourceImpl implements TestResourceProxy {
     private TestResource resource;
 
     @Override
-    public MyResult testProxy() {
-        return resource.testPost(new MyParam("asd", "asffasd"));
+    public List<MyResult> testProxy() {
+        return resource.testPost(new MyParam());
     }
 
     @Override
-    public MyResult testWebTarget(MyParam a) {
+    public List<MyResult> testWebTarget(MyParam a) {
         List<String> ll = new ArrayList<>();
         ll.add("adfa");
+        List<MyResult> results = new ArrayList<>();
         MyResult myResult = new MyResult();
         myResult.setA("result");
         myResult.setIds(ll);
-        return myResult;
+        results.add(myResult);
+        return results;
     }
 
     @Override

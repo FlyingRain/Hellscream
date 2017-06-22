@@ -5,7 +5,6 @@ import com.flyingrain.translate.plan.api.response.Task;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import java.util.Date;
 
 /**
  * Created by wally on 5/4/17.
@@ -23,7 +22,7 @@ public interface TaskResource {
      */
     @GET
     @Path("/getTask")
-    Task getUserPlanTask(@QueryParam("planId")Integer planId, @QueryParam("userId")Integer userId, @QueryParam("planDate")Date planDate);
+    Task getUserPlanTask(@QueryParam("planId")Integer planId, @QueryParam("userId")Integer userId, @QueryParam("planDate")String planDate);
 
 
     /**

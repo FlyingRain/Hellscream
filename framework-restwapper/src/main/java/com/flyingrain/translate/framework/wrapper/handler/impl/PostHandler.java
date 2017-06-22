@@ -1,7 +1,6 @@
 package com.flyingrain.translate.framework.wrapper.handler.impl;
 
 import com.flyingrain.translate.framework.lang.common.Result;
-import com.flyingrain.translate.framework.lang.utils.ObjectUtil;
 import com.flyingrain.translate.framework.wrapper.handler.Handler;
 import com.flyingrain.translate.framework.wrapper.handler.Request;
 import org.slf4j.Logger;
@@ -17,8 +16,6 @@ import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.lang.reflect.Method;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 /**
  * post请求
@@ -33,6 +30,9 @@ public class PostHandler implements Handler {
     @Qualifier("jerseyClient")
     private Client client;
 
+    @Autowired
+    private ResultResolver resultResolver;
+
     /**
      * 构建Post请求
      *
@@ -45,6 +45,7 @@ public class PostHandler implements Handler {
     public <T> T doHandle(Request request, Class<T> returnType) {
         Method method = request.getMethod();
         String url = request.getUrl();
+        //url="http://localhost:8099/translate/test/webtarget";
         WebTarget webTarget = client.target(url);
         Object params[] = request.getParams();
         Class[] types = method.getParameterTypes();
@@ -55,11 +56,8 @@ public class PostHandler implements Handler {
         logger.info("start to send Post request :[{}]", params[0]);
         Response response = webTarget.request().buildPost(Entity.entity(params[0], MediaType.APPLICATION_JSON)).invoke();
         //jersey处理genericType的方法
-        Result result = response.readEntity(new GenericType<Result>(){});
-        if(result.getRealResult()!=null && result.getRealResult() instanceof LinkedHashMap){
-            logger.info("get response from server:[{}]",result.getRealResult());
-            return ObjectUtil.mapToObject((Map<String, Object>) result.getRealResult(),returnType);
-        }
-        return (T) result.getRealResult();
+        Result result = response.readEntity(new GenericType<Result>() {
+        });
+        return (T) resultResolver.resolve(result.getRealResult(),method);
     }
 }

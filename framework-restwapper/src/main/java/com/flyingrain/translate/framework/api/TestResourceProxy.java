@@ -6,6 +6,7 @@ import com.flyingrain.translate.framework.api.param.MyResult;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by wally on 6/10/17.
@@ -17,11 +18,11 @@ public interface TestResourceProxy {
 
     @GET
     @Path("/resource/proxy")
-    MyResult testProxy();
+    List<MyResult> testProxy();
 
     @POST
     @Path("/webtarget")
-    MyResult testWebTarget(MyParam a);
+    List<MyResult> testWebTarget(MyParam a);
 
     @GET
     @Path("/common")
