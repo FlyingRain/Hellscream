@@ -32,12 +32,13 @@ public class FileTaskCache implements TaskCache {
     @Value("${plan.savePath}")
     private String rootPath;
 
-    private ConcurrentLinkedHashMap<Integer, String> filePathCache = new ConcurrentLinkedHashMap.Builder<Integer,String>().weigher(Weighers.singleton()).maximumWeightedCapacity(1000).build();
+    private ConcurrentLinkedHashMap<Integer, String> filePathCache = new ConcurrentLinkedHashMap.Builder<Integer, String>().weigher(Weighers.singleton()).maximumWeightedCapacity(1000).build();
 
     private ObjectMapper objectMapper = new ObjectMapper();
 
     /**
      * 从缓存中查找文件
+     *
      * @param dayPlan
      * @return
      */
@@ -47,21 +48,22 @@ public class FileTaskCache implements TaskCache {
         if (StringUtils.isEmpty(filePath)) {
             filePath = getFilePath(dayPlan);
         }
-        if(FileUtil.isExit(filePath)){
+        if (FileUtil.isExit(filePath)) {
             String taskString = FileUtil.readFile(filePath);
             try {
-                return objectMapper.readValue(taskString,Task.class);
+                return objectMapper.readValue(taskString, Task.class);
             } catch (IOException e) {
-                logger.error("deserialize task failed! content is :[{}]",taskString);
-                logger.error("IOException ",e);
+                logger.error("deserialize task failed! content is :[{}]", taskString);
+                logger.error("IOException ", e);
             }
         }
-        logger.info("file not exits![{}]",filePath);
+        logger.info("file not exits![{}]", filePath);
         return null;
     }
 
     /**
      * 添加任务到缓存中
+     *
      * @param task
      * @param dayPlan
      */
@@ -69,12 +71,13 @@ public class FileTaskCache implements TaskCache {
     public void cacheTask(Task task, DayPlan dayPlan) {
         String filePath = getFilePath(dayPlan);
         String path = filePathCache.putIfAbsent(dayPlan.getId(), filePath);
+        String fileName = dayPlan.getUser_id() + ".txt";
         if (path != null) {
             logger.error("there has been a task int the cache [{}]", dayPlan);
             return;
         }
         String taskString = taskToString(task);
-        FileUtil.saveFile(filePath, taskString);
+        FileUtil.saveFile(filePath, fileName, taskString);
     }
 
     private String taskToString(Task task) {
@@ -94,10 +97,9 @@ public class FileTaskCache implements TaskCache {
 
 
     private String getFilePath(DayPlan dayPlan) {
-        String userHome = System.getProperty("user.home");
         SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
         Date taskDate = dayPlan.getPlan_date();
-        Path path = Paths.get(rootPath, "plan", "task", format.format(taskDate), dayPlan.getUser_id() + ".txt");
+        Path path = Paths.get(rootPath, "plan", "task", format.format(taskDate));
         return path.toAbsolutePath().toString();
 
     }
