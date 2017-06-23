@@ -46,7 +46,7 @@ public class FileTaskCache implements TaskCache {
     public Task getTask(DayPlan dayPlan) {
         String filePath = filePathCache.get(dayPlan.getId());
         if (StringUtils.isEmpty(filePath)) {
-            filePath = getFilePath(dayPlan);
+            filePath = getFile(dayPlan);
         }
         if (FileUtil.isExit(filePath)) {
             String taskString = FileUtil.readFile(filePath);
@@ -69,7 +69,7 @@ public class FileTaskCache implements TaskCache {
      */
     @Override
     public void cacheTask(Task task, DayPlan dayPlan) {
-        String filePath = getFilePath(dayPlan);
+        String filePath = getFile(dayPlan);
         String path = filePathCache.putIfAbsent(dayPlan.getId(), filePath);
         String fileName = dayPlan.getUser_id() + ".txt";
         if (path != null) {
@@ -102,5 +102,12 @@ public class FileTaskCache implements TaskCache {
         Path path = Paths.get(rootPath, "plan", "task", format.format(taskDate));
         return path.toAbsolutePath().toString();
 
+    }
+
+    private String getFile(DayPlan dayPlan){
+        String path = getFilePath(dayPlan);
+        String fileName = dayPlan.getUser_id() + ".txt";
+        Path path1 = Paths.get(path,fileName);
+        return path1.toAbsolutePath().toString();
     }
 }

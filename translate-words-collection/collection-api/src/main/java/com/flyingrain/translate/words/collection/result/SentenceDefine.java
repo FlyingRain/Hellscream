@@ -1,5 +1,7 @@
 package com.flyingrain.translate.words.collection.result;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.List;
 
 /**
@@ -64,7 +66,7 @@ public class SentenceDefine {
             this.unlike = unlike;
         }
     }
-
+    @JsonIgnore
     public Mysentence getMySentenceInstance(){
         return new Mysentence();
     }

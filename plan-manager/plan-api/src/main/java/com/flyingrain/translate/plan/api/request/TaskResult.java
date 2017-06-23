@@ -2,7 +2,6 @@ package com.flyingrain.translate.plan.api.request;
 
 import org.hibernate.validator.constraints.NotBlank;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -18,7 +17,7 @@ public class TaskResult {
     @NotBlank
     private int status;
 
-    private Date completeDate;
+    private String completeDate;
 
     private List<WordReciteResult> wordReciteResults;
 
@@ -46,11 +45,11 @@ public class TaskResult {
         this.status = status;
     }
 
-    public Date getCompleteDate() {
+    public String getCompleteDate() {
         return completeDate;
     }
 
-    public void setCompleteDate(Date completeDate) {
+    public void setCompleteDate(String completeDate) {
         this.completeDate = completeDate;
     }
 

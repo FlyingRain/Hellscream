@@ -1,6 +1,5 @@
 package com.flyingrain.translate.words.collection.api;
 
-import com.flyingrain.translate.words.collection.result.Result;
 import com.flyingrain.translate.words.collection.result.SentenceDefine;
 import com.flyingrain.translate.words.collection.result.WordResult;
 

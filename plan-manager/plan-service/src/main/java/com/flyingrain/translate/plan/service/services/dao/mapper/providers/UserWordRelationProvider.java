@@ -26,8 +26,8 @@ public class UserWordRelationProvider {
         List<UserWordRelation> userWordRelations = (List<UserWordRelation>) param.get("userWordRelations");
         StringBuilder sqlBuilder = new StringBuilder("insert into user_word_relation (user_id,plan_id,word_id,proficiency) values ");
 
-        MessageFormat messageFormat = new MessageFormat("#{userWordRelations[{0}].user_id},#{userWordRelations[{0}].plan_id},#{userWordRelations[{0}].word_id}" +
-                ",#{userWordRelations[{0}].proficiency}");
+        MessageFormat messageFormat = new MessageFormat("#'{'userWordRelations[{0}].user_id},#'{'userWordRelations[{0}].plan_id},#'{'userWordRelations[{0}].word_id}" +
+                ",#'{'userWordRelations[{0}].proficiency}");
 
         for (int i = 0; i < userWordRelations.size(); i++) {
             String format = messageFormat.format(new Object[]{i});
@@ -36,7 +36,7 @@ public class UserWordRelationProvider {
                 sqlBuilder.append(",");
             }
         }
-        sqlBuilder.append(" on duplicate key set proficiency=values(proficiency) ");
+        sqlBuilder.append(" on duplicate key update proficiency=values(proficiency) ");
         String sql = sqlBuilder.toString();
         logger.info("get sql : [{}]",sql);
         return sql;

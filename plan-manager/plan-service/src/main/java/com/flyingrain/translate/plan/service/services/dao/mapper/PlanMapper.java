@@ -46,7 +46,7 @@ public interface PlanMapper {
      * @param taskId
      * @return
      */
-    @Select("select id,user_id,complete_number,plan_type,all_word_number,end_date,deadline,word_number,book_id,status from plan p join recite_day_plan rp in p.id=rp.plan_id where rp.id=#{taskId}")
+    @Select("select p.id,p.user_id,p.complete_number,p.plan_type,p.all_word_number,p.end_date,p.deadline,p.word_number,p.book_id,p.status from plan p join recite_day_plan rp on p.id=rp.plan_id where rp.id=#{taskId}")
     PlanModel getPlanByTaskId(@Param("taskId") int taskId);
 
     /**
