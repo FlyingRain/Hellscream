@@ -6,6 +6,7 @@ package com.flyingrain.translate.framework.lang.common;
 public enum FrameworkExceptionCode {
     SYSERROR("F9999","框架内部错误"),
     DATEFORMATERROR("F1001","日期格式错误"),
+    NOTSUPPORT("F1002","不支持的数据格式"),
     ;
 
     private String code;

@@ -24,6 +24,13 @@ public interface BookService {
     Book getBookByType(int type);
 
     /**
+     * 根据书本名称获取书本信息
+     * @param bookName
+     * @return
+     */
+    List<Book> getBookByName(String bookName);
+
+    /**
      * 获取除了列表以外的指定书本的指定单词个数
      * @param type 书本类型
      * @param wordIds 排除的单词ID

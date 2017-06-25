@@ -2,6 +2,7 @@ package com.flyingrain.translate.framework.lang.utils;
 
 import com.flyingrain.translate.framework.lang.FlyException;
 import com.flyingrain.translate.framework.lang.common.FrameworkExceptionCode;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,6 +27,10 @@ public class DateUtil {
      * @return
      */
     public static Date formatDateDefault(String date){
+        if(StringUtils.isEmpty(date)){
+            logger.info("format date is null!");
+            return null;
+        }
         try {
             return defaultFormat.parse(date);
         } catch (ParseException e) {
@@ -35,6 +40,10 @@ public class DateUtil {
     }
 
     public static Date formatDate(String date,String dateFormat){
+        if(StringUtils.isEmpty(date)){
+            logger.info("format date is null!");
+            return null;
+        }
         SimpleDateFormat format = new SimpleDateFormat(dateFormat);
         try {
             return format.parse(date);

@@ -16,4 +16,7 @@ public interface WordTypeMapper {
     @Select("select id,type_name,type_code from word_types where type_code=#{type}")
     WordType getWordType(int type);
 
+    @Select("select id,type_name,type_code from word_types where type_name like CONCAT('%',#{name},'%')")
+    List<WordType> getWordTypesByName(String name);
+
     }

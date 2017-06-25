@@ -31,7 +31,6 @@ public class TaskResourceImpl implements TaskResource {
 
     @Override
     public Task getUserPlanTask(Integer planId, Integer userId, String planDate) {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
         Date date = new Date();
         if(StringUtils.isNotEmpty(planDate)){
             date = DateUtil.formatDateDefault(planDate);

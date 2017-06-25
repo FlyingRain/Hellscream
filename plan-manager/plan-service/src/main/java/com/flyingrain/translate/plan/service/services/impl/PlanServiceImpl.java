@@ -54,7 +54,8 @@ public class PlanServiceImpl implements PlanService {
         logger.info("start to save plan [{}]", planModel);
         int planId;
         try {
-            planId = planMapper.insertPlan(planModel);
+            planMapper.insertPlan(planModel);
+            planId = planModel.getId();
         } catch (Exception e) {
             logger.error("insert plan error!", e);
             throw new FlyException(PlanExceptionCode.MAKE_PLAN_FALURE.getCode(), PlanExceptionCode.MAKE_PLAN_FALURE.getMsg());

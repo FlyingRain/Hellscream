@@ -28,7 +28,7 @@ public class ResourceLoader {
      */
     public static InputStream loadResourceAsStream(Class<?> classType) {
         String classPath = classType.getResource("").getPath();
-        String jarPath = classPath.contains("jar")?classPath.substring(0, classPath.indexOf("jar")):"";
+        String jarPath = classPath.contains("jar")?classPath.substring(0, classPath.lastIndexOf("jar")):"";
         Enumeration<URL> urlEnumeration;
         try {
             urlEnumeration = classType.getClassLoader().getResources(LOADPATH);
@@ -39,7 +39,7 @@ public class ResourceLoader {
         while (urlEnumeration.hasMoreElements()) {
             URL url = urlEnumeration.nextElement();
             String resourcePath = url.getPath();
-            String resourceJarPath = resourcePath.contains("jar")?resourcePath.substring(0, resourcePath.indexOf("jar")):"";
+            String resourceJarPath = resourcePath.contains("jar")?resourcePath.substring(0, resourcePath.lastIndexOf("jar")):"";
             //同一个jar包中,则返回配置文件流
             if (jarPath.equals(resourceJarPath)) {
                 try {

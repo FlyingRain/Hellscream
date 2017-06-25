@@ -49,6 +49,11 @@ public class BookQueryImpl implements BookQuery{
     }
 
     @Override
+    public List<Book> getBooksByName(String bookName) {
+        return bookService.getBookByName(bookName);
+    }
+
+    @Override
     public List<WordResult> getBookWords(BookWords bookWords) {
         List<WordTypeRelations> wordIds = bookService.getWordIds(bookWords.getBookType(),bookWords.getWordIds(),bookWords.getNumber());
         List<WordResult> wordResults = new ArrayList<>();

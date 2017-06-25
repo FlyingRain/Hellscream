@@ -16,6 +16,7 @@ import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by wally on 4/21/17.
@@ -77,6 +78,16 @@ public class BookServiceImpl implements BookService {
         }
         logger.info("return book :[{}]",book);
         return book;
+    }
+
+    @Override
+    public List<Book> getBookByName(String bookName) {
+        if(bookName==null){
+            bookName="";
+        }
+        logger.info("start to search bookName:[{}]",bookName);
+        List<WordType> wordTypes = wordTypeMapper.getWordTypesByName(bookName);
+        return wordTypes.stream().map(wordType -> getBookByType(wordType.getType_code())).collect(Collectors.toList());
     }
 
     @Override

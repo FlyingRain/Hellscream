@@ -24,6 +24,15 @@ public interface BookQuery {
     @Path("/query/book")
     Book getBook(@QueryParam("bookType") int type);
 
+    /**
+     * 根据名称模糊查询
+     * @param bookName
+     * @return
+     */
+    @GET
+    @Path("/query/bookByName")
+    List<Book> getBooksByName(@QueryParam("bookName") String bookName);
+
     @POST
     @Path("/query/bookWords")
     List<WordResult> getBookWords(BookWords bookWords);
