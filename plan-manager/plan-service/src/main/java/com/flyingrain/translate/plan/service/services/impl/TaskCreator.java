@@ -1,5 +1,6 @@
 package com.flyingrain.translate.plan.service.services.impl;
 
+import com.flyingrain.translate.plan.api.response.Sentence;
 import com.flyingrain.translate.plan.api.response.Task;
 import com.flyingrain.translate.plan.api.response.Word;
 import com.flyingrain.translate.words.collection.result.WordResult;
@@ -50,6 +51,9 @@ public class TaskCreator {
     private Word transferSingle(WordResult result) {
         Word word = new Word();
         BeanUtils.copyProperties(result, word);
+        Sentence sentence = new Sentence();
+        BeanUtils.copyProperties(result.getSamples(),sentence);
+        word.setSamples(sentence);
         return word;
     }
 }

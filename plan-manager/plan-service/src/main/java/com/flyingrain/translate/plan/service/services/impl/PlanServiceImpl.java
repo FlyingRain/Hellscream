@@ -58,7 +58,7 @@ public class PlanServiceImpl implements PlanService {
             planId = planModel.getId();
         } catch (Exception e) {
             logger.error("insert plan error!", e);
-            throw new FlyException(PlanExceptionCode.MAKE_PLAN_FALURE.getCode(), PlanExceptionCode.MAKE_PLAN_FALURE.getMsg());
+            throw new FlyException(PlanExceptionCode.MAKE_PLAN_FAILURE.getCode(), PlanExceptionCode.MAKE_PLAN_FAILURE.getMsg());
         }
         List<PlanModel> plans = planMapper.getUserPlanByStatus(planRequest.getUserId(), PlanStatus.UNDERWAY.status);
         if (CollectionUtils.isEmpty(plans) || plans.size() > 1) {

@@ -10,10 +10,27 @@ public class TestList {
 
     private List<TestModel> models;
 
+    private List<String> string;
+
     public TestList(String id, TestModel model, List<TestModel> models) {
         this.id = id;
         this.model = model;
         this.models = models;
+    }
+
+    public TestList(String id, TestModel model, List<TestModel> models, List<String> string) {
+        this.id = id;
+        this.model = model;
+        this.models = models;
+        this.string = string;
+    }
+
+    public List<String> getString() {
+        return string;
+    }
+
+    public void setString(List<String> string) {
+        this.string = string;
     }
 
     public TestList() {

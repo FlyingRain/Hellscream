@@ -22,7 +22,7 @@ public class Word {
 
     private List<String> adv;
 
-    private List<String> simple;
+    private Sentence samples;
 
     private String ukPronunciation;
 
@@ -34,16 +34,17 @@ public class Word {
 
     private String defaultAudio;
 
-    public List<String> getSimple() {
-        return simple;
-    }
-
-    public void setSimple(List<String> simple) {
-        this.simple = simple;
-    }
 
     public int getWordId() {
         return wordId;
+    }
+
+    public Sentence getSamples() {
+        return samples;
+    }
+
+    public void setSamples(Sentence samples) {
+        this.samples = samples;
     }
 
     public void setWordId(int wordId) {

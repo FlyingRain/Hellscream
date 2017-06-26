@@ -70,7 +70,8 @@ public class ObjectUtil {
                         } else {
                             throw new FlyException(FrameworkExceptionCode.NOTSUPPORT.getCode(), FrameworkExceptionCode.NOTSUPPORT.getMsg());
                         }
-                        ((Collection) value).stream().map(v -> mapToObject((Map<String, Object>) v, genericType)).forEach(realValue::add);
+                        ((Collection) value).stream().filter(v-> v instanceof Map).map(v -> mapToObject((Map<String, Object>) v, genericType)).forEach(realValue::add);
+                        ((Collection) value).stream().filter(v-> !(v instanceof Map)).forEach(realValue::add);
                         value = realValue;
                     }
                 }

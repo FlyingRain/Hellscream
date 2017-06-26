@@ -25,9 +25,13 @@ public class ObjectUtilTest {
         testModel2.put("name","testModel3");
         models.add(testModel1);
         models.add(testModel2);
+        List strings = new ArrayList();
+        strings.add("testString");
+        strings.add("testStrings1");
         map.put("id","1");
         map.put("model",testModel);
         map.put("models",models);
+        map.put("string",strings);
     }
 
 

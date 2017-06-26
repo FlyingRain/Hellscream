@@ -15,7 +15,7 @@ public class SentenceDefine {
 
     private List<Mysentence> mysentences;
 
-    public class Mysentence{
+    public static class Mysentence{
         private String first;
 
         private String last;

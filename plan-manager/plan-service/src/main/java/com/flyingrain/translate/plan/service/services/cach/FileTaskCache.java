@@ -69,8 +69,8 @@ public class FileTaskCache implements TaskCache {
      */
     @Override
     public void cacheTask(Task task, DayPlan dayPlan) {
-        String filePath = getFile(dayPlan);
-        String path = filePathCache.putIfAbsent(dayPlan.getId(), filePath);
+        String filePath = getFilePath(dayPlan);
+        String path = filePathCache.putIfAbsent(dayPlan.getId(), getFile(dayPlan));
         String fileName = dayPlan.getUser_id() + ".txt";
         if (path != null) {
             logger.error("there has been a task int the cache [{}]", dayPlan);
