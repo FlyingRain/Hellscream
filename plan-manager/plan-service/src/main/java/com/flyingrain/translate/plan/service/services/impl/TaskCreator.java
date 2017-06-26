@@ -35,7 +35,7 @@ public class TaskCreator {
         task.setWordNumber(newWordResults.size() + oldWordReults.size());
         task.setNewWords(transfer(newWordResults));
         task.setOldWords(transfer(oldWordReults));
-        logger.info("get task! :[{}]",task);
+        logger.info("get task! :[{}]", task);
         return task;
     }
 
@@ -51,9 +51,11 @@ public class TaskCreator {
     private Word transferSingle(WordResult result) {
         Word word = new Word();
         BeanUtils.copyProperties(result, word);
-        Sentence sentence = new Sentence();
-        BeanUtils.copyProperties(result.getSamples(),sentence);
-        word.setSamples(sentence);
+        if (result.getSamples() != null) {
+            Sentence sentence = new Sentence();
+            BeanUtils.copyProperties(result.getSamples(), sentence);
+            word.setSamples(sentence);
+        }
         return word;
     }
 }

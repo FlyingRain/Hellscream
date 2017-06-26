@@ -8,6 +8,8 @@ import java.util.List;
  */
 public class Task {
 
+    private int id;
+
     private int wordNumber;
 
     private int newWordNumber;
@@ -48,6 +50,13 @@ public class Task {
         this.oldWords = oldWords;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     @Override
     public String toString() {
