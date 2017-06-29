@@ -24,6 +24,7 @@ public class EncryptTest {
         String encryptMsg2 = EncryptUtil.encryptWithRSA(msg,publicKeyPath,false);
         System.out.println(encryptMsg2);
 
+        encryptMsg2="JPd98q+8T1rYOQ5pcPeHD9XIRbV0OvZ6MHDYzZxWEi/SayxVn5qaFnYrMfqw/1uprmjma+WeYrWxcCw8cZc2AFyGALwl38vgCCLYCeM/O5PK/HINXQMacXv83d1iNcXPIvN/4dH+vUo/Rarg6Lhp7ncRjcKsEzeaQmFmYl3sBjM=";
         String plainMsg = EncryptUtil.decryptMsgWithRSA(encryptMsg,publicKeyPath,false);
         System.out.println(plainMsg);
         String plainMsg2 = EncryptUtil.decryptMsgWithRSA(encryptMsg2,privateKeyPath,true);

@@ -72,7 +72,7 @@ public class EncryptUtil {
             }
             byte[] encryptByteMsg = cipher.doFinal(msg.getBytes("utf-8"));
             String encryptMsg = Base64.getEncoder().encodeToString(encryptByteMsg);
-            logger.info("get encryptMsg:[{}]", encryptByteMsg);
+            logger.info("get encryptMsg:[{}]", encryptMsg);
             return encryptMsg;
         } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | BadPaddingException | UnsupportedEncodingException | IllegalBlockSizeException e) {
             logger.error("encrypt error", e);

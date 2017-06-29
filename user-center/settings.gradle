@@ -1,2 +1,3 @@
 rootProject.name = 'user-center'
+include 'user-api'
 
