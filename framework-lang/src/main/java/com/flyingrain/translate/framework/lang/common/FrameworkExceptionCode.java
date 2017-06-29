@@ -7,6 +7,9 @@ public enum FrameworkExceptionCode {
     SYSERROR("F9999","框架内部错误"),
     DATEFORMATERROR("F1001","日期格式错误"),
     NOTSUPPORT("F1002","不支持的数据格式"),
+    ENCRYPTERROR("F1003","数据加密失败"),
+    DECRYPTERROR("F1004","数据解密失败"),
+    FILENOTFOUND("F1005","系统找不到指定文件"),
     ;
 
     private String code;
