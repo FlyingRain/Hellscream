@@ -90,6 +90,7 @@ public class TaskGeneratorImpl implements TaskGenerator {
         List<Integer> wordIds = Stream.of(newWords, oldWords).flatMap(List::stream).map(WordResult::getWordId).collect(Collectors.toList());
         DayPlan newDayPlan = getNewDayPlan(dayPlan, wordIds, planDate);
         dayPlanMapper.insertDayPlan(newDayPlan);
+        task.setId(newDayPlan.getId());
         //缓存生成的Task
         taskCache.cacheTask(task, newDayPlan);
         return task;
