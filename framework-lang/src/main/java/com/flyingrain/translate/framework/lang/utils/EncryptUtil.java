@@ -38,7 +38,8 @@ public class EncryptUtil {
         try {
             logger.info("start to encrypt msg:[{}]", msg);
             MessageDigest digest = MessageDigest.getInstance("MD5");
-            String enCodeMsg = base64Encoder.encode(digest.digest(msg.getBytes("utf-8")));
+            byte [] encryptByte = digest.digest(msg.getBytes("utf-8"));
+            String enCodeMsg = Base64.getEncoder().encodeToString(encryptByte);
             logger.info("encrypt msg is [{}]", enCodeMsg);
             return enCodeMsg;
         } catch (NoSuchAlgorithmException e) {

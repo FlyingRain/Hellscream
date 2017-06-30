@@ -1,5 +1,8 @@
 package com.flyingrain.translate.user.api;
 
+import com.flyingrain.translate.user.api.request.LoginRequest;
+import com.flyingrain.translate.user.api.response.UserInfo;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -16,6 +19,13 @@ public interface Login {
 
     @Path("/login")
     @POST
+    String login(LoginRequest loginRequest);
+
+    @Path("/userInfo")
+    @POST
+    UserInfo getUserInfo();
+
+
 
 
 }

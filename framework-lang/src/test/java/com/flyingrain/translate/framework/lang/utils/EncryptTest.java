@@ -9,7 +9,7 @@ public class EncryptTest {
 
     @Test
     public void testMD5Encrypt(){
-        String msg = "dfhiasihdioasdiuhpaspidufpoahsdfuhpaspduihasdflkasdjflasdfglgfasdfkgasdlfgasldfghalsfgolas";
+        String msg = "dfhdfghalsfgolas";
         String encryptMsg = EncryptUtil.encryptWithMD5(msg);
         System.out.println(encryptMsg);
     }
