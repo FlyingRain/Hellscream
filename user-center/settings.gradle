@@ -1,3 +1,4 @@
 rootProject.name = 'user-center'
 include 'user-api'
+include 'user-service'
 
