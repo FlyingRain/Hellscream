@@ -58,16 +58,16 @@ public class SynchronizeTaskImpl implements TaskSychronize {
             throw new FlyException(PlanExceptionCode.SYNCHRONIZE_PLAN_FAIL.getCode(), PlanExceptionCode.SYNCHRONIZE_PLAN_FAIL.getMsg());
         }
         int userId = taskResult.getUserId();
-        int taskId = taskResult.getTaskId();
+        int planId = planMapper.getPlanByTaskId(taskResult.getTaskId()).getId();
         //获取熟练度为非陌生的单词
-        List<UserWordRelation> relations = taskResult.getWordReciteResults().stream().filter(wordReciteResult -> wordReciteResult.getProficiency() != WordProficiency.STRANGE.getProficiency()).map(wordReciteResult -> transferReciteResult(wordReciteResult, userId, taskId)).collect(Collectors.toList());
+        List<UserWordRelation> relations = taskResult.getWordReciteResults().stream().filter(wordReciteResult -> wordReciteResult.getProficiency() != WordProficiency.STRANGE.getProficiency()).map(wordReciteResult -> transferReciteResult(wordReciteResult, userId, planId)).collect(Collectors.toList());
         //更新单词
         relationMapper.batchInsertOnDuplicate(relations);
     }
 
-    private UserWordRelation transferReciteResult(WordReciteResult reciteResult, int userId, int taskId) {
+    private UserWordRelation transferReciteResult(WordReciteResult reciteResult, int userId, int planId) {
         UserWordRelation relation = new UserWordRelation();
-        relation.setPlan_id(taskId);
+        relation.setPlan_id(planId);
         relation.setUser_id(userId);
         relation.setWord_id(reciteResult.getWordId());
         relation.setProficiency(reciteResult.getProficiency());

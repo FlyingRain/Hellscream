@@ -9,7 +9,8 @@ public enum PlanExceptionCode {
     MAKE_PLAN_FAILURE("P1001","制定计划失败"),
     MAKE_PLAN_DUPLICATE("P1002","重复制定计划"),
     MODIFY_PLAN_FAILURE("P2001","修改计划失败"),
-    SYNCHRONIZE_PLAN_FAIL("P3001","同步任务失败,任务已同步完成"),
+    SYNCHRONIZE_PLAN_FAIL("P3001","同步任务失败,任务不存在或已同步完成"),
+    PLAN_NOT_EXIT("P1002","查询计划不存在")
     ;
 
     private String code;

@@ -9,6 +9,8 @@ public class MyParam {
 
     private String b;
 
+    private String c;
+
     public MyParam(String a, String b) {
         this.a = a;
         this.b = b;
@@ -29,7 +31,24 @@ public class MyParam {
         return b;
     }
 
+    public String getC() {
+        return c;
+    }
+
+    public void setC(String c) {
+        this.c = c;
+    }
+
     public void setB(String b) {
         this.b = b;
+    }
+
+    @Override
+    public String toString() {
+        return "MyParam{" +
+                "a='" + a + '\'' +
+                ", b='" + b + '\'' +
+                ", c='" + c + '\'' +
+                '}';
     }
 }

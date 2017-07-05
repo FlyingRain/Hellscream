@@ -51,6 +51,15 @@ public interface UserWordRelationMapper {
     UserWordRelation getWordProficiency(@Param("userId")int userId,@Param("planId")int planId,@Param("wordId")int wordId);
 
     /**
+     * 获取用户已经背过的单词
+     * @param userId
+     * @param planId
+     * @return
+     */
+    @Select("select user_id,plan_id,proficiency,word_id from user_word_relation where user_id=#{userId} and plan_id=#{planId}")
+    List<UserWordRelation> getUserPlanWords(@Param("userId")int userId,@Param("planId")int planId);
+
+    /**
      * 根据熟练度获取单词
      * @param userId
      * @param planId

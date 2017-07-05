@@ -17,7 +17,6 @@ import com.flyingrain.translate.words.collection.api.BookQuery;
 import com.flyingrain.translate.words.collection.api.WordQuery;
 import com.flyingrain.translate.words.collection.request.BookWords;
 import com.flyingrain.translate.words.collection.result.WordResult;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +24,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -127,14 +125,13 @@ public class TaskGeneratorImpl implements TaskGenerator {
         }
 
         Plan plan = plans.get(0);
-        String wordIdString = dayPlan.getWord_ids();
-        List<String> wordIdList = new ArrayList<>();
-        if (StringUtils.isNotEmpty(wordIdString)) {
-            String wordIds[] = wordIdString.split(",");
-            wordIdList = Arrays.asList(wordIds);
+        List<UserWordRelation> reciteWords = userWordRelationMapper.getUserPlanWords(dayPlan.getUser_id(),dayPlan.getPlan_id());
+        List<Integer> wordIdList = new ArrayList<>();
+        if (!CollectionUtils.isEmpty(reciteWords)) {
+          wordIdList = reciteWords.stream().map(UserWordRelation::getWord_id).collect(Collectors.toList());
         }
         BookWords bookWords = new BookWords();
-        bookWords.setWordIds(transferToInteger(wordIdList));
+        bookWords.setWordIds(wordIdList);
         bookWords.setBookType(plan.getBookId());
         if (PlanType.BYNUMBER.getType()==(plan.getPlanType())) {
             bookWords.setNumber(plan.getNumber());

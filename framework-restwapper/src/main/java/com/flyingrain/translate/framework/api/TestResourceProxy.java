@@ -18,7 +18,7 @@ public interface TestResourceProxy {
 
     @GET
     @Path("/resource/proxy")
-    List<MyResult> testProxy();
+    List<MyResult> testProxy(@QueryParam("mm")String mm);
 
     @POST
     @Path("/webtarget")

@@ -10,7 +10,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -26,20 +25,15 @@ public class TestResourceImpl implements TestResourceProxy {
     private TestResource resource;
 
     @Override
-    public List<MyResult> testProxy() {
-        return resource.testPost(new MyParam());
+    public List<MyResult> testProxy(String mm) {
+        System.out.println(mm);
+        return null;
     }
 
     @Override
     public List<MyResult> testWebTarget(MyParam a) {
-        List<String> ll = new ArrayList<>();
-        ll.add("adfa");
-        List<MyResult> results = new ArrayList<>();
-        MyResult myResult = new MyResult();
-        myResult.setA("result");
-        myResult.setIds(ll);
-        results.add(myResult);
-        return results;
+        System.out.println(a);
+        return null;
     }
 
     @Override

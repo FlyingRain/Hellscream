@@ -71,8 +71,14 @@ public class PlanServiceImpl implements PlanService {
     @Override
     public List<Plan> queryPlan(Integer planId, int userId) {
         if (planId == null) {
+            if (CollectionUtils.isEmpty(planMapper.getPlans(userId))) {
+                throw new FlyException(PlanExceptionCode.PLAN_NOT_EXIT.getCode(), PlanExceptionCode.PLAN_NOT_EXIT.getMsg());
+            }
             return planMapper.getPlans(userId).stream().map(this::transferPlanModel).collect(Collectors.toList());
         } else {
+            if (planMapper.getPlan(planId) == null) {
+                throw new FlyException(PlanExceptionCode.PLAN_NOT_EXIT.getCode(), PlanExceptionCode.PLAN_NOT_EXIT.getMsg());
+            }
             Plan plan = transferPlanModel(planMapper.getPlan(planId));
             List<Plan> plans = new ArrayList<>();
             plans.add(plan);
