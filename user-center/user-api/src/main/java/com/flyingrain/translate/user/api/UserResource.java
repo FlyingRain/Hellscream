@@ -1,6 +1,7 @@
 package com.flyingrain.translate.user.api;
 
 import com.flyingrain.translate.user.api.request.UserInfo;
+import com.flyingrain.translate.user.api.response.UserInfoResult;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -20,6 +21,6 @@ public interface UserResource {
 
     @Path("/userInfo")
     @POST
-    com.flyingrain.translate.user.api.response.UserInfo getUserInfo(@QueryParam("userId")int userId);
+    UserInfoResult getUserInfo(@QueryParam("userId")int userId);
 
 }

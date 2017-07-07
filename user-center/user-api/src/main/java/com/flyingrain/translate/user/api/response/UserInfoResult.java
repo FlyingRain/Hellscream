@@ -3,7 +3,9 @@ package com.flyingrain.translate.user.api.response;
 /**
  * Created by wally on 6/30/17.
  */
-public class UserInfo {
+public class UserInfoResult {
+
+    private int userId;
 
     private String name;
 
@@ -49,6 +51,14 @@ public class UserInfo {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getEmail() {
