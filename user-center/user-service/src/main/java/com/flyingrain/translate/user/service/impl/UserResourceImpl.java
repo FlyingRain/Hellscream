@@ -1,7 +1,9 @@
 package com.flyingrain.translate.user.service.impl;
 
 import com.flyingrain.translate.user.api.UserResource;
+import com.flyingrain.translate.user.api.request.LoginRequest;
 import com.flyingrain.translate.user.api.request.UserInfo;
+import com.flyingrain.translate.user.api.response.LoginResult;
 import com.flyingrain.translate.user.api.response.UserInfoResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +26,11 @@ public class UserResourceImpl implements UserResource{
 
     @Override
     public UserInfoResult getUserInfo(int userId) {
+        return null;
+    }
+
+    @Override
+    public LoginResult login(LoginRequest loginRequest) {
         return null;
     }
 }

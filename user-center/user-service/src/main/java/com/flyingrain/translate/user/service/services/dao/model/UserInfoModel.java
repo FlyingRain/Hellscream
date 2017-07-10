@@ -21,6 +21,8 @@ public class UserInfoModel {
 
     private int verify_phone;
 
+    private String email;
+
     private int verify_email;
 
     private int age;
@@ -51,6 +53,14 @@ public class UserInfoModel {
 
     public void setGender(int gender) {
         this.gender = gender;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPet_name() {

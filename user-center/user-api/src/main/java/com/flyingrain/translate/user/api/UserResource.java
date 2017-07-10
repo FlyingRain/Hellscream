@@ -1,6 +1,8 @@
 package com.flyingrain.translate.user.api;
 
+import com.flyingrain.translate.user.api.request.LoginRequest;
 import com.flyingrain.translate.user.api.request.UserInfo;
+import com.flyingrain.translate.user.api.response.LoginResult;
 import com.flyingrain.translate.user.api.response.UserInfoResult;
 
 import javax.ws.rs.*;
@@ -22,5 +24,10 @@ public interface UserResource {
     @Path("/userInfo")
     @POST
     UserInfoResult getUserInfo(@QueryParam("userId")int userId);
+
+
+    @Path("/user/login")
+    @POST
+    LoginResult login(LoginRequest loginRequest);
 
 }
