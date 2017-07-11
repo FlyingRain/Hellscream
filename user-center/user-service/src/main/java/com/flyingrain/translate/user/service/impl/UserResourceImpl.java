@@ -6,8 +6,10 @@ import com.flyingrain.translate.user.api.request.LoginRequest;
 import com.flyingrain.translate.user.api.request.UserInfo;
 import com.flyingrain.translate.user.api.response.LoginResult;
 import com.flyingrain.translate.user.api.response.UserInfoResult;
+import com.flyingrain.translate.user.service.services.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -18,6 +20,9 @@ import org.springframework.stereotype.Component;
 public class UserResourceImpl implements UserResource{
 
     private Logger logger = LoggerFactory.getLogger(UserResourceImpl.class);
+
+    @Autowired
+    private UserService userService;
 
     @Override
     public String addUser(UserInfo userInfo) {
@@ -35,4 +40,8 @@ public class UserResourceImpl implements UserResource{
     public LoginResult login(LoginRequest loginRequest) {
         return null;
     }
+
+
+
+
 }

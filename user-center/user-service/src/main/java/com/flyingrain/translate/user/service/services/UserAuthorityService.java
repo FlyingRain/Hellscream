@@ -5,7 +5,7 @@ import com.flyingrain.translate.user.api.request.LoginRequest;
 /**
  * Created by wally on 17-7-10.
  */
-public interface UserAhuthorityService {
+public interface UserAuthorityService {
 
 
     /**

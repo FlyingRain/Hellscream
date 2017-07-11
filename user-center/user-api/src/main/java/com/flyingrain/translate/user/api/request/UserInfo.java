@@ -1,5 +1,7 @@
 package com.flyingrain.translate.user.api.request;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 /**
  * 用户信息
  * Created by wally on 6/30/17.
@@ -7,16 +9,13 @@ package com.flyingrain.translate.user.api.request;
 public class UserInfo {
 
     /**
-     * 签名
-     */
-    private String sign;
-    /**
      * 姓名
      */
     private String name;
     /**
      * 昵称
      */
+    @NotBlank
     private String petName;
     /**
      * 性别1，男2，女
@@ -29,6 +28,7 @@ public class UserInfo {
     /**
      * 密码
      */
+    @NotBlank
     private String password;
     /**
      * 邮箱
@@ -43,13 +43,6 @@ public class UserInfo {
      */
     private String school;
 
-    public String getSign() {
-        return sign;
-    }
-
-    public void setSign(String sign) {
-        this.sign = sign;
-    }
 
     public String getName() {
         return name;
@@ -118,7 +111,6 @@ public class UserInfo {
     @Override
     public String toString() {
         return "UserInfo{" +
-                "sign='" + sign + '\'' +
                 ", name='" + name + '\'' +
                 ", petName='" + petName + '\'' +
                 ", gender=" + gender +
