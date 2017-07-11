@@ -1,5 +1,6 @@
 package com.flyingrain.translate.user.service.impl;
 
+import com.flyingrain.translate.framework.annotaions.Resource;
 import com.flyingrain.translate.user.api.UserResource;
 import com.flyingrain.translate.user.api.request.LoginRequest;
 import com.flyingrain.translate.user.api.request.UserInfo;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Component;
  * Created by wally on 17-7-4.
  */
 @Component
+@Resource
 public class UserResourceImpl implements UserResource{
 
     private Logger logger = LoggerFactory.getLogger(UserResourceImpl.class);
