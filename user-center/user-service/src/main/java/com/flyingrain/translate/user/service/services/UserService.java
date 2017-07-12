@@ -1,6 +1,7 @@
 package com.flyingrain.translate.user.service.services;
 
 import com.flyingrain.translate.user.api.request.UserInfo;
+import com.flyingrain.translate.user.api.response.UserInfoResult;
 
 /**
  * Created by wally on 17-7-10.
@@ -20,6 +21,6 @@ public interface UserService {
      * @param userId
      * @return
      */
-    UserInfo getUserInfoById(int userId);
+    UserInfoResult getUserInfoById(int userId);
 
 }

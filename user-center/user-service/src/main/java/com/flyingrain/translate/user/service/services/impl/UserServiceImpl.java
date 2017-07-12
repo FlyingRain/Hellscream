@@ -1,6 +1,7 @@
 package com.flyingrain.translate.user.service.services.impl;
 
 import com.flyingrain.translate.user.api.request.UserInfo;
+import com.flyingrain.translate.user.api.response.UserInfoResult;
 import com.flyingrain.translate.user.service.services.UserService;
 import org.springframework.stereotype.Component;
 
@@ -15,7 +16,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public UserInfo getUserInfoById(int userId) {
+    public UserInfoResult getUserInfoById(int userId) {
         return null;
     }
 }

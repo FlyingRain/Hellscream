@@ -6,6 +6,7 @@ import com.flyingrain.translate.user.api.request.LoginRequest;
 import com.flyingrain.translate.user.api.request.UserInfo;
 import com.flyingrain.translate.user.api.response.LoginResult;
 import com.flyingrain.translate.user.api.response.UserInfoResult;
+import com.flyingrain.translate.user.service.services.UserAuthorityService;
 import com.flyingrain.translate.user.service.services.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,24 +25,28 @@ public class UserResourceImpl implements UserResource{
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private UserAuthorityService authorityService;
+
     @Override
     public String addUser(UserInfo userInfo) {
-
-
-        return null;
+        logger.info("start to add user,petName is [{}]",userInfo.getPetName());
+        int userId = userService.insertUserInfo(userInfo);
+        logger.info("return userId :[{}]",userId);
+        return String.valueOf(userId);
     }
 
     @Override
     public UserInfoResult getUserInfo(int userId) {
-        return null;
+        logger.info("start to get userInfo by userId:[{}]",userId);
+        return userService.getUserInfoById(userId);
     }
 
     @Override
     public LoginResult login(LoginRequest loginRequest) {
-        return null;
+        logger.info("receive login request : [{}]",loginRequest);
+        return authorityService.userLogin(loginRequest);
     }
-
-
 
 
 }
