@@ -6,7 +6,8 @@ package com.flyingrain.translate.user.service.services.common;
 public enum UserCenterExceptionEnum {
 
     ParamError("U0001","参数错误"),
-    INSERTFAIL("U0002","插入用户失败"),
+    InsertFailure("U0002","插入用户失败"),
+    LoginFailure("U0003","登陆失败，用户名或密码错误"),
     ;
 
     private String code;

@@ -5,13 +5,13 @@ package com.flyingrain.translate.user.api.response;
  */
 public class LoginResult {
 
-    private String userId;
+    private int userId;
 
-    public String getUserId() {
+    public int getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(int userId) {
         this.userId = userId;
     }
 }

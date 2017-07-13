@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserService {
         int i = userInfoMapper.insertUserInfo(model);
         if (i != 1) {
             logger.error("insert failed ! number is [{}]", i);
-            throw new FlyException(UserCenterExceptionEnum.INSERTFAIL.getCode(), UserCenterExceptionEnum.INSERTFAIL.getMsg());
+            throw new FlyException(UserCenterExceptionEnum.InsertFailure.getCode(), UserCenterExceptionEnum.InsertFailure.getMsg());
         }
         UserLoginModel loginModel = new UserLoginModel();
         loginModel.setUser_id(model.getId());
@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService {
         int m = loginMapper.insertUserLogin(loginModel);
         if (m != 1) {
             logger.error("insert password failed! userId:[{}]", model.getId());
-            throw new FlyException(UserCenterExceptionEnum.INSERTFAIL.getCode(), UserCenterExceptionEnum.INSERTFAIL.getMsg());
+            throw new FlyException(UserCenterExceptionEnum.InsertFailure.getCode(), UserCenterExceptionEnum.InsertFailure.getMsg());
         }
         return model.getId();
     }
