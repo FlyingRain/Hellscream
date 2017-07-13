@@ -22,7 +22,7 @@ public interface UserInfoMapper {
      * @return
      */
     @Select("select * from user_info where user_id=#{userId}")
-    UserInfoModel getUserInfoById(String userId);
+    UserInfoModel getUserInfoById(int userId);
 
 
     /**
