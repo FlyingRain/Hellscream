@@ -6,7 +6,7 @@ import java.util.Date;
  * 权限
  * Created by wally on 17-7-13.
  */
-public class Authority {
+public class AuthorityModel {
 
     /**
      * 主键

@@ -10,20 +10,20 @@ Target Server Type    : MYSQL
 Target Server Version : 50718
 File Encoding         : 65001
 
-Date: 2017-07-14 15:34:36
+Date: 2017-07-14 09:58:33
 */
 
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
--- Table structure for user_login
+-- Table structure for role_authority
 -- ----------------------------
-DROP TABLE IF EXISTS `user_login`;
-CREATE TABLE `user_login` (
-  `id` int(11) NOT NULL,
-  `user_id` int(11) DEFAULT NULL,
-  `retry_times` int(2) DEFAULT '0',
-  `password` varchar(255) DEFAULT NULL,
+DROP TABLE IF EXISTS `role_authority`;
+CREATE TABLE `role_authority` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `role_id` int(11) DEFAULT NULL,
+  `authority_id` int(11) DEFAULT NULL,
+  `is_active` tinyint(2) DEFAULT NULL,
   `data_added` datetime(3) DEFAULT CURRENT_TIMESTAMP(3),
   `last_modified` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)

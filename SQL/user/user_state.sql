@@ -1,7 +1,7 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : my
+Source Server         : localhost_3306
 Source Server Version : 50718
 Source Host           : localhost:3306
 Source Database       : userCenter
@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50718
 File Encoding         : 65001
 
-Date: 2017-06-29 18:08:38
+Date: 2017-07-14 09:59:26
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -25,7 +25,7 @@ CREATE TABLE `user_state` (
   `status` int(5) DEFAULT NULL,
   `is_frezze` tinyint(2) DEFAULT NULL,
   `level` int(5) DEFAULT NULL,
-  `data_added` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `data_added` datetime(3) DEFAULT CURRENT_TIMESTAMP(3),
   `last_modified` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

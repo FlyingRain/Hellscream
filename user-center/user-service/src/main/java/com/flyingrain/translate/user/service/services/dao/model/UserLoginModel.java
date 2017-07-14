@@ -13,6 +13,8 @@ public class UserLoginModel {
 
     private String password;
 
+    private int retry_times;
+
     private Date data_added;
 
     private Date last_modified;
@@ -23,6 +25,14 @@ public class UserLoginModel {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getRetry_times() {
+        return retry_times;
+    }
+
+    public void setRetry_times(int retry_times) {
+        this.retry_times = retry_times;
     }
 
     public int getUser_id() {

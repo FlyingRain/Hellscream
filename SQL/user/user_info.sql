@@ -2,15 +2,15 @@
 Navicat MySQL Data Transfer
 
 Source Server         : localhost_3306
-Source Server Version : 50717
+Source Server Version : 50718
 Source Host           : localhost:3306
-Source Database       : user
+Source Database       : userCenter
 
 Target Server Type    : MYSQL
-Target Server Version : 50717
+Target Server Version : 50718
 File Encoding         : 65001
 
-Date: 2017-07-04 23:13:24
+Date: 2017-07-14 09:59:08
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -30,8 +30,10 @@ CREATE TABLE `user_info` (
   `email` varchar(255) DEFAULT NULL,
   `verify_email` tinyint(2) DEFAULT NULL,
   `age` int(3) DEFAULT NULL,
-  `data_added` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `data_added` datetime(3) DEFAULT CURRENT_TIMESTAMP(3),
   `last_modified` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `email_index` (`email`) USING BTREE,
+  UNIQUE KEY `phone_index` (`phone`) USING BTREE,
+  UNIQUE KEY `petName_index` (`pet_name`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-SET FOREIGN_KEY_CHECKS=1;
