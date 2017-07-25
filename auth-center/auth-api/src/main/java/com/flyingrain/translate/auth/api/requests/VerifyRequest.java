@@ -1,9 +1,10 @@
 package com.flyingrain.translate.auth.api.requests;
 
 /**
+ * 验签请求
  * Created by wally on 17-7-20.
  */
-public class LoginRequest {
+public class VerifyRequest {
 
     /**
      * 签名
@@ -13,6 +14,19 @@ public class LoginRequest {
      * 原文
      */
     private String param;
+
+    /**
+     * 服务Id
+     */
+    private String serviceId;
+
+    public String getServiceId() {
+        return serviceId;
+    }
+
+    public void setServiceId(String serviceId) {
+        this.serviceId = serviceId;
+    }
 
     public String getSign() {
         return sign;

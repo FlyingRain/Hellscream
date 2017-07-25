@@ -1,6 +1,6 @@
 package com.flyingrain.translate.auth.api;
 
-import com.flyingrain.translate.auth.api.requests.LoginRequest;
+import com.flyingrain.translate.auth.api.requests.VerifyRequest;
 import com.flyingrain.translate.auth.api.responses.LoginResponse;
 
 import javax.ws.rs.Consumes;
@@ -24,7 +24,10 @@ public interface UserResource {
      */
     @POST
     @Path("/login")
-    LoginResponse login(LoginRequest request);
+    LoginResponse login(VerifyRequest request);
+
+
+
 
 
 
