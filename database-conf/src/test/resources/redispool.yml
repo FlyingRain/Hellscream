@@ -1,0 +1,4 @@
+maxActive: 7
+maxWait: -1
+maxIdle: 7
+minIdle: 0

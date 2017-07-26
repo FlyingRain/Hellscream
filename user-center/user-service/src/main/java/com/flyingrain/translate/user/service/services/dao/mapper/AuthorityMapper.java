@@ -15,4 +15,5 @@ public interface AuthorityMapper {
     int insertAuthority(@Param("authorityModel") AuthorityModel authorityModel);
 
 
+
 }

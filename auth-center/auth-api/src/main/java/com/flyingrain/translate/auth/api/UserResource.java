@@ -2,6 +2,7 @@ package com.flyingrain.translate.auth.api;
 
 import com.flyingrain.translate.auth.api.requests.VerifyRequest;
 import com.flyingrain.translate.auth.api.responses.LoginResponse;
+import com.flyingrain.translate.auth.api.responses.RegisterResponse;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -27,8 +28,14 @@ public interface UserResource {
     LoginResponse login(VerifyRequest request);
 
 
-
-
+    /**
+     * 用户注册
+     * @param request
+     * @return
+     */
+    @POST
+    @Path("/register")
+    RegisterResponse register(VerifyRequest request);
 
 
 

@@ -4,7 +4,7 @@ package com.flyingrain.translate.auth.api.responses;
  * 鉴权结果
  * Created by wally on 17-7-25.
  */
-public class AuthResult {
+public class AuthResponse {
 
     /**
      * 是否有权力访问

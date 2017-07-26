@@ -1,0 +1,13 @@
+spring:
+  redis:
+    password: 123456
+    pool:
+      #最大链接数
+      max-active: 7
+      #链接池中最大空闲链接
+      max-idle: 7
+      #连接池最大阻塞等待时间（负数表示没有限制）
+      max-wait: -1
+      #链接池中最小空闲链接
+      min-idle: 0
+    timeout: 0

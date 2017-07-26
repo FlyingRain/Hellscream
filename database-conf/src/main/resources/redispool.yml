@@ -1,0 +1,6 @@
+redis:
+  pool:
+    maxActive: 8
+    maxWait: -1
+    maxIdle: 8
+    minIdle: 0

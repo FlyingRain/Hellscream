@@ -1,6 +1,13 @@
+spring:
+  redis:
+    password: 123456
+    timeout: 0
+
+
 serverPrefix: /translate
 load:
  yaml:
    - file:myconf.yml
+   - classpath:redispool.yml
 
 

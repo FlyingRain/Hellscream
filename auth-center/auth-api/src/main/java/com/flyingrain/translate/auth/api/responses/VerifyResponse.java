@@ -4,7 +4,7 @@ package com.flyingrain.translate.auth.api.responses;
  * 验签结果
  * Created by wally on 17-7-25.
  */
-public class VerifyResult {
+public class VerifyResponse {
 
 
     private boolean result;
