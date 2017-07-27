@@ -1,4 +1,4 @@
-package com.flyingrain.translate.auth.service.impl;
+package com.flyingrain.translate.auth.service.resourceImpl;
 
 import com.flyingrain.translate.auth.api.UserResource;
 import com.flyingrain.translate.auth.api.requests.VerifyRequest;
