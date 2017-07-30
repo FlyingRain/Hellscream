@@ -1,4 +1,4 @@
-package com.flyingrain.translate.auth.service.services.dao.redis.interfaces;
+package com.flyingrain.translate.auth.service.services.dao.interfaces;
 
 /**
  * 用户相关操作
