@@ -1,8 +1,7 @@
-package com.flyingrain.translate.auth.service.services.dao.redis.impl;
+package com.flyingrain.translate.auth.service.services.dao.impl.redis.impl;
 
 import com.flyingrain.translate.auth.service.services.dao.impl.UserDaoImpl;
-import com.flyingrain.translate.auth.service.services.dao.interfaces.UserDao;
-import com.flyingrain.translate.auth.service.services.dao.redis.intf.RUserDao;
+import com.flyingrain.translate.auth.service.services.dao.impl.redis.intf.RUserDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.core.StringRedisTemplate;

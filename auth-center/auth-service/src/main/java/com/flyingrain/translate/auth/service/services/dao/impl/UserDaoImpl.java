@@ -1,7 +1,7 @@
 package com.flyingrain.translate.auth.service.services.dao.impl;
 
 import com.flyingrain.translate.auth.service.services.dao.interfaces.UserDao;
-import com.flyingrain.translate.auth.service.services.dao.redis.intf.RUserDao;
+import com.flyingrain.translate.auth.service.services.dao.impl.redis.intf.RUserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

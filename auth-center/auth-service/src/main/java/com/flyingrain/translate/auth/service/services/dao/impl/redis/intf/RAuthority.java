@@ -1,4 +1,4 @@
-package com.flyingrain.translate.auth.service.services.dao.redis.intf;
+package com.flyingrain.translate.auth.service.services.dao.impl.redis.intf;
 
 /**
  * redis鉴权缓存

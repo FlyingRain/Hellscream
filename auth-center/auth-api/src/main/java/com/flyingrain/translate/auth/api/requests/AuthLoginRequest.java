@@ -4,7 +4,7 @@ package com.flyingrain.translate.auth.api.requests;
  * 登陆请求
  * Created by wally on 7/26/17.
  */
-public class LoginRequest {
+public class AuthLoginRequest {
 
     private String petName;
 
