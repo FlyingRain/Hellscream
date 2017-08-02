@@ -1,4 +1,4 @@
-package com.flyingrain.translate.auth.service.services.dao.impl.userCenter.intf;
+package com.flyingrain.translate.auth.service.services.userCenter.intf;
 
 import com.flyingrain.translate.user.api.request.LoginRequest;
 

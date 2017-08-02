@@ -4,7 +4,7 @@ package com.flyingrain.translate.auth.api.requests;
  * 注册请求
  * Created by wally on 7/26/17.
  */
-public class RegisterRequest {
+public class AuthRegisterRequest {
 
     /**
      * 真实姓名

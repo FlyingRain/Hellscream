@@ -1,6 +1,6 @@
 package com.flyingrain.translate.auth.service.resourceImpl;
 
-import com.flyingrain.translate.auth.api.UserResource;
+import com.flyingrain.translate.auth.api.UserAuthResource;
 import com.flyingrain.translate.auth.api.requests.VerifyRequest;
 import com.flyingrain.translate.auth.api.responses.LoginResponse;
 import com.flyingrain.translate.auth.api.responses.RegisterResponse;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Resource
-public class UserResourceImpl implements UserResource{
+public class UserAuthResourceImpl implements UserAuthResource {
 
     @Override
     public LoginResponse login(VerifyRequest request) {

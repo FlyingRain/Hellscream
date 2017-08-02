@@ -16,7 +16,7 @@ import javax.ws.rs.core.MediaType;
 @Path("/auth")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public interface UserResource {
+public interface UserAuthResource {
 
     /**
      * 用户登陆
