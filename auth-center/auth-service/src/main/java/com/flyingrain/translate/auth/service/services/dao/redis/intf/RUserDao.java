@@ -19,9 +19,9 @@ public interface RUserDao {
      * @param userId 用户Id
      * @param token token
      * @param expiryTime 时限(单位：天)
-     * @return
+     * @return 结果
      */
-    void insertUserToken(String userId,String token,int expiryTime);
+    boolean insertUserToken(String userId,String token,int expiryTime);
 
 
     /**

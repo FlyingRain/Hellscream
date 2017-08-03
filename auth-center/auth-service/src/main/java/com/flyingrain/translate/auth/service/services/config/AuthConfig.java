@@ -9,11 +9,23 @@ import org.springframework.stereotype.Component;
 @Component
 public class AuthConfig {
 
+    /**
+     * 公钥地址
+     */
     @Value("${auth.pubKey.path}")
     private String pubKeyPath;
 
-    @Value("${auth.salt}")
-    private String salt;
+    /**
+     * 权限缓存失效时间
+     */
+    @Value("${auth.authority.expireMinute}")
+    private int expireMinute;
+
+    /**
+     * 登陆缓存时间
+     */
+    @Value("${auth.login.expireDay}")
+    private int expireDay;
 
     public String getPubKeyPath() {
         return pubKeyPath;
@@ -23,11 +35,20 @@ public class AuthConfig {
         this.pubKeyPath = pubKeyPath;
     }
 
-    public String getSalt() {
-        return salt;
+    public int getExpireMinute() {
+        return expireMinute;
     }
 
-    public void setSalt(String salt) {
-        this.salt = salt;
+
+    public int getExpireDay() {
+        return expireDay;
+    }
+
+    public void setExpireDay(int expireDay) {
+        this.expireDay = expireDay;
+    }
+
+    public void setExpireMinute(int expireMinute) {
+        this.expireMinute = expireMinute;
     }
 }

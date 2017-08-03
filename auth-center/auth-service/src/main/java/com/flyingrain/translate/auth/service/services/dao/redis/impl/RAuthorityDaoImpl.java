@@ -1,6 +1,6 @@
 package com.flyingrain.translate.auth.service.services.dao.redis.impl;
 
-import com.flyingrain.translate.auth.service.services.dao.redis.intf.RAuthority;
+import com.flyingrain.translate.auth.service.services.dao.redis.intf.RAuthorityDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +15,9 @@ import java.util.concurrent.TimeUnit;
  * Created by wally on 17-8-2.
  */
 @Component
-public class RAuthorityImpl implements RAuthority {
+public class RAuthorityDaoImpl implements RAuthorityDao {
 
-    private Logger logger = LoggerFactory.getLogger(RAuthorityImpl.class);
+    private Logger logger = LoggerFactory.getLogger(RAuthorityDaoImpl.class);
 
     @Resource(name = "redisTemplate")
     private SetOperations<String, String> setOperations;

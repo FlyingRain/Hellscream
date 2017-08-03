@@ -4,7 +4,7 @@ package com.flyingrain.translate.user.api.request;
  * 鉴权请求
  * Created by wally on 17-7-10.
  */
-public class AuthRequest {
+public class UserAuthRequest {
 
     /**
      * 用户Id

@@ -1,7 +1,7 @@
 package com.flyingrain.translate.user.service.services.impl;
 
 import com.flyingrain.translate.framework.lang.FlyException;
-import com.flyingrain.translate.user.api.request.AuthRequest;
+import com.flyingrain.translate.user.api.request.UserAuthRequest;
 import com.flyingrain.translate.user.api.request.LoginRequest;
 import com.flyingrain.translate.user.api.response.LoginResult;
 import com.flyingrain.translate.user.service.services.UserAuthorityService;
@@ -57,7 +57,7 @@ public class UserAuthorityServiceImpl implements UserAuthorityService{
     }
 
     @Override
-    public boolean authRequest(AuthRequest authRequest) {
+    public boolean authRequest(UserAuthRequest authRequest) {
         return false;
     }
 }

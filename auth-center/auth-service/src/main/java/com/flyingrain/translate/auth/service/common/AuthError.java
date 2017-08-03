@@ -8,6 +8,8 @@ public enum AuthError {
 
     PARASEFAIL("A001","解析报文失败"),
     VERIFYSIGNFAIL("A002","验签失败"),
+    LOGINEXPIRE("A003","登录过期"),
+
     ;
 
     private String code;

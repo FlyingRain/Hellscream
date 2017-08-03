@@ -2,7 +2,7 @@ package com.flyingrain.translate.user.service.impl;
 
 import com.flyingrain.translate.framework.annotaions.Resource;
 import com.flyingrain.translate.user.api.UserAuthorityResource;
-import com.flyingrain.translate.user.api.request.AuthRequest;
+import com.flyingrain.translate.user.api.request.UserAuthRequest;
 import org.springframework.stereotype.Component;
 
 /**
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 public class UserAuthorityResourceImpl implements UserAuthorityResource{
 
     @Override
-    public boolean auth(AuthRequest request) {
+    public boolean auth(UserAuthRequest request) {
         return false;
     }
 }

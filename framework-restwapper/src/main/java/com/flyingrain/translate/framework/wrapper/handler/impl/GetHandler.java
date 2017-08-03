@@ -1,5 +1,6 @@
 package com.flyingrain.translate.framework.wrapper.handler.impl;
 
+import com.flyingrain.translate.framework.lang.FlyException;
 import com.flyingrain.translate.framework.lang.common.Result;
 import com.flyingrain.translate.framework.wrapper.handler.Handler;
 import com.flyingrain.translate.framework.wrapper.handler.Request;
@@ -45,6 +46,9 @@ public class GetHandler implements Handler {
         Response response = target.request().get();
         Result result = response.readEntity(new GenericType<Result>(){});
         logger.info("get response {[]}",result);
+        if(!result.isSuccess()){
+            throw new FlyException(result.getCode(),result.getMsg());
+        }
         return (T) resultResolver.resolve(result.getRealResult(),request.getMethod());
 
     }

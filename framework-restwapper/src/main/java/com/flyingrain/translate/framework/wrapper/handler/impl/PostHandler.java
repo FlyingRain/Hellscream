@@ -1,5 +1,6 @@
 package com.flyingrain.translate.framework.wrapper.handler.impl;
 
+import com.flyingrain.translate.framework.lang.FlyException;
 import com.flyingrain.translate.framework.lang.common.Result;
 import com.flyingrain.translate.framework.wrapper.handler.Handler;
 import com.flyingrain.translate.framework.wrapper.handler.Request;
@@ -58,6 +59,9 @@ public class PostHandler implements Handler {
         //jersey处理genericType的方法
         Result result = response.readEntity(new GenericType<Result>() {
         });
+        if(!result.isSuccess()){
+            throw new FlyException(result.getCode(),result.getMsg());
+        }
         return (T) resultResolver.resolve(result.getRealResult(),method);
     }
 }

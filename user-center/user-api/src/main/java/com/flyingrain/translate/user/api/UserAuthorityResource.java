@@ -1,6 +1,6 @@
 package com.flyingrain.translate.user.api;
 
-import com.flyingrain.translate.user.api.request.AuthRequest;
+import com.flyingrain.translate.user.api.request.UserAuthRequest;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -20,5 +20,5 @@ public interface UserAuthorityResource {
 
     @Path("/verifyAuthority")
     @POST
-    boolean auth(AuthRequest request);
+    boolean auth(UserAuthRequest request);
 }

@@ -1,6 +1,6 @@
 package com.flyingrain.translate.user.service.services;
 
-import com.flyingrain.translate.user.api.request.AuthRequest;
+import com.flyingrain.translate.user.api.request.UserAuthRequest;
 import com.flyingrain.translate.user.api.request.LoginRequest;
 import com.flyingrain.translate.user.api.response.LoginResult;
 
@@ -22,6 +22,6 @@ public interface UserAuthorityService {
      * @param authRequest
      * @return
      */
-    boolean authRequest(AuthRequest authRequest);
+    boolean authRequest(UserAuthRequest authRequest);
 
 }

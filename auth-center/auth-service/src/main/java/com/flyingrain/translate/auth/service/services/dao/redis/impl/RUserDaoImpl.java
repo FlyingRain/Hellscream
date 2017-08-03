@@ -1,9 +1,9 @@
 package com.flyingrain.translate.auth.service.services.dao.redis.impl;
 
-import com.flyingrain.translate.auth.service.services.dao.impl.UserDaoImpl;
 import com.flyingrain.translate.auth.service.services.dao.redis.intf.RUserDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Component;
@@ -16,27 +16,38 @@ import java.util.concurrent.TimeUnit;
  */
 @Component
 public class RUserDaoImpl implements RUserDao {
-    private Logger logger = LoggerFactory.getLogger(UserDaoImpl.class);
+
+    private Logger logger = LoggerFactory.getLogger(RUserDaoImpl.class);
+
+    /**
+     * 用于缓存用户的key
+     */
+    private static final String LOGINKEY = "login";
 
     @Resource(name = "redisTemplate")
-    private ValueOperations<String, String> valueOperations;
+    private HashOperations<String, String,String> hashOperations;
 
     private StringRedisTemplate redisTemplate;
 
     @Override
     public String getUserId(String token) {
-        return valueOperations.get(token);
+        return hashOperations.get(LOGINKEY,token);
     }
 
     @Override
-    public void insertUserToken(String userId, String token, int expiryTime) {
+    public boolean insertUserToken(String userId, String token, int expiryTime) {
         logger.info("start insert redis userId:[{}]", userId);
-        valueOperations.set(token, userId, expiryTime, TimeUnit.DAYS);
+
+        if (hashOperations.putIfAbsent(LOGINKEY,token,userId)) {
+            redisTemplate.expire(token, expiryTime, TimeUnit.DAYS);
+            return true;
+        }
+        return false;
     }
 
     @Override
     public void delToken(String token) {
-        logger.info("start to delete token :[{}]",token);
+        logger.info("start to delete token :[{}]", token);
         redisTemplate.delete(token);
     }
 }

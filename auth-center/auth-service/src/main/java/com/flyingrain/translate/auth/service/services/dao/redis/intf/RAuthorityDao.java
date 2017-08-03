@@ -4,7 +4,7 @@ package com.flyingrain.translate.auth.service.services.dao.redis.intf;
  * redis鉴权缓存
  * Created by wally on 17-7-30.
  */
-public interface RAuthority {
+public interface RAuthorityDao {
 
     /**
      * redis缓存鉴权结果

@@ -5,7 +5,6 @@ import com.flyingrain.translate.framework.lang.common.FrameworkExceptionCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import sun.misc.BASE64Decoder;
-import sun.misc.BASE64Encoder;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -33,7 +32,6 @@ public class EncryptUtil {
 
     private static ConcurrentHashMap<String, PublicKey> publicKeys = new ConcurrentHashMap<>();
 
-    private static BASE64Encoder base64Encoder = new BASE64Encoder();
     private static BASE64Decoder base64Decoder = new BASE64Decoder();
 
     public static String encryptWithMD5(String msg) {
