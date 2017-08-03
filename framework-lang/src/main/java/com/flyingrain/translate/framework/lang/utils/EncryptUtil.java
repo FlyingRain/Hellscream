@@ -13,10 +13,12 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import java.io.*;
 import java.security.*;
+import java.security.cert.CertificateException;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64;
+import java.util.Enumeration;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -162,6 +164,44 @@ public class EncryptUtil {
             throw new FlyException(FrameworkExceptionCode.SYSERROR.getCode(), FrameworkExceptionCode.SYSERROR.getMsg());
         }
     }
+
+    /**
+     * 有密码的密钥读取
+     * @param path
+     * @param pwd
+     * @return
+     */
+    public static PrivateKey loadRSAPrivateKey(String path, String pwd) {
+        PrivateKey privateKey = privateKeys.get(path);
+        if (privateKey != null) {
+            return privateKey;
+        }
+        try (FileInputStream fis =  new FileInputStream(path);){
+            KeyStore e = KeyStore.getInstance(KeyStore.getDefaultType());
+            char[] nPassword = null;
+            if(pwd != null && !pwd.trim().equals("")) {
+                nPassword = pwd.toCharArray();
+            }
+            e.load(fis, null);
+            Enumeration en = e.aliases();
+            String keyAlias = null;
+            if(en.hasMoreElements()) {
+                keyAlias = (String)en.nextElement();
+            }
+
+            privateKey = (PrivateKey)e.getKey(keyAlias, nPassword);
+
+            PrivateKey key = privateKeys.putIfAbsent(path, privateKey);
+            if (key != null) {
+                return key;
+            }
+            return privateKey;
+        } catch (KeyStoreException |CertificateException|IOException|UnrecoverableKeyException|NoSuchAlgorithmException e) {
+            logger.error("load privateKey failed!",e);
+            throw new FlyException(FrameworkExceptionCode.SYSERROR.getCode(),FrameworkExceptionCode.SYSERROR.getMsg());
+        }
+    }
+
 
 
     private static PublicKey loadRSAPublicKey(String publicKeyPath) {

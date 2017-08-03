@@ -10,6 +10,8 @@ public enum FrameworkExceptionCode {
     ENCRYPTERROR("F1003","数据加密失败"),
     DECRYPTERROR("F1004","数据解密失败"),
     FILENOTFOUND("F1005","系统找不到指定文件"),
+    SIGNFAIL("F1006","加签失败"),
+    VERIFYSIGNFAIL("F1007","验签失败")
     ;
 
     private String code;

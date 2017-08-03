@@ -16,15 +16,16 @@ public class EncryptTest {
 
     @Test
     public void testRSAEncrypt(){
-        String privateKeyPath = "/home/wally/keys/java_private.key";
-        String publicKeyPath = "/home/wally/keys/pub.key";
+        String privateKeyPath = "/home/wally/pkcs8_java_private_key.pem";
+        String publicKeyPath = "/home/wally/pub.pem";
         String msg = "测试报文";
         String encryptMsg = EncryptUtil.encryptWithRSA(msg,privateKeyPath,true);
         System.out.println(encryptMsg);
         String encryptMsg2 = EncryptUtil.encryptWithRSA(msg,publicKeyPath,false);
         System.out.println(encryptMsg2);
 
-        encryptMsg2="JPd98q+8T1rYOQ5pcPeHD9XIRbV0OvZ6MHDYzZxWEi/SayxVn5qaFnYrMfqw/1uprmjma+WeYrWxcCw8cZc2AFyGALwl38vgCCLYCeM/O5PK/HINXQMacXv83d1iNcXPIvN/4dH+vUo/Rarg6Lhp7ncRjcKsEzeaQmFmYl3sBjM=";
+        encryptMsg="g2201fcoSmg9kQTSncMshktkD4RpDVkJYdohUfSs1n6jCw+4e88ZoHZ0q5Wt/aEadPgBU/QEzkA34ZShho4K7HbnFMyHPIq7zsyYK8X8BqtjkU4ZpwRuUrKp3ZIq8l80vsb/gWIRvK8hezQGD9ydI7PguqbczShqiRwFG/AG4yQ=";
+
         String plainMsg = EncryptUtil.decryptMsgWithRSA(encryptMsg,publicKeyPath,false);
         System.out.println(plainMsg);
         String plainMsg2 = EncryptUtil.decryptMsgWithRSA(encryptMsg2,privateKeyPath,true);
