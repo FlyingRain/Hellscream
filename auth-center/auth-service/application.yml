@@ -1,0 +1,8 @@
+serverPrefix: /translate
+
+load:
+  properties:
+    - file:authConf.properties
+    - file:resource.properties
+server:
+  port: 8088
