@@ -1,6 +1,6 @@
-package com.flyingrain.translate.auth.service.services.dao.impl.redis.impl;
+package com.flyingrain.translate.auth.service.services.dao.redis.impl;
 
-import com.flyingrain.translate.auth.service.services.dao.impl.redis.intf.RAuthority;
+import com.flyingrain.translate.auth.service.services.dao.redis.intf.RAuthority;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
