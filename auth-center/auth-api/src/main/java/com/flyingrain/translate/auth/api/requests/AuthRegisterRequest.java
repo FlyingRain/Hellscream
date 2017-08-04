@@ -9,7 +9,7 @@ public class AuthRegisterRequest {
     /**
      * 真实姓名
      */
-    private String realName;
+    private String name;
     /**
      * 昵称
      */
@@ -37,12 +37,12 @@ public class AuthRegisterRequest {
 
     private String password;
 
-    public String getRealName() {
-        return realName;
+    public String getName() {
+        return name;
     }
 
-    public void setRealName(String realName) {
-        this.realName = realName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getPetName() {

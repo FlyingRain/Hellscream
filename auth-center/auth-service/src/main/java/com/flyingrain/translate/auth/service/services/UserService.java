@@ -26,4 +26,6 @@ public interface UserService {
     RegisterResponse register(AuthRegisterRequest registerRequest);
 
 
+    String logoff(String token);
+
 }

@@ -1,5 +1,10 @@
 serverPrefix: /translate
 
+spring:
+  redis:
+    password: 123456
+    timeout: 0
+
 load:
   properties:
     - file:authConf.properties

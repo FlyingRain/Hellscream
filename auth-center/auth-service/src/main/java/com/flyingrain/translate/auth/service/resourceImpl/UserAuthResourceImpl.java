@@ -57,4 +57,9 @@ public class UserAuthResourceImpl implements UserAuthResource {
         }
         return userService.register(registerRequest);
     }
+
+    @Override
+    public String logoff(String token) {
+        return userService.logoff(token);
+    }
 }

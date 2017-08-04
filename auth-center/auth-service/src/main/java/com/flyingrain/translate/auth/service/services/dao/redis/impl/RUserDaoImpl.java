@@ -1,14 +1,17 @@
 package com.flyingrain.translate.auth.service.services.dao.redis.impl;
 
+import com.flyingrain.translate.auth.service.common.AuthError;
 import com.flyingrain.translate.auth.service.services.dao.redis.intf.RUserDao;
+import com.flyingrain.translate.framework.lang.FlyException;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -23,22 +26,34 @@ public class RUserDaoImpl implements RUserDao {
      * 用于缓存用户的key
      */
     private static final String LOGINKEY = "login";
+    /**
+     * 键的分隔符
+     */
+    private static final String SPLIT = "_";
 
     @Resource(name = "redisTemplate")
-    private HashOperations<String, String,String> hashOperations;
+    private ValueOperations<String, String> valueOperations;
 
     private StringRedisTemplate redisTemplate;
 
     @Override
     public String getUserId(String token) {
-        return hashOperations.get(LOGINKEY,token);
+        String key = LOGINKEY + SPLIT + "*" + SPLIT + token;
+        Set<String> result = redisTemplate.keys(key);
+        if (result == null || result.size() != 1) {
+            logger.info("get cache failed!token: [{}]", token);
+            throw new FlyException(AuthError.LOGINEXPIRE.getCode(), AuthError.LOGINEXPIRE.getMsg());
+        }
+        String realKey = (String) result.toArray()[0];
+        return valueOperations.get(realKey);
     }
 
     @Override
     public boolean insertUserToken(String userId, String token, int expiryTime) {
         logger.info("start insert redis userId:[{}]", userId);
 
-        if (hashOperations.putIfAbsent(LOGINKEY,token,userId)) {
+        String key = LOGINKEY + SPLIT + userId + SPLIT + token;
+        if (valueOperations.setIfAbsent(key, userId)) {
             redisTemplate.expire(token, expiryTime, TimeUnit.DAYS);
             return true;
         }
@@ -46,8 +61,12 @@ public class RUserDaoImpl implements RUserDao {
     }
 
     @Override
-    public void delToken(String token) {
+    public void delToken(String token, String userId) {
         logger.info("start to delete token :[{}]", token);
-        redisTemplate.delete(token);
+        String keyPattern = StringUtils.isEmpty(token) ? (LOGINKEY + SPLIT + userId + SPLIT + "*") : (LOGINKEY + SPLIT + "*" + SPLIT + token);
+        Set<String> result = redisTemplate.keys(keyPattern);
+        result.forEach(key -> {
+            redisTemplate.delete(key);
+        });
     }
 }

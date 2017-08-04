@@ -25,11 +25,11 @@ public interface RUserDao {
 
 
     /**
-     * 使token失效
+     *
      * @param token
-     * @return
+     * @param userId
      */
-    void delToken(String token);
+    void delToken(String token,String userId);
 
 
 }

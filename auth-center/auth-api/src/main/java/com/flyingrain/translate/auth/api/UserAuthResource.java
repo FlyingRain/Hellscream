@@ -4,10 +4,7 @@ import com.flyingrain.translate.auth.api.requests.VerifyRequest;
 import com.flyingrain.translate.auth.api.responses.LoginResponse;
 import com.flyingrain.translate.auth.api.responses.RegisterResponse;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
 /**
@@ -38,5 +35,13 @@ public interface UserAuthResource {
     RegisterResponse register(VerifyRequest request);
 
 
+    /**
+     * logoff
+     * @param token
+     * @return userId
+     */
+    @GET
+    @Path("/logoff")
+    String logoff(@QueryParam("token") String token);
 
 }
