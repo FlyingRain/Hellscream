@@ -10,8 +10,8 @@ import org.apache.ibatis.annotations.*;
 public interface UserInfoMapper {
 
 
-    @Insert("insert into user_info (name,pet_name,school,phone,verify_phone,email,verify_email,age) values " +
-            "(#{userInfo.name},#{userInfo.pet_name},#{userInfo.school},#{userInfo.phone},#{userInfo.verify_phone},#{userInfo.email},#{userInfo.verify_email},#{userInfo.age})")
+    @Insert("insert into user_info (gender,name,pet_name,school,phone,verify_phone,email,verify_email,age) values " +
+            "(#{userInfo.gender},#{userInfo.name},#{userInfo.pet_name},#{userInfo.school},#{userInfo.phone},#{userInfo.verify_phone},#{userInfo.email},#{userInfo.verify_email},#{userInfo.age})")
     @Options(useGeneratedKeys = true,keyProperty = "userInfo.id")
     int insertUserInfo(@Param("userInfo") UserInfoModel model);
 
@@ -21,7 +21,7 @@ public interface UserInfoMapper {
      * @param userId
      * @return
      */
-    @Select("select * from user_info where user_id=#{userId}")
+    @Select("select * from user_info where id=#{userId}")
     UserInfoModel getUserInfoById(int userId);
 
 

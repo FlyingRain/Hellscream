@@ -22,7 +22,7 @@ public interface UserResource {
 
 
     @Path("/userInfo")
-    @POST
+    @GET
     UserInfoResult getUserInfo(@QueryParam("userId")int userId);
 
 
