@@ -4,6 +4,9 @@ import com.flyingrain.translate.user.service.services.dao.model.AuthorityModel;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
 
 /**
  * Created by wally on 7/14/17.
@@ -14,6 +17,9 @@ public interface AuthorityMapper {
     @Options(useGeneratedKeys = true,keyProperty = "authorityModel.id")
     int insertAuthority(@Param("authorityModel") AuthorityModel authorityModel);
 
+
+    @Select("select * from authority")
+    List<AuthorityModel> getAllAuthority();
 
 
 }

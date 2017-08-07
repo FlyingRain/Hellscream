@@ -3,7 +3,6 @@ package com.flyingrain.translate.plan.api.intf;
 import com.flyingrain.translate.plan.api.request.PlanRequest;
 import com.flyingrain.translate.plan.api.response.ModifyResult;
 import com.flyingrain.translate.plan.api.response.Plan;
-import com.flyingrain.translate.plan.api.response.Result;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -25,6 +24,15 @@ public interface PlanManagerResource {
     @Path("/make")
     Integer makePlan(PlanRequest planRequest);
 
+
+    /**
+     * 获取用户当前正在进行中的计划
+     * @param userId
+     * @return
+     */
+    @GET
+    @Path("/getUserPlan")
+    Plan getUserPlan(@QueryParam("userId") String userId);
     /**
      * 查询计划
      * @param planId 计划Id

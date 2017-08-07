@@ -3,6 +3,7 @@ package com.flyingrain.translate.user.service.services.dao.model;
 import java.util.Date;
 
 /**
+ * 角色信息
  * Created by wally on 7/6/17.
  */
 public class RoleModel {
@@ -11,12 +12,22 @@ public class RoleModel {
 
     private String role;
 
+    private String desc;
+
     private Date data_added;
 
     private Date last_modified;
 
     public int getId() {
         return id;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 
     public void setId(int id) {

@@ -16,13 +16,13 @@ public class UserApiConfig {
 
     @Bean
     @Autowired
-    UserAuthorityResource getUserAuthorityResource(RestWrapper wrapper){
+    UserAuthorityResource userAuthorityResource(RestWrapper wrapper){
         return wrapper.wrapper(UserAuthorityResource.class);
     }
 
     @Bean
     @Autowired
-    UserResource getUserResource(RestWrapper wrapper){
+    UserResource userResource(RestWrapper wrapper){
         return wrapper.wrapper(UserResource.class);
     }
 

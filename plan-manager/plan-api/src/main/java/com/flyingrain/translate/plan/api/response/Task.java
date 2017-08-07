@@ -1,11 +1,14 @@
 package com.flyingrain.translate.plan.api.response;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.util.List;
 
 /**
  * 每日任务
  * Created by wally on 5/4/17.
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Task {
 
     private int id;

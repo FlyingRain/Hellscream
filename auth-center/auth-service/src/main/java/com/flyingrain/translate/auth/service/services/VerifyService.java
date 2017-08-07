@@ -1,5 +1,6 @@
 package com.flyingrain.translate.auth.service.services;
 
+import com.flyingrain.translate.auth.api.requests.SignRequest;
 import com.flyingrain.translate.auth.api.requests.VerifyRequest;
 
 /**
@@ -13,4 +14,12 @@ public interface VerifyService {
      * @return
      */
     boolean verifySign(VerifyRequest request);
+
+
+    /**
+     * 签名
+     * @param request
+     * @return
+     */
+    String sign(SignRequest request);
 }

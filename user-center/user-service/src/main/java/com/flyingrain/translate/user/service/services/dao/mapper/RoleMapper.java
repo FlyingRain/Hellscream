@@ -13,7 +13,7 @@ import java.util.List;
  */
 public interface RoleMapper {
 
-    @Insert("insert into role values (role) values (#{model.role})")
+    @Insert("insert into role values (role,desc) values (#{model.role},#{model.desc})")
     @Options(useGeneratedKeys = true,keyProperty = "model.id")
     int insertRole(@Param("model") RoleModel model);
 
@@ -22,7 +22,7 @@ public interface RoleMapper {
      * 获取所有角色信息
      * @return
      */
-    @Select("select id,role,data_added,last_modified from role")
+    @Select("select id,role,desc,data_added,last_modified from role")
     List<RoleModel> getAllRoles();
 
 

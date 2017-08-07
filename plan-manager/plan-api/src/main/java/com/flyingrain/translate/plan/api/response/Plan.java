@@ -1,10 +1,13 @@
 package com.flyingrain.translate.plan.api.response;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.util.Date;
 
 /**
  * Created by wally on 4/25/17.
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Plan {
     private int id;
 

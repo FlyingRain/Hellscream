@@ -6,6 +6,7 @@ import com.flyingrain.translate.user.api.request.LoginRequest;
 import com.flyingrain.translate.user.api.response.LoginResult;
 import com.flyingrain.translate.user.service.services.UserAuthorityService;
 import com.flyingrain.translate.user.service.services.common.UserCenterExceptionEnum;
+import com.flyingrain.translate.user.service.services.dao.mapper.RoleAuthorityMapper;
 import com.flyingrain.translate.user.service.services.dao.mapper.UserInfoMapper;
 import com.flyingrain.translate.user.service.services.dao.mapper.UserLoginMapper;
 import com.flyingrain.translate.user.service.services.dao.model.UserInfoModel;
@@ -29,6 +30,9 @@ public class UserAuthorityServiceImpl implements UserAuthorityService{
 
     @Autowired
     private UserLoginMapper loginMapper;
+
+    @Autowired
+    private RoleAuthorityMapper roleAuthorityMapper;
 
     @Override
     public LoginResult userLogin(LoginRequest request) {
@@ -58,6 +62,6 @@ public class UserAuthorityServiceImpl implements UserAuthorityService{
 
     @Override
     public boolean authRequest(UserAuthRequest authRequest) {
-        return false;
+        return roleAuthorityMapper.getAuthority(authRequest.getUserId(),authRequest.getUrl())!=null;
     }
 }

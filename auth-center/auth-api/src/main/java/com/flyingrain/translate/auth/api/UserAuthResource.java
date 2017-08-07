@@ -37,11 +37,11 @@ public interface UserAuthResource {
 
     /**
      * logoff
-     * @param token
+     * @param userId
      * @return userId
      */
     @GET
     @Path("/logoff")
-    String logoff(@QueryParam("token") String token);
+    String logoff(@QueryParam("userId") String userId);
 
 }

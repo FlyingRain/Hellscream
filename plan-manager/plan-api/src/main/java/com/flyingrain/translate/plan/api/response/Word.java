@@ -1,11 +1,14 @@
 package com.flyingrain.translate.plan.api.response;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.util.List;
 
 /**
  * 单词
  * Created by wally on 6/1/17.
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Word {
 
     private int wordId;

@@ -8,6 +8,5 @@ serverPrefix: /translate
 load:
  yaml:
    - file:myconf.yml
-   - classpath:redispool.yml
 
 

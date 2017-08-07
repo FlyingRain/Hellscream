@@ -1,6 +1,5 @@
 package com.flyingrain.translate.plan.service.services;
 
-import com.flyingrain.translate.plan.api.intf.PlanManagerResource;
 import com.flyingrain.translate.plan.api.request.PlanRequest;
 import com.flyingrain.translate.plan.api.response.Plan;
 
@@ -33,6 +32,11 @@ public interface PlanService {
      */
     List<Plan> querySpecificPlan(int userId,int status);
 
+    /**
+     * 修改计划
+     * @param planRequest
+     * @return
+     */
     int modifyPlan(PlanRequest planRequest);
 
 }

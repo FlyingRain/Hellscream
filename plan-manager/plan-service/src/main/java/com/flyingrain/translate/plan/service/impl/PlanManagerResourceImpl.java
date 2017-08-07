@@ -8,10 +8,12 @@ import com.flyingrain.translate.plan.api.response.ModifyResult;
 import com.flyingrain.translate.plan.api.response.Plan;
 import com.flyingrain.translate.plan.service.common.PlanExceptionCode;
 import com.flyingrain.translate.plan.service.services.PlanService;
+import com.flyingrain.translate.plan.service.services.common.PlanStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 
@@ -34,21 +36,27 @@ public class PlanManagerResourceImpl implements PlanManagerResource {
     }
 
     @Override
+    public Plan getUserPlan(String userId) {
+        List<Plan> plans = planService.querySpecificPlan(Integer.parseInt(userId), PlanStatus.UNDERWAY.status);
+        return CollectionUtils.isEmpty(plans) ? new Plan() : plans.get(0);
+    }
+
+    @Override
     public List<Plan> queryPlan(Integer planId, Integer userId) {
         //参数校验
-        if(planId==null&&userId==null){
+        if (planId == null && userId == null) {
             logger.info("query param is null!");
-           throw new FlyException(PlanExceptionCode.PARAM_INVALID.getCode(),PlanExceptionCode.PARAM_INVALID.getMsg());
+            throw new FlyException(PlanExceptionCode.PARAM_INVALID.getCode(), PlanExceptionCode.PARAM_INVALID.getMsg());
         }
-       return  planService.queryPlan(planId,userId);
+        return planService.queryPlan(planId, userId);
     }
 
     @Override
     public ModifyResult modifyPlan(PlanRequest planRequest) {
-        logger.info("start to update planRequest![{}]",planRequest);
+        logger.info("start to update planRequest![{}]", planRequest);
         int i = planService.modifyPlan(planRequest);
-        if(i==0){
-            throw new FlyException(PlanExceptionCode.PARAM_INVALID.getCode(),PlanExceptionCode.PARAM_INVALID.getMsg());
+        if (i == 0) {
+            throw new FlyException(PlanExceptionCode.PARAM_INVALID.getCode(), PlanExceptionCode.PARAM_INVALID.getMsg());
         }
         ModifyResult modifyResult = new ModifyResult();
         modifyResult.setMsg("更新成功");

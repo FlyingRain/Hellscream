@@ -15,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 
@@ -22,6 +23,7 @@ import java.util.UUID;
  * 用户服务
  * Created by wally on 17-8-2.
  */
+@Component
 public class UserServiceImpl implements UserService {
 
     private Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
@@ -73,10 +75,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String logoff(String token) {
-        String userId = rUserDao.getUserId(token);
-        rUserDao.delToken(token,null);
-        return userId;
+    public String logoff(String userId) {
+        rUserDao.delToken(null,userId);
+        return "success";
     }
 
     private UserInfo getUserInfo(AuthRegisterRequest registerRequest){

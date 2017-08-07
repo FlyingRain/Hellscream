@@ -39,8 +39,8 @@ public class DynamicDataSourceRegister implements ImportBeanDefinitionRegistrar,
         beanDefinition.setSynthetic(true);
         MutablePropertyValues mpv = beanDefinition.getPropertyValues();
         if(defaultDataSource==null){
-            logger.error("no default datasource to be used ! please specify a default datasource.");
-            throw new RuntimeException("no default datasource to be used!");
+            logger.info("no default datasource to be used ! please specify a default datasource.");
+            defaultDataSource = new DynamicDataSource();
         }
         mpv.addPropertyValue("defaultTargetDataSource", defaultDataSource);
         mpv.addPropertyValue("targetDataSources", otherDataSources);

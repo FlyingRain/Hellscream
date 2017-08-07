@@ -70,6 +70,7 @@ public class UserServiceImpl implements UserService {
 
     private UserInfoResult transferModel(UserInfoModel model) {
         UserInfoResult result = new UserInfoResult();
+        result.setUserId(model.getId());
         result.setPhone(model.getPhone());
         result.setSchool(model.getSchool());
         result.setEmail(model.getEmail());

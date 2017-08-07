@@ -1,10 +1,12 @@
 package com.flyingrain.translate.auth.service.services.impl;
 
+import com.flyingrain.translate.auth.api.requests.SignRequest;
 import com.flyingrain.translate.auth.api.requests.VerifyRequest;
 import com.flyingrain.translate.auth.service.services.VerifyService;
 import com.flyingrain.translate.auth.service.services.config.AuthConfig;
 import com.flyingrain.translate.framework.lang.common.Algorithm;
 import com.flyingrain.translate.framework.lang.utils.SignUtil;
+import com.flyingrain.translate.framework.lang.utils.model.SignModel;
 import com.flyingrain.translate.framework.lang.utils.model.VerifySignModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -29,5 +31,15 @@ public class VerifyServiceImpl implements VerifyService{
         verifySignModel.setKeyPath(authConfig.getPubKeyPath());
 
         return SignUtil.verifySign(verifySignModel);
+    }
+
+    @Override
+    public String sign(SignRequest request) {
+        SignModel signModel = new SignModel();
+        signModel.setPrivate(true);
+        signModel.setPlainContent(request.getPlainContent());
+        signModel.setAlgorithm(Algorithm.RSA);
+        signModel.setKeyPath(authConfig.getPrivateKeyPath());
+        return SignUtil.sign(signModel);
     }
 }

@@ -15,6 +15,9 @@ public class AuthConfig {
     @Value("${auth.pubKey.path}")
     private String pubKeyPath;
 
+    @Value("${auth.privateKey.path}")
+    private String privateKeyPath;
+
     /**
      * 权限缓存失效时间
      */
@@ -50,5 +53,13 @@ public class AuthConfig {
 
     public void setExpireMinute(int expireMinute) {
         this.expireMinute = expireMinute;
+    }
+
+    public String getPrivateKeyPath() {
+        return privateKeyPath;
+    }
+
+    public void setPrivateKeyPath(String privateKeyPath) {
+        this.privateKeyPath = privateKeyPath;
     }
 }

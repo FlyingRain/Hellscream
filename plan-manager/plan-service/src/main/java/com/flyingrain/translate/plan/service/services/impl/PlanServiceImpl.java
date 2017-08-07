@@ -88,7 +88,8 @@ public class PlanServiceImpl implements PlanService {
 
     @Override
     public List<Plan> querySpecificPlan(int userId, int status) {
-        return null;
+        List<PlanModel> plans = planMapper.getUserPlanByStatus(userId, status);
+        return plans.stream().map(this::transferPlanModel).collect(Collectors.toList());
     }
 
     /**

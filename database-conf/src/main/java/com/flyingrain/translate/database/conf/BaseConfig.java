@@ -17,7 +17,7 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
  * Created by wally on 4/7/17.
  */
 @Configuration
-@PropertySource("classpath:datasource.properties")
+@PropertySource({"classpath:datasource.properties","classpath:redispool.properties"})
 @EnableConfigurationProperties(DataBasePro.class)
 @Import(DynamicDataSourceRegister.class)
 @MapperScan("com.flyingrain.translate.database.conf.test.data.mapper")

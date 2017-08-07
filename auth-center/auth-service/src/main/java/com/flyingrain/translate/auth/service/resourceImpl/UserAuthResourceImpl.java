@@ -59,7 +59,7 @@ public class UserAuthResourceImpl implements UserAuthResource {
     }
 
     @Override
-    public String logoff(String token) {
-        return userService.logoff(token);
+    public String logoff(String userId) {
+        return userService.logoff(userId);
     }
 }
