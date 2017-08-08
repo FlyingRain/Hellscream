@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.ws.rs.PathParam;
@@ -30,6 +31,9 @@ public class GetHandler implements Handler {
 
     private Logger logger = LoggerFactory.getLogger(GetHandler.class);
 
+    @Value("${flyingrain.token}")
+    private String token;
+
     @Autowired
     @Qualifier("jerseyClient")
     private Client client;
@@ -43,7 +47,7 @@ public class GetHandler implements Handler {
         logger.info("start to send get message : url {[]}", url);
         WebTarget target = client.target(url);
         //jersey处理genericType的方法
-        Response response = target.request().get();
+        Response response = target.request().header("token",token).get();
         Result result = response.readEntity(new GenericType<Result>(){});
         logger.info("get response {[]}",result);
         if(!result.isSuccess()){
@@ -91,4 +95,11 @@ public class GetHandler implements Handler {
         return url;
     }
 
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
 }

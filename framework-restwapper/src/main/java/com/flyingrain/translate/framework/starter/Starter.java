@@ -9,7 +9,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
  */
 public class Starter {
 
-    public static void run(String[] args) {
+    public static void main(String[] args) {
         new SpringApplicationBuilder().sources(AppConfig.class).listeners(new LoadAdditionalProperty()).run(args);
     }
 

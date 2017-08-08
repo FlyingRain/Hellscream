@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.ws.rs.client.Client;
@@ -26,6 +27,9 @@ import java.lang.reflect.Method;
 public class PostHandler implements Handler {
 
     private Logger logger = LoggerFactory.getLogger(PostHandler.class);
+
+    @Value("${flyingrain.token}")
+    private String token;
 
     @Autowired
     @Qualifier("jerseyClient")
@@ -55,7 +59,7 @@ public class PostHandler implements Handler {
             throw new RuntimeException("do not support multiParams!");
         }
         logger.info("start to send Post request :[{}]", params[0]);
-        Response response = webTarget.request().buildPost(Entity.entity(params[0], MediaType.APPLICATION_JSON)).invoke();
+        Response response = webTarget.request().header("token",token).buildPost(Entity.entity(params[0], MediaType.APPLICATION_JSON)).invoke();
         //jersey处理genericType的方法
         Result result = response.readEntity(new GenericType<Result>() {
         });
@@ -63,5 +67,13 @@ public class PostHandler implements Handler {
             throw new FlyException(result.getCode(),result.getMsg());
         }
         return (T) resultResolver.resolve(result.getRealResult(),method);
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

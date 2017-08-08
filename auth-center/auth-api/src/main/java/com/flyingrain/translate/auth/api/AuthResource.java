@@ -1,7 +1,6 @@
 package com.flyingrain.translate.auth.api;
 
 import com.flyingrain.translate.auth.api.requests.AuthRequest;
-import com.flyingrain.translate.auth.api.responses.AuthResponse;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -26,7 +25,7 @@ public interface AuthResource {
      */
     @POST
     @Path("/userAuth")
-    AuthResponse authority(AuthRequest request);
+    boolean authority(AuthRequest request);
 
 
 }
