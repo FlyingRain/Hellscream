@@ -4,7 +4,10 @@ package com.flyingrain.translate.framework.lang.utils;
  * Created by wally on 8/8/17.
  */
 
+import com.flyingrain.translate.framework.lang.FlyException;
+import com.flyingrain.translate.framework.lang.common.FrameworkExceptionCode;
 import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -13,6 +16,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -67,10 +71,14 @@ public class HttpUtil {
             params.forEach((key,value)->{
                 paramList.add(new BasicNameValuePair(key,value));
             });
-            httppost.setEntity(new UrlEncodedFormEntity(params,HTTP.UTF_8));
-
+            httpPost.setEntity(new UrlEncodedFormEntity(paramList, HTTP.UTF_8));
+            HttpResponse response = httpClient.execute(httpPost);
+            String result = EntityUtils.toString(response.getEntity());
+            EntityUtils.consume(response.getEntity());
+            return result;
         } catch (IOException e) {
-            e.printStackTrace();
+           logger.error("do post failed!",e);
+           throw new FlyException(FrameworkExceptionCode.SYSERROR.getCode(),FrameworkExceptionCode.SYSERROR.getMsg());
         }
     }
 }

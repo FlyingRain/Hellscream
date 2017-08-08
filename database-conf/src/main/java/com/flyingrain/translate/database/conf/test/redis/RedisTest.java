@@ -12,7 +12,7 @@ import javax.annotation.Resource;
 /**
  * Created by wally on 7/26/17.
  */
-@Component
+//@Component
 public class RedisTest {
 
     @Autowired
