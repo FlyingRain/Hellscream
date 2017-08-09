@@ -1,8 +1,11 @@
 package com.flyingrain.translate.user.api.response;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 /**
  * Created by wally on 6/30/17.
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserInfoResult {
 
     private int userId;

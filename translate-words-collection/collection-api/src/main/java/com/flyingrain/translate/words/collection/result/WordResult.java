@@ -1,11 +1,14 @@
 package com.flyingrain.translate.words.collection.result;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.util.List;
 
 /**
  * 单词结果
  * Created by wally on 4/14/17.
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class WordResult {
 
     private int wordId;

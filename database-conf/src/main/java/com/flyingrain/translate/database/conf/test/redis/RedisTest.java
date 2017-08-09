@@ -4,12 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.ListOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 
 /**
+ *
  * Created by wally on 7/26/17.
  */
 //@Component
@@ -31,6 +31,7 @@ public class RedisTest {
         String value = stringRedisTemplate.opsForValue().get("wulei");
         //测试对象
         RedisModel model = new RedisModel("wulei","18");
+        String as = stringRedisTemplate.opsForValue().get("login_1_adsf");
         redisTemplate.opsForValue().set("redisModel",model);
         //测试散列
         redisTemplate.opsForHash().put("11","age","18");

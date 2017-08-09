@@ -1,5 +1,11 @@
 package com.flyingrain.translate.framework.filter;
 
+import com.flyingrain.translate.framework.common.RestWrapperError;
+import com.flyingrain.translate.framework.lang.FlyException;
+import com.flyingrain.translate.framework.lang.common.Result;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -16,8 +22,13 @@ import java.io.IOException;
 @Component
 public class RequestFilter implements ContainerRequestFilter {
 
+    private Logger logger = LoggerFactory.getLogger(RequestFilter.class);
+
     @Value("${flyingrain.token}")
     private String innerToken;
+
+    @Autowired
+    private AuthCenter authCenter;
 
     @Override
     public void filter(ContainerRequestContext requestContext) throws IOException {
@@ -27,6 +38,19 @@ public class RequestFilter implements ContainerRequestFilter {
             return;
         }
 
+        Result result = authCenter.auth(token,url);
+        if(!result.isSuccess()){
+            throw new FlyException(result.getCode(),result.getMsg());
+        }
+        logger.info("auth result is :[{}]",result.getRealResult());
+        if(result.getRealResult()!=null&&result.getRealResult().getClass()==Boolean.class){
+            if(!(boolean)result.getRealResult()){
+                throw new FlyException(RestWrapperError.NOAUTH.getCode(),RestWrapperError.NOAUTH.getMsg());
+            }
+        }else{
+            logger.error("error response! [{}]",result.getRealResult());
+            throw new FlyException(RestWrapperError.ERRORRESPONSE.getCode(),RestWrapperError.ERRORRESPONSE.getMsg());
+        }
 
         //        if (requestContext.hasEntity()) {
 //            InputStream inputStream = requestContext.getEntityStream();

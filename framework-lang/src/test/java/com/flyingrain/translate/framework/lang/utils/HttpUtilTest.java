@@ -3,7 +3,6 @@ package com.flyingrain.translate.framework.lang.utils;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.sql.Struct;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,7 +19,11 @@ public class HttpUtilTest {
     @Before
     public void init(){
         params = new HashMap<>();
-        params.put("")
+        params.put("token","asdf");
+        params.put("url","asd");
+
+        headers =new HashMap<>();
+        headers.put("Content-Type","application/json");
 
     }
 
@@ -28,7 +31,9 @@ public class HttpUtilTest {
     @Test
     public void testHttpUtil(){
 
-
+        String url = "http://localhost:8088/translate/auth/userAuth";
+        String result = HttpUtil.sendPostForJson(params,headers,url);
+        System.out.println(result);
     }
 
 }

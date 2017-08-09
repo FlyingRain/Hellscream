@@ -32,16 +32,17 @@ public class RUserDaoImpl implements RUserDao {
      */
     private static final String SPLIT = "_";
 
-    @Resource(name = "redisTemplate")
-    private ValueOperations<String, String> valueOperations;
+    @Resource(name = "stringRedisTemplate")
+    private ValueOperations<String,String> valueOperations;
 
     @Autowired
-    private StringRedisTemplate redisTemplate;
+    private StringRedisTemplate stringRedisTemplate;
+
 
     @Override
     public String getUserId(String token) {
         String key = LOGINKEY + SPLIT + "*" + SPLIT + token;
-        Set<String> result = redisTemplate.keys(key);
+        Set<String> result = stringRedisTemplate.keys(key);
         if (result == null || result.size() != 1) {
             logger.info("get cache failed!token: [{}]", token);
             throw new FlyException(AuthError.LOGINEXPIRE.getCode(), AuthError.LOGINEXPIRE.getMsg());
@@ -56,7 +57,7 @@ public class RUserDaoImpl implements RUserDao {
 
         String key = LOGINKEY + SPLIT + userId + SPLIT + token;
         if (valueOperations.setIfAbsent(key, userId)) {
-            redisTemplate.expire(token, expiryTime, TimeUnit.DAYS);
+            stringRedisTemplate.expire(token, expiryTime, TimeUnit.DAYS);
             return true;
         }
         return false;
@@ -66,9 +67,9 @@ public class RUserDaoImpl implements RUserDao {
     public void delToken(String token, String userId) {
         logger.info("start to delete token :[{}]", token);
         String keyPattern = StringUtils.isEmpty(token) ? (LOGINKEY + SPLIT + userId + SPLIT + "*") : (LOGINKEY + SPLIT + "*" + SPLIT + token);
-        Set<String> result = redisTemplate.keys(keyPattern);
+        Set<String> result = stringRedisTemplate.keys(keyPattern);
         result.forEach(key -> {
-            redisTemplate.delete(key);
+            stringRedisTemplate.delete(key);
         });
     }
 }

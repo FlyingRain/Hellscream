@@ -1,8 +1,11 @@
 package com.flyingrain.translate.words.collection.result;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 /**
  * Created by wally on 4/21/17.
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Book {
     private int id;
 

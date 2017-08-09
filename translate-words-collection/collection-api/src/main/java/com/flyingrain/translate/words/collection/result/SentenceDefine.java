@@ -1,12 +1,14 @@
 package com.flyingrain.translate.words.collection.result;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.List;
 
 /**
  * Created by wally on 4/17/17.
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class SentenceDefine {
 
     private String word;

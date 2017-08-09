@@ -23,6 +23,8 @@ public class AuthServiceImpl implements AuthService {
 
     private Logger logger = LoggerFactory.getLogger(AuthServiceImpl.class);
 
+    private static final String COMMONUSER = "0";
+
     @Autowired
     private UserAuthorityResource userAuthorityResource;
 
@@ -37,7 +39,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public boolean authority(AuthRequest request) {
-        String userId = userDao.getUserId(request.getToken());
+        String userId = StringUtils.isEmpty(request.getToken())?COMMONUSER:userDao.getUserId(request.getToken());
         if (StringUtils.isEmpty(userId)) {
             logger.info("user login expired token:[{}]", request.getToken());
             throw new FlyException(AuthError.LOGINEXPIRE.getCode(), AuthError.LOGINEXPIRE.getMsg());

@@ -13,7 +13,7 @@ import org.springframework.core.env.Environment;
  */
 @Configuration
 @ComponentScan(basePackages = "com.flyingrain.translate")
-@PropertySource("classpath:")
+@PropertySource("classpath:token.properties")
 @EnableAspectJAutoProxy
 @EnableAutoConfiguration
 //@EnableConfigurationProperties(PropertiesContext.class)
