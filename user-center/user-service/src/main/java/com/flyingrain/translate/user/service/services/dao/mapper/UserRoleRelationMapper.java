@@ -15,7 +15,7 @@ public interface UserRoleRelationMapper {
      * @param model
      * @return
      */
-    @Insert("insert into user_role_relation (user_id,role_id,is_active) values (#{model.user_Id},#{model.role_id},#{model.is_active})")
+    @Insert("insert into user_role_relation (user_id,role_id,is_active) values (#{model.user_id},#{model.role_id},#{model.is_active})")
     int insertUserRoleRelation(@Param("model") UserRoleRelationModel model);
 
 
