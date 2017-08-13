@@ -21,10 +21,10 @@ public class SignUtil {
 
     private static String salt;
 
-    {
+    static {
         Properties properties = new Properties();
         try {
-            properties.load(new FileInputStream("sign.properties"));
+            properties.load(SignUtil.class.getResourceAsStream("/sign.properties"));
         } catch (IOException e) {
             logger.error("load sign.properties error!");
             throw new FlyException(FrameworkExceptionCode.SYSERROR.getCode(), FrameworkExceptionCode.SYSERROR.getMsg());
