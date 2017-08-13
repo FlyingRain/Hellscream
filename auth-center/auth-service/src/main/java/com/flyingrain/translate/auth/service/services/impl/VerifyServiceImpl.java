@@ -27,8 +27,8 @@ public class VerifyServiceImpl implements VerifyService{
         verifySignModel.setAlgorithm(Algorithm.RSA);
         verifySignModel.setPlainContent(request.getParam());
         verifySignModel.setSign(request.getSign());
-        verifySignModel.setPrivate(false);
-        verifySignModel.setKeyPath(authConfig.getPubKeyPath());
+        verifySignModel.setPrivate(true);
+        verifySignModel.setKeyPath(authConfig.getPrivateKeyPath());
 
         return SignUtil.verifySign(verifySignModel);
     }
@@ -36,10 +36,10 @@ public class VerifyServiceImpl implements VerifyService{
     @Override
     public String sign(SignRequest request) {
         SignModel signModel = new SignModel();
-        signModel.setPrivate(true);
+        signModel.setPrivate(false);
         signModel.setPlainContent(request.getPlainContent());
         signModel.setAlgorithm(Algorithm.RSA);
-        signModel.setKeyPath(authConfig.getPrivateKeyPath());
+        signModel.setKeyPath(authConfig.getPubKeyPath());
         return SignUtil.sign(signModel);
     }
 }
