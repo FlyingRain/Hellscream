@@ -39,7 +39,8 @@ public class EncryptUtil {
             logger.info("start to encrypt msg:[{}]", msg);
             MessageDigest digest = MessageDigest.getInstance("MD5");
             byte [] encryptByte = digest.digest(msg.getBytes("utf-8"));
-            String enCodeMsg = Base64.getEncoder().encodeToString(encryptByte);
+            String result = bytesToHex(encryptByte);
+            String enCodeMsg = Base64.getEncoder().encodeToString(result.getBytes());
             logger.info("encrypt msg is [{}]", enCodeMsg);
             return enCodeMsg;
         } catch (NoSuchAlgorithmException e) {
@@ -51,6 +52,30 @@ public class EncryptUtil {
         }
 
 
+    }
+
+    /**
+     *
+     * 把md5结果转换为16进制
+     * @param bytes
+     * @return
+     */
+    public static String bytesToHex(byte[] bytes) {
+        StringBuffer md5str = new StringBuffer();
+        // 把数组每一字节换成16进制连成md5字符串
+        int digital;
+        for (int i = 0; i < bytes.length; i++) {
+            digital = bytes[i];
+
+            if (digital < 0) {
+                digital += 256;
+            }
+            if (digital < 16) {
+                md5str.append("0");
+            }
+            md5str.append(Integer.toHexString(digital));
+        }
+        return md5str.toString().toUpperCase();
     }
 
     /**

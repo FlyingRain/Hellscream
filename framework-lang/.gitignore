@@ -5,6 +5,7 @@
 .settings
 .metadata
 
+out
 
 build
 lib/
