@@ -2,7 +2,7 @@ group 'com.flyingrain.translate.auth'
 version '1.0-SNAPSHOT'
 
 buildscript{
-    
+
     repositories{
         mavenCentral()
         mavenLocal()
