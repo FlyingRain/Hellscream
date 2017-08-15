@@ -1,2 +1,4 @@
 rootProject.name = 'dungeon-manager'
+include 'dungeon-api'
+include 'dungeon-service'
 
