@@ -70,7 +70,7 @@ subprojects {
     uploadArchives {
         repositories {
             mavenDeployer {
-                repository(url: uri('/home/wally/repository'))
+                repository(url: uri('/home/wul/.m2/repository'))
             }
         }
     }
