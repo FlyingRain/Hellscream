@@ -1,10 +1,17 @@
 package com.flyingrain.translate.dungeon.api.model;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 import java.math.BigDecimal;
 
 public class DungeonLimit {
 
-    private BigDecimal amount;
+    @NotBlank
+    private String limitName;
 
-    private int wordNumber;
+    private String type;
+
+    private String value;
+
+
 }
