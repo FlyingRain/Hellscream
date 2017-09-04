@@ -1,5 +1,7 @@
 package com.flyingrain.translate.framework.beanValidation.annotations;
 
+import com.flyingrain.translate.framework.beanValidation.ValidationConstraint;
+
 import java.lang.annotation.*;
 
 /**
@@ -11,5 +13,16 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface BeanValidation {
 
+    /**
+     * 校验规则
+     * @return
+     */
+    Class<? extends ValidationConstraint>[] value() default {};
+
+    /**
+     * 执行顺序
+     * @return
+     */
+    int order() default -1;
 
 }
