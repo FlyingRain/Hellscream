@@ -1,5 +1,6 @@
 package com.flyingrain.translate.dungeon.api.conf;
 
+
 import org.springframework.context.annotation.Configuration;
 
 /**
