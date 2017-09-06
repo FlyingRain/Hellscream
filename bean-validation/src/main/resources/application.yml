@@ -1,0 +1,5 @@
+serverPrefix: /translate
+
+server:
+  port: 8080
+

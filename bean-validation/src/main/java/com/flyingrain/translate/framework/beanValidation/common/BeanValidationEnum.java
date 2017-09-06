@@ -5,6 +5,7 @@ package com.flyingrain.translate.framework.beanValidation.common;
  */
 public enum BeanValidationEnum {
     INVALID("V0001","参数校验错误"),
+    VALIDEXCEPTION("V0002","参数校验异常"),
     ;
     private String code;
 

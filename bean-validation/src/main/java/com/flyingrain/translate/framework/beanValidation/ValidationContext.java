@@ -1,6 +1,6 @@
 package com.flyingrain.translate.framework.beanValidation;
 
-import java.lang.reflect.Method;
+import java.lang.annotation.Annotation;
 
 /**
  * 参数校验上下文
@@ -17,14 +17,20 @@ public class ValidationContext {
      */
     private Object [] params;
     /**
-     * 方法
+     * 方法名
      */
-    private Method method;
+    private String methodName;
 
-    public ValidationContext(Class<?> targetClass, Object[] params, Method method) {
+    /**
+     * 注解
+     */
+    private Annotation annotation;
+
+    public ValidationContext(Class<?> targetClass, Object[] params, String methodName, Annotation annotation) {
         this.targetClass = targetClass;
         this.params = params;
-        this.method = method;
+        this.methodName = methodName;
+        this.annotation = annotation;
     }
 
     public Object[] getParams() {
@@ -43,11 +49,19 @@ public class ValidationContext {
         this.params = params;
     }
 
-    public Method getMethod() {
-        return method;
+    public String getMethodName() {
+        return methodName;
     }
 
-    public void setMethod(Method method) {
-        this.method = method;
+    public void setMethodName(String methodName) {
+        this.methodName = methodName;
+    }
+
+    public Annotation getAnnotation() {
+        return annotation;
+    }
+
+    public void setAnnotation(Annotation annotation) {
+        this.annotation = annotation;
     }
 }

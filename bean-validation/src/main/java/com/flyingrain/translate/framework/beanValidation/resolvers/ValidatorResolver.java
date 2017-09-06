@@ -29,7 +29,7 @@ public class ValidatorResolver implements ValidationResolver{
         Map<String,Object> beans = applicationContext.getBeansWithAnnotation(Validator.class);
         return  beans.entrySet().stream().map(Map.Entry::getValue).filter(bean->{
             Validator validator = bean.getClass().getAnnotation(Validator.class);
-            return validator.target()==context.getTargetClass()&&context.getMethod().getName().equals(validator.methodName())&&bean instanceof ValidationConstraint;
+            return validator.target()==context.getTargetClass()&&context.getMethodName().equals(validator.methodName())&&bean instanceof ValidationConstraint;
         }).map(object->(ValidationConstraint)object).collect(Collectors.toList());
     }
 }
