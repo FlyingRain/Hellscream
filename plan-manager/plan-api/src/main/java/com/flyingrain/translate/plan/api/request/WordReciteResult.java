@@ -1,13 +1,10 @@
 package com.flyingrain.translate.plan.api.request;
 
-import org.hibernate.validator.constraints.NotBlank;
-
 /**
  * Created by wul on 5/6/17.
  */
 public class WordReciteResult {
 
-    @NotBlank
     private int wordId;
 
     /**

@@ -1,7 +1,5 @@
 package com.flyingrain.translate.plan.api.request;
 
-import org.hibernate.validator.constraints.NotBlank;
-
 /**
  * 新建计划
  * Created by wally on 4/25/17.
@@ -15,13 +13,11 @@ public class PlanRequest {
     /**
      * 书本ID
      */
-    @NotBlank
     private int bookId;
 
     /**
      * 计划类型1，按数量2，按时间
      */
-    @NotBlank
     private int planType;
     /**
      * 截止日期
@@ -34,7 +30,6 @@ public class PlanRequest {
     /**
      * 用户ID
      */
-    @NotBlank
     private int userId;
 
 

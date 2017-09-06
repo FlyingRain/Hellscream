@@ -59,12 +59,13 @@ subprojects {
         compile group: 'mysql', name: 'mysql-connector-java', version: '6.0.6'
     }
 
-    uploadArchives {
-        repositories {
-            mavenDeployer {
-                repository(url: uri('/home/wally/repository'))
-            }
+
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: uri('/home/wally/repository'))
         }
     }
 }
-

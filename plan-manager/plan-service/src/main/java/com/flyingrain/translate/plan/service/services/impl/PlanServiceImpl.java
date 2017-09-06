@@ -1,7 +1,6 @@
 package com.flyingrain.translate.plan.service.services.impl;
 
 import com.flyingrain.translate.framework.lang.FlyException;
-import com.flyingrain.translate.framework.lang.utils.DateUtil;
 import com.flyingrain.translate.plan.api.request.PlanRequest;
 import com.flyingrain.translate.plan.api.response.Plan;
 import com.flyingrain.translate.plan.service.common.PlanExceptionCode;
@@ -12,6 +11,7 @@ import com.flyingrain.translate.plan.service.services.dao.mapper.UserWordRelatio
 import com.flyingrain.translate.plan.service.services.dao.model.PlanModel;
 import com.flyingrain.translate.words.collection.api.BookQuery;
 import com.flyingrain.translate.words.collection.result.Book;
+import org.apache.commons.lang3.time.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +19,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -46,7 +47,11 @@ public class PlanServiceImpl implements PlanService {
         Book book = bookQuery.getBook(planRequest.getBookId());
         planModel.setAll_word_number(book.getWordNumber());
         planModel.setBook_id(planRequest.getBookId());
-        planModel.setDeadline(DateUtil.formatDateDefault(planRequest.getDeadline()));
+        try {
+            planModel.setDeadline(DateUtils.parseDate(planRequest.getDeadline(),"yyyy/MM/dd"));
+        } catch (ParseException e) {
+            throw new FlyException(PlanExceptionCode.PARAM_INVALID.getCode(),"deadline format error!");
+        }
         planModel.setWord_number(planRequest.getNumber());
         planModel.setUser_id(planRequest.getUserId());
         planModel.setPlan_type(planRequest.getPlanType());
@@ -109,7 +114,11 @@ public class PlanServiceImpl implements PlanService {
         Book book = bookQuery.getBook(planRequest.getBookId());
         planModel.setAll_word_number(changeBook ? book.getWordNumber() : oldPlan.getAll_word_number());
         planModel.setComplete_number(changeBook ? 0 : oldPlan.getComplete_number());
-        planModel.setDeadline(DateUtil.formatDateDefault(planRequest.getDeadline()));
+        try {
+            planModel.setDeadline(DateUtils.parseDate(planRequest.getDeadline(),"yyyy/MM/dd"));
+        } catch (ParseException e) {
+            throw new FlyException(PlanExceptionCode.PARAM_INVALID.getCode(),"deadline format error!");
+        }
         planModel.setWord_number(planRequest.getNumber());
         planModel.setPlan_type(planRequest.getPlanType());
         planModel.setStatus(PlanStatus.UNDERWAY.status);
@@ -121,6 +130,11 @@ public class PlanServiceImpl implements PlanService {
         if (changeBook)
             relationMapper.deletePlanProficiency(planRequest.getId());
         return updateNumber;
+    }
+
+    @Override
+    public Plan getUserPlan(int userId, int planId) {
+        return transferPlanModel(planMapper.getPlan(planId,userId));
     }
 
 

@@ -1,7 +1,5 @@
 package com.flyingrain.translate.plan.api.request;
 
-import org.hibernate.validator.constraints.NotBlank;
-
 import java.util.List;
 
 /**
@@ -10,11 +8,8 @@ import java.util.List;
  */
 public class TaskResult {
 
-    @NotBlank
     private int taskId;
-    @NotBlank
     private int userId;
-    @NotBlank
     private int status;
 
     private String completeDate;

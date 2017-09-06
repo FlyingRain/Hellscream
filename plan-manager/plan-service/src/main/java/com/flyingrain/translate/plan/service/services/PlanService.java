@@ -39,4 +39,12 @@ public interface PlanService {
      */
     int modifyPlan(PlanRequest planRequest);
 
+    /**
+     * 获取用户计划
+     * @param userId
+     * @param planId
+     * @return
+     */
+    Plan getUserPlan(int userId,int planId);
+
 }

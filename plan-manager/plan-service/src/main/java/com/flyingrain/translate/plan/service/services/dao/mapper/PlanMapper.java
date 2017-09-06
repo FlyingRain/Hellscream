@@ -25,6 +25,9 @@ public interface PlanMapper {
     List<PlanModel> getPlans(@Param("userId") int userId);
 
 
+    @Select("select id,user_id,plan_type,complete_number,end_date,all_word_number,deadline,word_number,book_id,status from plan where user_id=#{userId} and id=#{planId}")
+    PlanModel getPlan(@Param("userId") int planId,@Param("planId") int userId);
+
     /**
      * 根据状态获取用户计划
      * @param userId
