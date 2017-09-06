@@ -1,7 +1,5 @@
 package com.flyingrain.translate.framework.beanValidation.annotations;
 
-import sun.invoke.empty.Empty;
-
 import java.lang.annotation.*;
 
 /**
@@ -16,7 +14,7 @@ public @interface Validator {
      * 目标类
      * @return
      */
-    Class<?> target() default Empty.class;
+    Class<?> target() default Void.class;
 
     /**
      * 目标方法

@@ -7,6 +7,7 @@ import com.flyingrain.translate.framework.beanValidation.annotations.BeanValidat
 import com.flyingrain.translate.framework.beanValidation.validations.DefaultValidations;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.ApplicationContext;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,8 +23,11 @@ public class DefaultValidationResolver implements ValidationResolver {
 
     private ValidationContext context;
 
-    public DefaultValidationResolver(ValidationContext context) {
+    private ApplicationContext applicationContext;
+
+    public DefaultValidationResolver(ValidationContext context,ApplicationContext applicationContext) {
         this.context = context;
+        this.applicationContext = applicationContext;
     }
 
     @Override
@@ -38,6 +42,12 @@ public class DefaultValidationResolver implements ValidationResolver {
         if (constraints != null) {
             result.addAll(Stream.of(constraints).map(constraintClass -> {
                 try {
+                    if(applicationContext!=null){
+                        ValidationConstraint object = applicationContext.getBean(constraintClass);
+                        if(object!=null){
+                            return object;
+                        }
+                    }
                     return constraintClass.newInstance();
                 } catch (InstantiationException | IllegalAccessException e) {
                     logger.error("instance constraint failed!", e);

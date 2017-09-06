@@ -12,7 +12,7 @@ import java.util.List;
 public class ValidationFactory {
 
     public static List<ValidationConstraint> loadConstraints(ValidationContext validationContext,ApplicationContext applicationContext){
-        DefaultValidationResolver defaultValidationResolver = new DefaultValidationResolver(validationContext);
+        DefaultValidationResolver defaultValidationResolver = new DefaultValidationResolver(validationContext,applicationContext);
         ValidatorResolver validatorResolver = new ValidatorResolver(validationContext,applicationContext);
         List<ValidationConstraint> defaultConstraints = defaultValidationResolver.loadConstraints();
         defaultConstraints.addAll(validatorResolver.loadConstraints());
