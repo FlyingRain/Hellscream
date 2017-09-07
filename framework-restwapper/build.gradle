@@ -47,6 +47,7 @@ dependencies {
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '1.5.3.RELEASE'
     compile group: 'com.flyingrain.translate.framework.lang', name: 'framework-lang', version: '1.0-SNAPSHOT'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-aop', version: '1.5.2.RELEASE'
+    compile group: 'org.glassfish.jersey.media', name: 'jersey-media-multipart', version: '2.25.1'
     //compile group: 'com.flyingrain.translate.auth', name: 'auth-api',version: '1.0-SNAPSHOT'
 }
 
