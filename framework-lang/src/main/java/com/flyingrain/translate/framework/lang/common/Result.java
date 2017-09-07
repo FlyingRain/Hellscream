@@ -48,6 +48,15 @@ public class Result<T> implements Serializable{
         this.realResult = realResult;
     }
 
+
+    public static Result success(){
+        return new Result(true,"","");
+    }
+
+    public static Result fail(String code,String msg){
+        return new Result(code,msg);
+    }
+
     public boolean isSuccess() {
         return success;
     }
