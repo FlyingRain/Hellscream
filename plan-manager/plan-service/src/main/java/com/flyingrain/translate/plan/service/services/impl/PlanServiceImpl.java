@@ -48,9 +48,9 @@ public class PlanServiceImpl implements PlanService {
         planModel.setAll_word_number(book.getWordNumber());
         planModel.setBook_id(planRequest.getBookId());
         try {
-            planModel.setDeadline(DateUtils.parseDate(planRequest.getDeadline(),"yyyy/MM/dd"));
+            planModel.setDeadline(DateUtils.parseDate(planRequest.getDeadline(), "yyyy/MM/dd"));
         } catch (ParseException e) {
-            throw new FlyException(PlanExceptionCode.PARAM_INVALID.getCode(),"deadline format error!");
+            throw new FlyException(PlanExceptionCode.PARAM_INVALID.getCode(), "deadline format error!");
         }
         planModel.setWord_number(planRequest.getNumber());
         planModel.setUser_id(planRequest.getUserId());
@@ -115,9 +115,9 @@ public class PlanServiceImpl implements PlanService {
         planModel.setAll_word_number(changeBook ? book.getWordNumber() : oldPlan.getAll_word_number());
         planModel.setComplete_number(changeBook ? 0 : oldPlan.getComplete_number());
         try {
-            planModel.setDeadline(DateUtils.parseDate(planRequest.getDeadline(),"yyyy/MM/dd"));
+            planModel.setDeadline(DateUtils.parseDate(planRequest.getDeadline(), "yyyy/MM/dd"));
         } catch (ParseException e) {
-            throw new FlyException(PlanExceptionCode.PARAM_INVALID.getCode(),"deadline format error!");
+            throw new FlyException(PlanExceptionCode.PARAM_INVALID.getCode(), "deadline format error!");
         }
         planModel.setWord_number(planRequest.getNumber());
         planModel.setPlan_type(planRequest.getPlanType());
@@ -134,11 +134,14 @@ public class PlanServiceImpl implements PlanService {
 
     @Override
     public Plan getUserPlan(int userId, int planId) {
-        return transferPlanModel(planMapper.getPlan(planId,userId));
+        return transferPlanModel(planMapper.getUserPlan(planId, userId));
     }
 
 
     private Plan transferPlanModel(PlanModel model) {
+        if (model == null) {
+            return null;
+        }
         Plan plan = new Plan();
         plan.setBookId(model.getBook_id());
         plan.setCompleteNumber(model.getComplete_number());
