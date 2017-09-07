@@ -1,6 +1,9 @@
 package com.flyingrain.translate.database.conf;
 
 import com.flyingrain.translate.database.conf.databases.DataBasePro;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInterceptor;
+import org.apache.ibatis.plugin.Interceptor;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +13,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+
+import java.util.Properties;
 
 /**
  * 数据库基础配置
@@ -29,6 +34,13 @@ public class BaseConfig {
     public SqlSessionFactoryBean sqlSessionFactory(DynamicDataSource dynamicDataSource) {
         SqlSessionFactoryBean sqlSessionFactory = new SqlSessionFactoryBean();
         sqlSessionFactory.setDataSource(dynamicDataSource);
+
+        Properties properties = new Properties();
+        properties.setProperty("pageSizeZero","true");
+        PageInterceptor pageHelper = new PageInterceptor();
+        pageHelper.setProperties(properties);
+
+        sqlSessionFactory.setPlugins(new Interceptor[]{pageHelper});
         //DefaultResourceLoader resourceLoader = new DefaultResourceLoader();
         //sqlSessionFactory.setMapperLocations(new Resource[]{resourceLoader.getResource("classpath:mapper/*.xml")});
         return sqlSessionFactory;
