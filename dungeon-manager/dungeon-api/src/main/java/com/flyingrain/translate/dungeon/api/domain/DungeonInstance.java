@@ -1,5 +1,7 @@
 package com.flyingrain.translate.dungeon.api.domain;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.util.Date;
 import java.util.List;
 
@@ -7,6 +9,7 @@ import java.util.List;
  * 副本实例
  * Created by wally on 9/7/17.
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class DungeonInstance {
     /**
      * 副本Id

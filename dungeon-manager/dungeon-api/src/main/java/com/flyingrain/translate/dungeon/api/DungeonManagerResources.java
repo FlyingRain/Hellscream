@@ -1,6 +1,7 @@
 package com.flyingrain.translate.dungeon.api;
 
 import com.flyingrain.translate.dungeon.api.domain.DungeonDomain;
+import com.flyingrain.translate.dungeon.api.requests.DungeonQueryRequest;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -35,6 +36,13 @@ public interface DungeonManagerResources {
     int deleteDungeon(@QueryParam("dungeonId") Integer dungeonId);
 
 
-    List<DungeonDomain>
+    /**
+     * 副本分页查询
+     * @param queryRequest
+     * @return
+     */
+    @POST
+    @Path("/pageQuery/dungeon")
+    List<DungeonDomain> pageQuery(DungeonQueryRequest queryRequest);
 
 }

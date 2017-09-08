@@ -32,6 +32,11 @@ public class DungeonDomain {
      */
     private List<DungeonLimit> limits;
 
+    /**
+     * 副本图片列表
+     */
+    private List<String> imgPaths;
+
     public String getId() {
         return Id;
     }
@@ -46,6 +51,14 @@ public class DungeonDomain {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public List<String> getImgPaths() {
+        return imgPaths;
+    }
+
+    public void setImgPaths(List<String> imgPaths) {
+        this.imgPaths = imgPaths;
     }
 
     public String getDesc() {
