@@ -8,7 +8,10 @@ import com.flyingrain.translate.dungeon.api.service.DungeonConsistService;
 import com.flyingrain.translate.dungeon.api.service.DungeonRelationService;
 import com.flyingrain.translate.dungeon.api.service.DungeonResourceService;
 import com.flyingrain.translate.dungeon.api.service.DungeonRoleService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -18,11 +21,13 @@ import java.util.List;
 /**
  * Created by Uni on 2017/9/9.
  */
+@Component
 @Path("/dungeon")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class DungeonManageController {
 
+    private Logger logger = LoggerFactory.getLogger(DungeonManageController.class);
     @Autowired
     private DungeonRoleService dungeonRoleService;
     @Autowired
@@ -35,6 +40,7 @@ public class DungeonManageController {
     @Path("/listDungeon")
     @GET
     List<DungeonConsist> list(@QueryParam("page") int page) {
+        logger.info("开始获取...");
         List<DungeonConsist> list = new ArrayList<DungeonConsist>();
         List<DungeonRelation> list1 = dungeonRelationService.getList(page);
         for(int i = 0; i< list1.size(); i++) {

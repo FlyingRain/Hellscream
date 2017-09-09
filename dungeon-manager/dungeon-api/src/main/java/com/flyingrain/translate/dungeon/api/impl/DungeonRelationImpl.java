@@ -4,12 +4,14 @@ import com.flyingrain.translate.dungeon.api.domain.DungeonRelation;
 import com.flyingrain.translate.dungeon.api.mapper.DungeonRelationMapper;
 import com.flyingrain.translate.dungeon.api.service.DungeonRelationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 /**
  * Created by Uni on 2017/9/9.
  */
+@Component
 public class DungeonRelationImpl implements DungeonRelationService {
 
     @Autowired
