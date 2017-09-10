@@ -6,7 +6,6 @@ package com.flyingrain.translate.dungeon.api;
 public interface DungeonResources {
 
 
-    private
 
 
 }
