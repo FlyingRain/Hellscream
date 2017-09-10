@@ -1,6 +1,7 @@
 package com.flyingrain.translate.dungeon.api.mapper;
 
 import com.flyingrain.translate.dungeon.api.domain.DungeonResource;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
@@ -25,5 +26,8 @@ public interface DungeonResourceMapper {
      */
     @Select("select * from dungeon_resource where id=#{id}")
     DungeonResource getResource(@Param("id") int id);
+
+    @Delete("delete * from dungeon_resource where id=#{id}")
+    int deleteResource(@Param("id") int id);
 
 }

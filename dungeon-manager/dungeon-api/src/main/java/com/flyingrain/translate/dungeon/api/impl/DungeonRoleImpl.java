@@ -19,4 +19,14 @@ public class DungeonRoleImpl implements DungeonRoleService {
     public DungeonRole getRole(int id) {
         return dungeonRoleMapper.getRole(id);
     }
+
+    @Override
+    public int save(int id, int isActive, int range) {
+        return dungeonRoleMapper.updateRole(id, isActive, range);
+    }
+
+    @Override
+    public int deleteRole(int id) {
+        return dungeonRoleMapper.deleteRole(id);
+    }
 }

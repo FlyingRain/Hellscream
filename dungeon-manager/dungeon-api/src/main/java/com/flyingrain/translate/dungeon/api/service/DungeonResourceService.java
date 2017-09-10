@@ -13,4 +13,11 @@ public interface DungeonResourceService {
      * @return
      */
     DungeonResource getResource(int id);
+
+    /**
+     * 删除对应的resource
+     * @param id
+     * @return
+     */
+    int deleteResource(int id);
 }

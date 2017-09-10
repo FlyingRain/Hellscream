@@ -1,6 +1,7 @@
 package com.flyingrain.translate.dungeon.api.mapper;
 
 import com.flyingrain.translate.dungeon.api.domain.DungeonRelation;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
@@ -32,5 +33,8 @@ public interface DungeonRelationMapper {
      * @return
      */
     @Select("select * from dungeon_role_relation order by data_added desc limit (#{page}-1)*10,10")
-    List<DungeonRelation> getList(int page);
+    List<DungeonRelation> getList(@Param("page") int page);
+
+    @Delete("delete from dungeon_role_relation where id=#{id}")
+    int deleteRelation(@Param("roleId") int id);
 }

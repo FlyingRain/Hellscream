@@ -19,4 +19,9 @@ public class DungeonResourceImpl implements DungeonResourceService {
     public DungeonResource getResource(int id) {
         return dungeonResourceMapper.getResource(id);
     }
+
+    @Override
+    public int deleteResource(int id) {
+        return dungeonResourceMapper.deleteResource(id);
+    }
 }

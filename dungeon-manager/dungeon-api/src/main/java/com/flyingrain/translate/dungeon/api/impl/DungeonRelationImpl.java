@@ -31,4 +31,9 @@ public class DungeonRelationImpl implements DungeonRelationService {
     public List<DungeonRelation> getList(int page) {
         return dungeonRelationMapper.getList(page);
     }
+
+    @Override
+    public int deleteRelation(int id) {
+        return dungeonRelationMapper.deleteRelation(id);
+    }
 }

@@ -14,4 +14,6 @@ public interface DungeonRelationService {
     DungeonRelation getDungeonRelation(int roleId);
 
     List<DungeonRelation> getList(int page);
+
+    int deleteRelation(int id);
 }

@@ -13,4 +13,19 @@ public interface DungeonRoleService {
      * @return
      */
     DungeonRole getRole(int id);
+
+    /**
+     * 更新
+     * @param id
+     * @param isActive
+     * @param range
+     */
+    int save(int id, int isActive, int range);
+
+    /**
+     * 删除对应的role
+     * @param id
+     * @return
+     */
+    int deleteRole(int id);
 }
