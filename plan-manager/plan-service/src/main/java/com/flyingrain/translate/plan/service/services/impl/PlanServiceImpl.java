@@ -143,6 +143,7 @@ public class PlanServiceImpl implements PlanService {
             return null;
         }
         Plan plan = new Plan();
+        plan.setId(model.getId());
         plan.setBookId(model.getBook_id());
         plan.setCompleteNumber(model.getComplete_number());
         plan.setDeadline(model.getDeadline());
