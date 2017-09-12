@@ -45,4 +45,6 @@ public interface DungeonManagerResources {
     @Path("/pageQuery/dungeon")
     List<DungeonDomain> pageQuery(DungeonQueryRequest queryRequest);
 
+
+
 }
