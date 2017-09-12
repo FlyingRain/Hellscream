@@ -1,12 +1,11 @@
 package com.flyingrain.translate.words.collection.service.services.impl;
 
-import com.flyingrain.translate.words.collection.result.Book;
 import com.flyingrain.translate.words.collection.model.BookType;
+import com.flyingrain.translate.words.collection.result.Book;
 import com.flyingrain.translate.words.collection.service.dao.mapper.WordMapper;
 import com.flyingrain.translate.words.collection.service.dao.mapper.WordTypeMapper;
 import com.flyingrain.translate.words.collection.service.dao.mapper.WordTypeRelationsMapper;
 import com.flyingrain.translate.words.collection.service.dao.model.WordType;
-import com.flyingrain.translate.words.collection.service.dao.model.WordTypeRelations;
 import com.flyingrain.translate.words.collection.service.services.BookService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -90,10 +89,6 @@ public class BookServiceImpl implements BookService {
         return wordTypes.stream().map(wordType -> getBookByType(wordType.getType_code())).collect(Collectors.toList());
     }
 
-    @Override
-    public List<WordTypeRelations> getWordIds(int type, List<Integer> wordIds, int number) {
-        return wordTypeRelationsMapper.getWordIds(type,wordIds,number);
-    }
 
     private int getBasicNumber() {
         Integer allWords = wordMapper.getAllWords();
