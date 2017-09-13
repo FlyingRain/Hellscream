@@ -91,7 +91,7 @@ public class WordServicesImpl implements WordServices {
         return sentenceDefine;
     }
 
-    private WordResult transfer(Word myWord, SentenceDefine define) {
+    public WordResult transfer(Word myWord, SentenceDefine define) {
         WordResult wordResult = new WordResult();
         wordResult.setWord(myWord.getWord());
         wordResult.setMean(myWord.getMean());

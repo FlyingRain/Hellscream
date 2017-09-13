@@ -1,6 +1,8 @@
 package com.flyingrain.translate.words.collection.service.services;
 
+import com.flyingrain.translate.words.collection.request.BookWords;
 import com.flyingrain.translate.words.collection.result.Book;
+import com.flyingrain.translate.words.collection.result.WordResult;
 
 import java.util.List;
 
@@ -29,5 +31,7 @@ public interface BookService {
      */
     List<Book> getBookByName(String bookName);
 
+
+    List<WordResult> queryByCondition(BookWords bookWords);
 
 }

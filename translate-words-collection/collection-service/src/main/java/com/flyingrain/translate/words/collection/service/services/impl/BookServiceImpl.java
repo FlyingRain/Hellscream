@@ -1,12 +1,16 @@
 package com.flyingrain.translate.words.collection.service.services.impl;
 
 import com.flyingrain.translate.words.collection.model.BookType;
+import com.flyingrain.translate.words.collection.request.BookWords;
 import com.flyingrain.translate.words.collection.result.Book;
+import com.flyingrain.translate.words.collection.result.WordResult;
 import com.flyingrain.translate.words.collection.service.dao.mapper.WordMapper;
 import com.flyingrain.translate.words.collection.service.dao.mapper.WordTypeMapper;
 import com.flyingrain.translate.words.collection.service.dao.mapper.WordTypeRelationsMapper;
+import com.flyingrain.translate.words.collection.service.dao.model.Word;
 import com.flyingrain.translate.words.collection.service.dao.model.WordType;
 import com.flyingrain.translate.words.collection.service.services.BookService;
+import com.flyingrain.translate.words.collection.service.services.WordServices;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +34,8 @@ public class BookServiceImpl implements BookService {
     private WordTypeRelationsMapper wordTypeRelationsMapper;
     @Autowired
     private WordMapper wordMapper;
+    @Autowired
+    private WordServices wordServices;
 
     @Override
     public List<Book> getAllBooks() {
@@ -87,6 +93,12 @@ public class BookServiceImpl implements BookService {
         logger.info("start to search bookName:[{}]",bookName);
         List<WordType> wordTypes = wordTypeMapper.getWordTypesByName(bookName);
         return wordTypes.stream().map(wordType -> getBookByType(wordType.getType_code())).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<WordResult> queryByCondition(BookWords bookWords) {
+        List<Word> words =  wordMapper.getWordIdsExcept(bookWords.getBookType(),bookWords.getWordIds(),bookWords.getNumber());
+        return words.stream().map(word -> wordServices.getWordById(word.getId())).collect(Collectors.toList());
     }
 
 

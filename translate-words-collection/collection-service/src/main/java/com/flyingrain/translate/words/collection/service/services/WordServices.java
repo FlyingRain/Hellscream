@@ -1,7 +1,7 @@
 package com.flyingrain.translate.words.collection.service.services;
 
-import com.flyingrain.translate.words.collection.result.WordResult;
 import com.flyingrain.translate.words.collection.result.SentenceDefine;
+import com.flyingrain.translate.words.collection.result.WordResult;
 
 /**
  * Created by wally on 4/18/17.
@@ -28,4 +28,6 @@ public interface WordServices {
      * @return
      */
     WordResult getWordById(int wordId);
+
+
 }

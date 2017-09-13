@@ -2,7 +2,6 @@ package com.flyingrain.translate.words.collection.service.dao.mapper;
 
 import com.flyingrain.translate.words.collection.service.dao.mapper.providers.WordProvider;
 import com.flyingrain.translate.words.collection.service.dao.model.Word;
-import com.flyingrain.translate.words.collection.service.dao.model.WordTypeRelations;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -35,6 +34,6 @@ public interface WordMapper {
     Integer getAllWords();
 
     @SelectProvider(type = WordProvider.class, method = "queryExcept")
-    List<WordTypeRelations> getWordIdsExcept(@Param("type") int type, @Param("wordIds") List<Integer> wordIds, @Param("number") int number);
+    List<Word> getWordIdsExcept(@Param("type") int type, @Param("wordIds") List<Integer> wordIds, @Param("number") int number);
 
 }

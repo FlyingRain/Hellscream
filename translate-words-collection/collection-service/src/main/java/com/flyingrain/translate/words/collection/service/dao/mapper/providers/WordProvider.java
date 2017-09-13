@@ -47,6 +47,7 @@ public class WordProvider {
             }
             sql.append(")");
         }
+        sql.append(" limit #{number} ");
         logger.info("get sql :[{}]",sql.toString());
         return sql.toString();
     }
