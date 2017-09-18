@@ -1,12 +1,14 @@
 package com.flyingrain.translate.plan.service.impl;
 
 import com.flyingrain.translate.framework.annotaions.Resource;
+import com.flyingrain.translate.framework.beanValidation.annotations.BeanValidation;
 import com.flyingrain.translate.framework.lang.FlyException;
 import com.flyingrain.translate.plan.api.intf.PlanManagerResource;
 import com.flyingrain.translate.plan.api.request.PlanRequest;
 import com.flyingrain.translate.plan.api.response.ModifyResult;
 import com.flyingrain.translate.plan.api.response.Plan;
 import com.flyingrain.translate.plan.service.common.PlanExceptionCode;
+import com.flyingrain.translate.plan.service.impl.validations.PlanExistValidation;
 import com.flyingrain.translate.plan.service.services.PlanService;
 import com.flyingrain.translate.plan.service.services.common.PlanStatus;
 import org.slf4j.Logger;
@@ -52,6 +54,7 @@ public class PlanManagerResourceImpl implements PlanManagerResource {
     }
 
     @Override
+    @BeanValidation(PlanExistValidation.class)
     public ModifyResult modifyPlan(PlanRequest planRequest) {
         logger.info("start to update planRequest![{}]", planRequest);
         int i = planService.modifyPlan(planRequest);
