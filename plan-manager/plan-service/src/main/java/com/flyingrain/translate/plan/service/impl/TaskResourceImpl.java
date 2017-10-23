@@ -36,6 +36,7 @@ public class TaskResourceImpl implements TaskResource {
     @Override
     @BeanValidation(TaskResourceValidation.class)
     public Task getUserPlanTask(Integer planId, Integer userId, String planDate) {
+        logger.info("obtain task:planId:[{}],userId:[{}],planDate:[{}]",new Object[]{planId,userId,planDate});
         Date date = new Date();
         if(StringUtils.isNotEmpty(planDate)){
             try {

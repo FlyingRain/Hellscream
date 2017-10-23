@@ -47,10 +47,12 @@ public class PlanServiceImpl implements PlanService {
         Book book = bookQuery.getBook(planRequest.getBookId());
         planModel.setAll_word_number(book.getWordNumber());
         planModel.setBook_id(planRequest.getBookId());
-        try {
-            planModel.setDeadline(DateUtils.parseDate(planRequest.getDeadline(), "yyyy/MM/dd"));
-        } catch (ParseException e) {
-            throw new FlyException(PlanExceptionCode.PARAM_INVALID.getCode(), "deadline format error!");
+        if (planRequest.getDeadline() != null) {
+            try {
+                planModel.setDeadline(DateUtils.parseDate(planRequest.getDeadline(), "yyyy/MM/dd"));
+            } catch (ParseException e) {
+                throw new FlyException(PlanExceptionCode.PARAM_INVALID.getCode(), "deadline format error!");
+            }
         }
         planModel.setWord_number(planRequest.getNumber());
         planModel.setUser_id(planRequest.getUserId());
