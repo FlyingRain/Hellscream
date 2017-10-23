@@ -5,7 +5,7 @@ import com.flyingrain.translate.plan.api.response.Plan;
 import com.flyingrain.translate.plan.api.response.Task;
 import com.flyingrain.translate.plan.service.services.PlanService;
 import com.flyingrain.translate.plan.service.services.TaskCache;
-import com.flyingrain.translate.plan.service.services.TaskGenerator;
+import com.flyingrain.translate.plan.service.services.TaskService;
 import com.flyingrain.translate.plan.service.services.common.PlanType;
 import com.flyingrain.translate.plan.service.services.common.TaskStatus;
 import com.flyingrain.translate.plan.service.services.common.WordProficiency;
@@ -33,9 +33,9 @@ import java.util.stream.Stream;
  * Created by wally on 5/10/17.
  */
 @Component
-public class TaskGeneratorImpl implements TaskGenerator {
+public class TaskServiceImpl implements TaskService {
 
-    private Logger logger = LoggerFactory.getLogger(TaskGeneratorImpl.class);
+    private Logger logger = LoggerFactory.getLogger(TaskServiceImpl.class);
 
     @Autowired
     private DayPlanMapper dayPlanMapper;
@@ -177,6 +177,8 @@ public class TaskGeneratorImpl implements TaskGenerator {
      */
     @Override
     public Task generateTask(int userId, int planId, Date planDate) {
+
+
         Date planStartDate = DateUtil.getDateZeroDay(planDate);
         Date planEndDate = DateUtil.addDay(planStartDate, 1);
         DayPlan dayPlan = dayPlanMapper.getDayPlan(userId, planStartDate, planEndDate);
@@ -194,6 +196,7 @@ public class TaskGeneratorImpl implements TaskGenerator {
 
             //如果最近一次计划未完成则返回已有计划
             if (latestDayPlan.getStatus() == TaskStatus.PROCESSING.value) {
+                dayPlanMapper.updateTaskDate(planDate,latestDayPlan.getId());
                 return taskCache.getTask(latestDayPlan);
             } else {
                 //如果完成则生成新的计划并返回

@@ -26,6 +26,13 @@ public interface TaskResource {
 
 
     /**
+     * 生成用户的每日计划
+     * @return 结果
+     */
+    @Path("/generate/dayPlan")
+    String generate();
+
+    /**
      * 同步任务完成情况
      * @param taskResult 任务完成情况
      * @return

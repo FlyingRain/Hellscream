@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -52,7 +53,7 @@ public class SynchronizeTaskImpl implements TaskSychronize {
      */
     @Transactional
     private void updateTask(TaskResult taskResult) {
-        int updateNumber = dayPlanMapper.updateTaskStatus(taskResult.getStatus(), taskResult.getTaskId());
+        int updateNumber = dayPlanMapper.updateTaskStatus(taskResult.getStatus(), taskResult.getTaskId(),new Date());
         if (updateNumber != 1) {
             logger.error("update plan error! number is [{}]", updateNumber);
             throw new FlyException(PlanExceptionCode.SYNCHRONIZE_PLAN_FAIL.getCode(), PlanExceptionCode.SYNCHRONIZE_PLAN_FAIL.getMsg());

@@ -7,7 +7,7 @@ import java.util.Date;
 /**
  * Created by wally on 5/4/17.
  */
-public interface TaskGenerator {
+public interface TaskService {
 
     /**
      * 生成已返回计划状态的下一天计划

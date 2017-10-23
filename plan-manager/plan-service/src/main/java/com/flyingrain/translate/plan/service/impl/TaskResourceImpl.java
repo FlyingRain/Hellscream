@@ -8,7 +8,7 @@ import com.flyingrain.translate.plan.api.request.TaskResult;
 import com.flyingrain.translate.plan.api.response.Task;
 import com.flyingrain.translate.plan.service.common.PlanExceptionCode;
 import com.flyingrain.translate.plan.service.impl.validations.TaskResourceValidation;
-import com.flyingrain.translate.plan.service.services.TaskGenerator;
+import com.flyingrain.translate.plan.service.services.TaskService;
 import com.flyingrain.translate.plan.service.services.TaskSychronize;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
@@ -29,7 +29,7 @@ import java.util.Date;
 public class TaskResourceImpl implements TaskResource {
     private Logger logger = LoggerFactory.getLogger(TaskResourceImpl.class);
     @Autowired
-    private TaskGenerator taskGenerator;
+    private TaskService taskService;
     @Autowired
     private TaskSychronize taskSychronize;
 
@@ -45,7 +45,7 @@ public class TaskResourceImpl implements TaskResource {
                 throw new FlyException(PlanExceptionCode.PARAM_INVALID.getCode(),"dateFormat is invalid");
             }
         }
-        return taskGenerator.generateTask(userId, planId, date);
+        return taskService.generateTask(userId, planId, date);
     }
 
     @Override
@@ -54,5 +54,12 @@ public class TaskResourceImpl implements TaskResource {
 
     }
 
+
+    @Override
+    public String generate() {
+        taskService.generateTasks();
+        logger.info("complete generate!");
+        return "generate success!";
+    }
 
 }
