@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.flyingrain.translate.framework.lang.utils.FileUtil;
 import com.flyingrain.translate.plan.api.response.Task;
+import com.flyingrain.translate.plan.api.response.TaskSummary;
 import com.flyingrain.translate.plan.service.services.TaskCache;
 import com.flyingrain.translate.plan.service.services.dao.model.DayPlan;
 import com.googlecode.concurrentlinkedhashmap.ConcurrentLinkedHashMap;
@@ -78,6 +79,21 @@ public class FileTaskCache implements TaskCache {
         }
         String taskString = taskToString(task);
         FileUtil.saveFile(filePath, fileName, taskString);
+
+        String taskSummaryString="";
+        try {
+            taskSummaryString = objectMapper.writeValueAsString(generateSummaryFromTask(task,dayPlan));
+        } catch (JsonProcessingException e) {
+            logger.error("transfer summary to string error!",e);
+        }
+        String summaryFileName = dayPlan.getUser_id()+"_summary.txt";
+        FileUtil.saveFile(filePath,summaryFileName,taskSummaryString);
+
+    }
+
+    @Override
+    public TaskSummary getTaskSummary(Date planDate, int userId) {
+        return null;
     }
 
     private String taskToString(Task task) {
@@ -109,5 +125,17 @@ public class FileTaskCache implements TaskCache {
         String fileName = dayPlan.getUser_id() + ".txt";
         Path path1 = Paths.get(path,fileName);
         return path1.toAbsolutePath().toString();
+    }
+
+    private TaskSummary generateSummaryFromTask(Task task,DayPlan dayPlan){
+        logger.info("start to generate task Summary! task:[{}]",task);
+        TaskSummary summary = new TaskSummary();
+        summary.setUserId(dayPlan.getUser_id());
+        summary.setPlanId(dayPlan.getPlan_id());
+        summary.setNewWordsNumber(task.getNewWordNumber());
+        summary.setOldWordsNumber(task.getWordNumber()-task.getNewWordNumber());
+        summary.setTotal(task.getWordNumber());
+        summary.setTaskDate(dayPlan.getPlan_date());
+        return summary;
     }
 }
