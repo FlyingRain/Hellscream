@@ -12,3 +12,15 @@ server:
 
 logging:
   file: /home/wally/workspace/myprojects/logs/plan.log
+  level:
+    com:
+      flyingrain:
+        translate:
+          plan:
+            service:
+              services:
+                dao:
+                  mapper: debug
+
+
+

@@ -17,7 +17,7 @@ public interface DayPlanMapper {
     @Options(useGeneratedKeys = true, keyProperty = "dayPlan.id")
     int insertDayPlan(@Param("dayPlan") DayPlan dayPlan);
 
-    @Select("select word_ids,status,user_id,plan_date,complete_time,score,plan_id from recite_day_plan where user_id=#{userId} and plan_date>#{planStartDate} and plan_date<#{planEndDate}")
+    @Select("select word_ids,status,user_id,plan_date,complete_time,score,plan_id from recite_day_plan where user_id=#{userId} and plan_date>=#{planStartDate} and plan_date<#{planEndDate}")
     DayPlan getDayPlan(@Param("userId") int userId, @Param("planStartDate") Date planStartDate, @Param("planEndDate") Date planEndDate);
 
     /**

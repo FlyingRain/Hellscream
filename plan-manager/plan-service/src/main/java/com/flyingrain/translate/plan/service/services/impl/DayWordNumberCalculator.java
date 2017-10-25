@@ -1,6 +1,6 @@
 package com.flyingrain.translate.plan.service.services.impl;
 
-import com.flyingrain.translate.plan.api.response.Plan;
+import com.flyingrain.translate.plan.service.services.dao.model.PlanModel;
 
 /**
  *
@@ -9,5 +9,5 @@ import com.flyingrain.translate.plan.api.response.Plan;
  */
 public interface DayWordNumberCalculator {
 
-    int calculateDayWordNumber(Plan plan,int wordNumber);
+    int calculateDayWordNumber(PlanModel plan);
 }

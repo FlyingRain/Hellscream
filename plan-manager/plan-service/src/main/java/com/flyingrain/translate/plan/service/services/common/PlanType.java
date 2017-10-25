@@ -5,8 +5,8 @@ package com.flyingrain.translate.plan.service.services.common;
  * Created by wally on 6/20/17.
  */
 public enum PlanType {
-    BYNUMBER(1,"按每天固定单词"),
-    BYDEADLINE(2,"按结束日期"),
+    BYNUMBER(1,"numberBased"),
+    BYDEADLINE(2,"dateBased"),
     ;
 
     private int type;
