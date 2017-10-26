@@ -22,6 +22,23 @@ public class DungeonQueryRequest {
      * 副本Id
      */
     private Integer dungeonId;
+
+    /**
+     * 开始时间区间
+     */
+    private String startBegin;
+    /**
+     * 开始时间区间
+     */
+    private String startEnd;
+    /**
+     * 结束时间区间
+     */
+    private String overBegin;
+    /**
+     * 结束时间区间
+     */
+    private String overEnd;
     /**
      * 副本限制条件
      */
@@ -37,6 +54,38 @@ public class DungeonQueryRequest {
 
     public void setPageNum(int pageNum) {
         this.pageNum = pageNum;
+    }
+
+    public String getStartBegin() {
+        return startBegin;
+    }
+
+    public void setStartBegin(String startBegin) {
+        this.startBegin = startBegin;
+    }
+
+    public String getStartEnd() {
+        return startEnd;
+    }
+
+    public void setStartEnd(String startEnd) {
+        this.startEnd = startEnd;
+    }
+
+    public String getOverBegin() {
+        return overBegin;
+    }
+
+    public void setOverBegin(String overBegin) {
+        this.overBegin = overBegin;
+    }
+
+    public String getOverEnd() {
+        return overEnd;
+    }
+
+    public void setOverEnd(String overEnd) {
+        this.overEnd = overEnd;
     }
 
     public int getPageSize() {

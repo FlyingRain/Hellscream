@@ -10,7 +10,7 @@ import org.hibernate.validator.constraints.NotBlank;
 public class DungeonLimit {
 
     /**
-     * 限制名称
+     * 限制名称(唯一)
      */
     @NotBlank
     private String limitName;

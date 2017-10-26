@@ -12,13 +12,18 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class DungeonInstance {
     /**
-     * 副本Id
+     * 副本实例Id
      */
     private int dungeonId;
     /**
-     * 副本实例中的用户
+     * 副本实例中的任务
      */
-    private List<Integer> userIds;
+    private List<Integer> taskIds;
+
+    /**
+     * 实例状态
+     */
+    private int status;
     /**
      * 实例开始时间
      */
@@ -28,6 +33,10 @@ public class DungeonInstance {
      */
     private Date finishTime;
 
+    /**
+     * 副本详情
+     */
+    private DungeonDomain dungeonDomain;
     /**
      * 实例备注
      */
@@ -41,12 +50,28 @@ public class DungeonInstance {
         this.dungeonId = dungeonId;
     }
 
-    public List<Integer> getUserIds() {
-        return userIds;
+    public List<Integer> getTaskIds() {
+        return taskIds;
     }
 
-    public void setUserIds(List<Integer> userIds) {
-        this.userIds = userIds;
+    public void setTaskIds(List<Integer> taskIds) {
+        this.taskIds = taskIds;
+    }
+
+    public DungeonDomain getDungeonDomain() {
+        return dungeonDomain;
+    }
+
+    public void setDungeonDomain(DungeonDomain dungeonDomain) {
+        this.dungeonDomain = dungeonDomain;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     public Date getStartTime() {
@@ -71,5 +96,16 @@ public class DungeonInstance {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    @Override
+    public String toString() {
+        return "DungeonInstance{" +
+                "dungeonId=" + dungeonId +
+                ", userIds=" + taskIds +
+                ", startTime=" + startTime +
+                ", finishTime=" + finishTime +
+                ", remark='" + remark + '\'' +
+                '}';
     }
 }

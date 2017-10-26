@@ -1,10 +1,29 @@
 package com.flyingrain.translate.dungeon.service.services;
 
+import com.flyingrain.translate.dungeon.api.domain.DungeonInstance;
+import com.flyingrain.translate.dungeon.api.requests.DungeonQueryRequest;
+import com.flyingrain.translate.dungeon.api.requests.JoinRequest;
+import com.flyingrain.translate.dungeon.api.responses.JoinResult;
+
+import java.util.List;
+
 /**
  * Created by wally on 17-9-10.
  */
 public interface DungeonService {
 
 
+    /**
+     * 根据条件查询副本
+     * @param queryRequest
+     * @return
+     */
+    List<DungeonInstance> getDungeons(DungeonQueryRequest queryRequest);
 
+    /**
+     * 加入副本
+     * @param request
+     * @return
+     */
+    JoinResult joinDungeon(JoinRequest request);
 }
