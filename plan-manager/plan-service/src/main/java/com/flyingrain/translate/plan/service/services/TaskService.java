@@ -1,6 +1,7 @@
 package com.flyingrain.translate.plan.service.services;
 
 import com.flyingrain.translate.plan.api.response.Task;
+import com.flyingrain.translate.plan.api.response.TaskSummary;
 
 import java.util.Date;
 
@@ -16,5 +17,14 @@ public interface TaskService {
     String generateTasks();
 
     Task generateTask(int userId, int planId,Date planDate);
+
+    /**
+     * 获取任务摘要
+     * @param userId
+     * @param planId
+     * @param planDate
+     * @return
+     */
+    TaskSummary getTaskSummary(int userId,int planId,Date planDate);
 
 }

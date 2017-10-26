@@ -3,6 +3,7 @@ package com.flyingrain.translate.plan.service.services.impl;
 import com.flyingrain.translate.framework.lang.FlyException;
 import com.flyingrain.translate.framework.lang.utils.DateUtil;
 import com.flyingrain.translate.plan.api.response.Task;
+import com.flyingrain.translate.plan.api.response.TaskSummary;
 import com.flyingrain.translate.plan.api.response.Word;
 import com.flyingrain.translate.plan.service.common.PlanExceptionCode;
 import com.flyingrain.translate.plan.service.services.TaskCache;
@@ -109,10 +110,19 @@ public class TaskServiceImpl implements TaskService {
         return null;
     }
 
+    @Override
+    public TaskSummary getTaskSummary(int userId, int planId, Date planDate) {
+        TaskSummary summary = taskCache.getTaskSummary(planDate,userId);
+        if(summary==null){
+            generateTask(userId,planId,planDate);
+        }
+        return taskCache.getTaskSummary(planDate,userId);
+    }
+
 
     private String getPanType(int planType) {
         if (planType == PlanType.BYDEADLINE.getType()) {
-            return PlanType.BYNUMBER.getDesc();
+            return PlanType.BYDEADLINE.getDesc();
         } else if (planType == PlanType.BYNUMBER.getType()) {
             return PlanType.BYNUMBER.getDesc();
         }

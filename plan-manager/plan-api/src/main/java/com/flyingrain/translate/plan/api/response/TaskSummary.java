@@ -6,17 +6,29 @@ import java.util.Date;
  * task摘要
  */
 public class TaskSummary {
-
+    /**
+     * 计划Id
+     */
     private int planId;
-
+    /**
+     * 用户Id
+     */
     private int userId;
-
+    /**
+     * 任务日期
+     */
     private Date taskDate;
-
+    /**
+     * 新单词数
+     */
     private int newWordsNumber;
-
+    /**
+     * 老单词数
+     */
     private int oldWordsNumber;
-
+    /**
+     * 单词总数
+     */
     private int total;
 
     public int getPlanId() {

@@ -30,6 +30,11 @@ public class FileTaskCache implements TaskCache {
 
     private Logger logger = LoggerFactory.getLogger(FileTaskCache.class);
 
+    //摘要后缀
+    private static String SUMMARYSUF = "_summary.txt";
+
+    private static String TASKSUF = ".txt";
+
     @Value("${plan.savePath}")
     private String rootPath;
 
@@ -47,7 +52,7 @@ public class FileTaskCache implements TaskCache {
     public Task getTask(DayPlan dayPlan) {
         String filePath = filePathCache.get(dayPlan.getId());
         if (StringUtils.isEmpty(filePath)) {
-            filePath = getFile(dayPlan);
+            filePath = getFile(dayPlan.getPlan_date(), dayPlan.getUser_id());
         }
         if (FileUtil.isExit(filePath)) {
             String taskString = FileUtil.readFile(filePath);
@@ -70,9 +75,9 @@ public class FileTaskCache implements TaskCache {
      */
     @Override
     public void cacheTask(Task task, DayPlan dayPlan) {
-        String filePath = getFilePath(dayPlan);
-        String path = filePathCache.putIfAbsent(dayPlan.getId(), getFile(dayPlan));
-        String fileName = dayPlan.getUser_id() + ".txt";
+        String filePath = getFilePath(dayPlan.getPlan_date());
+        String path = filePathCache.putIfAbsent(dayPlan.getId(), getFile(dayPlan.getPlan_date(), dayPlan.getUser_id()));
+        String fileName = dayPlan.getUser_id() + TASKSUF;
         if (path != null) {
             logger.error("there has been a task int the cache [{}]", dayPlan);
             return;
@@ -80,19 +85,29 @@ public class FileTaskCache implements TaskCache {
         String taskString = taskToString(task);
         FileUtil.saveFile(filePath, fileName, taskString);
 
-        String taskSummaryString="";
+        String taskSummaryString = "";
         try {
-            taskSummaryString = objectMapper.writeValueAsString(generateSummaryFromTask(task,dayPlan));
+            taskSummaryString = objectMapper.writeValueAsString(generateSummaryFromTask(task, dayPlan));
         } catch (JsonProcessingException e) {
-            logger.error("transfer summary to string error!",e);
+            logger.error("transfer summary to string error!", e);
         }
-        String summaryFileName = dayPlan.getUser_id()+"_summary.txt";
-        FileUtil.saveFile(filePath,summaryFileName,taskSummaryString);
+        String summaryFileName = dayPlan.getUser_id() + SUMMARYSUF;
+        FileUtil.saveFile(filePath, summaryFileName, taskSummaryString);
 
     }
 
     @Override
     public TaskSummary getTaskSummary(Date planDate, int userId) {
+        String filePath = getSummaryFile(planDate,userId);
+        if (FileUtil.isExit(filePath)) {
+            String taskString = FileUtil.readFile(filePath);
+            try {
+                return objectMapper.readValue(taskString, TaskSummary.class);
+            } catch (IOException e) {
+                logger.error("deserialize task failed! content is :[{}]", taskString);
+                logger.error("IOException ", e);
+            }
+        }
         return null;
     }
 
@@ -112,28 +127,34 @@ public class FileTaskCache implements TaskCache {
     }
 
 
-    private String getFilePath(DayPlan dayPlan) {
+    private String getFilePath(Date planDate) {
         SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
-        Date taskDate = dayPlan.getPlan_date();
-        Path path = Paths.get(rootPath, "plan", "task", format.format(taskDate));
+        Path path = Paths.get(rootPath, "plan", "task", format.format(planDate));
         return path.toAbsolutePath().toString();
 
     }
 
-    private String getFile(DayPlan dayPlan){
-        String path = getFilePath(dayPlan);
-        String fileName = dayPlan.getUser_id() + ".txt";
-        Path path1 = Paths.get(path,fileName);
+    private String getFile(Date planDate, int userId) {
+        String path = getFilePath(planDate);
+        String fileName = userId + TASKSUF;
+        Path path1 = Paths.get(path, fileName);
         return path1.toAbsolutePath().toString();
     }
 
-    private TaskSummary generateSummaryFromTask(Task task,DayPlan dayPlan){
-        logger.info("start to generate task Summary! task:[{}]",task);
+    private String getSummaryFile(Date planDate,int userId){
+        String path = getFilePath(planDate);
+        String fileName = userId + SUMMARYSUF;
+        Path path1 = Paths.get(path, fileName);
+        return path1.toAbsolutePath().toString();
+    }
+
+    private TaskSummary generateSummaryFromTask(Task task, DayPlan dayPlan) {
+        logger.info("start to generate task Summary! task:[{}]", task);
         TaskSummary summary = new TaskSummary();
         summary.setUserId(dayPlan.getUser_id());
         summary.setPlanId(dayPlan.getPlan_id());
         summary.setNewWordsNumber(task.getNewWordNumber());
-        summary.setOldWordsNumber(task.getWordNumber()-task.getNewWordNumber());
+        summary.setOldWordsNumber(task.getWordNumber() - task.getNewWordNumber());
         summary.setTotal(task.getWordNumber());
         summary.setTaskDate(dayPlan.getPlan_date());
         return summary;

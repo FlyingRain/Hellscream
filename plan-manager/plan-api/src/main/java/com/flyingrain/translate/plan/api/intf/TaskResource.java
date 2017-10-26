@@ -2,9 +2,11 @@ package com.flyingrain.translate.plan.api.intf;
 
 import com.flyingrain.translate.plan.api.request.TaskResult;
 import com.flyingrain.translate.plan.api.response.Task;
+import com.flyingrain.translate.plan.api.response.TaskSummary;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.text.ParseException;
 
 /**
  * Created by wally on 5/4/17.
@@ -25,6 +27,16 @@ public interface TaskResource {
     Task getUserPlanTask(@QueryParam("planId")Integer planId, @QueryParam("userId")Integer userId, @QueryParam("planDate")String planDate);
 
 
+    /**
+     * 获取任务摘要
+     * @param planId
+     * @param userId
+     * @param planDate
+     * @return
+     */
+    @GET
+    @Path("/getTaskSummary")
+    TaskSummary getTaskSummary(@QueryParam("planId")Integer planId,@QueryParam("userId")Integer userId,@QueryParam("planDate")String planDate) throws ParseException;
     /**
      * 生成用户的每日计划
      * @return 结果

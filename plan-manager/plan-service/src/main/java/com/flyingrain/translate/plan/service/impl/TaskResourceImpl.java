@@ -6,6 +6,7 @@ import com.flyingrain.translate.framework.lang.FlyException;
 import com.flyingrain.translate.plan.api.intf.TaskResource;
 import com.flyingrain.translate.plan.api.request.TaskResult;
 import com.flyingrain.translate.plan.api.response.Task;
+import com.flyingrain.translate.plan.api.response.TaskSummary;
 import com.flyingrain.translate.plan.service.common.PlanExceptionCode;
 import com.flyingrain.translate.plan.service.impl.validations.TaskResourceValidation;
 import com.flyingrain.translate.plan.service.services.TaskService;
@@ -36,17 +37,27 @@ public class TaskResourceImpl implements TaskResource {
     @Override
     @BeanValidation(TaskResourceValidation.class)
     public Task getUserPlanTask(Integer planId, Integer userId, String planDate) {
-        logger.info("obtain task:planId:[{}],userId:[{}],planDate:[{}]",new Object[]{planId,userId,planDate});
+        logger.info("obtain task:planId:[{}],userId:[{}],planDate:[{}]", new Object[]{planId, userId, planDate});
         Date date = new Date();
-        if(StringUtils.isNotEmpty(planDate)){
+        if (StringUtils.isNotEmpty(planDate)) {
             try {
-                date = DateUtils.parseDate(planDate,"yyyy/MM/dd");
+                date = DateUtils.parseDate(planDate, "yyyy/MM/dd");
             } catch (ParseException e) {
-                logger.error("dateFormat error! [{}]",planDate);
-                throw new FlyException(PlanExceptionCode.PARAM_INVALID.getCode(),"dateFormat is invalid");
+                logger.error("dateFormat error! [{}]", planDate);
+                throw new FlyException(PlanExceptionCode.PARAM_INVALID.getCode(), "dateFormat is invalid");
             }
         }
         return taskService.generateTask(userId, planId, date);
+    }
+
+    @Override
+    public TaskSummary getTaskSummary(Integer planId, Integer userId, String planDate) throws ParseException {
+        logger.info("obtain taskSummary:planId:[{}],userId:[{}],planDate:[{}]", new Object[]{planId, userId, planDate});
+        Date date = new Date();
+        if (StringUtils.isNotEmpty(planDate)) {
+            date = DateUtils.parseDate(planDate, "yyyy/MM/dd");
+        }
+        return taskService.getTaskSummary(userId, planId, date);
     }
 
     @Override
