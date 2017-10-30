@@ -64,7 +64,7 @@ subprojects {
             exclude module: 'mysql-connector-java'
         }
         compile group: 'mysql', name: 'mysql-connector-java', version: '6.0.6'
-
+        compile group: 'com.flyingrain.translate.plan', name: 'plan-api', version: '1.0-SNAPSHOT'
     }
 
     uploadArchives {
