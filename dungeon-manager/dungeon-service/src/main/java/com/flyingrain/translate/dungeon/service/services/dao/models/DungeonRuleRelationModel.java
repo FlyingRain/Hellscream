@@ -16,6 +16,11 @@ public class DungeonRuleRelationModel {
      * 是否激活
      */
     private int is_active;
+
+    /**
+     * 优先级
+     */
+    private int priority;
     /**
      * 规则Id
      *
@@ -44,6 +49,14 @@ public class DungeonRuleRelationModel {
 
     public void setIs_active(int is_active) {
         this.is_active = is_active;
+    }
+
+    public int getPriority() {
+        return priority;
+    }
+
+    public void setPriority(int priority) {
+        this.priority = priority;
     }
 
     public int getRule_id() {

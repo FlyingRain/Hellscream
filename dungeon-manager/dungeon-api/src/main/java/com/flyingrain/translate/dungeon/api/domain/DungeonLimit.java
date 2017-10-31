@@ -23,6 +23,19 @@ public class DungeonLimit {
      */
     private String value;
 
+    public int getPriority() {
+        return priority;
+    }
+
+    public void setPriority(int priority) {
+        this.priority = priority;
+    }
+
+    /**
+     * 优先级
+     */
+    private int priority;
+
     /**
      * 描述
      */
