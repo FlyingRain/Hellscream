@@ -14,7 +14,7 @@ public class EncryptTest {
         System.out.println(encryptMsg);
     }
 
-    @Test
+
     public void testRSAEncrypt(){
         String privateKeyPath = "/home/wally/pkcs8_java_private_key.pem";
         String publicKeyPath = "/home/wally/pub.pem";

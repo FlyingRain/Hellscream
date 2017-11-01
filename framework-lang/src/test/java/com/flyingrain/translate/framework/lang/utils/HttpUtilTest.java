@@ -1,7 +1,6 @@
 package com.flyingrain.translate.framework.lang.utils;
 
 import org.junit.Before;
-import org.junit.Test;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,7 +27,7 @@ public class HttpUtilTest {
     }
 
 
-    @Test
+
     public void testHttpUtil(){
 
         String url = "http://localhost:8088/translate/auth/userAuth";

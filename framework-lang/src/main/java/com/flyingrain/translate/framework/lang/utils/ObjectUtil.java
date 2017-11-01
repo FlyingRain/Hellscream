@@ -1,10 +1,14 @@
 package com.flyingrain.translate.framework.lang.utils;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.flyingrain.translate.framework.lang.FlyException;
 import com.flyingrain.translate.framework.lang.common.FrameworkExceptionCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.*;
@@ -17,6 +21,13 @@ import java.util.stream.Stream;
 public class ObjectUtil {
 
     private static Logger logger = LoggerFactory.getLogger(ObjectUtil.class);
+
+    private static ObjectMapper objectMapper = new ObjectMapper();
+
+    {
+        //设置忽略不存在字段
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, true);
+    }
 
     /**
      * 将map转化为对象
@@ -51,9 +62,9 @@ public class ObjectUtil {
                 if (ParameterizedType.class.isAssignableFrom(type.getClass())) {
                     if (Collection.class.isAssignableFrom(field.getType())) {
                         Type genericTypes[] = ((ParameterizedType) type).getActualTypeArguments();
-                        if(genericTypes.length>1){
+                        if (genericTypes.length > 1) {
                             logger.error("not support this structure!");
-                            throw new FlyException(FrameworkExceptionCode.NOTSUPPORT.getCode(),FrameworkExceptionCode.NOTSUPPORT.getMsg());
+                            throw new FlyException(FrameworkExceptionCode.NOTSUPPORT.getCode(), FrameworkExceptionCode.NOTSUPPORT.getMsg());
                         }
                         Class genericType;
                         try {
@@ -70,8 +81,8 @@ public class ObjectUtil {
                         } else {
                             throw new FlyException(FrameworkExceptionCode.NOTSUPPORT.getCode(), FrameworkExceptionCode.NOTSUPPORT.getMsg());
                         }
-                        ((Collection) value).stream().filter(v-> v instanceof Map).map(v -> mapToObject((Map<String, Object>) v, genericType)).forEach(realValue::add);
-                        ((Collection) value).stream().filter(v-> !(v instanceof Map)).forEach(realValue::add);
+                        ((Collection) value).stream().filter(v -> v instanceof Map).map(v -> mapToObject((Map<String, Object>) v, genericType)).forEach(realValue::add);
+                        ((Collection) value).stream().filter(v -> !(v instanceof Map)).forEach(realValue::add);
                         value = realValue;
                     }
                 }
@@ -85,4 +96,35 @@ public class ObjectUtil {
     }
 
 
+    /**
+     * json转object
+     *
+     * @param json
+     * @param classType
+     * @param <T>
+     * @return
+     */
+    public static <T> T jsonToObject(String json, Class<T> classType) {
+        try {
+            return objectMapper.readValue(json, classType);
+        } catch (IOException e) {
+            logger.error("read object from json error!", e);
+            throw new FlyException(FrameworkExceptionCode.NOTSUPPORT.getCode(), FrameworkExceptionCode.NOTSUPPORT.getMsg());
+        }
+    }
+
+    /**
+     * 对象转化为string
+     *
+     * @param o
+     * @return
+     */
+    public static String objectToString(Object o) {
+        try {
+            return objectMapper.writeValueAsString(o);
+        } catch (JsonProcessingException e) {
+            logger.error("transfer object to string error!", e);
+            throw new FlyException(FrameworkExceptionCode.NOTSUPPORT.getCode(), FrameworkExceptionCode.NOTSUPPORT.getMsg());
+        }
+    }
 }

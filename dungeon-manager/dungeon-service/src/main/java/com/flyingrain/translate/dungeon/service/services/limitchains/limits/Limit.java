@@ -1,7 +1,8 @@
 package com.flyingrain.translate.dungeon.service.services.limitchains.limits;
 
-import com.flyingrain.translate.dungeon.api.domain.DungeonDomain;
 import com.flyingrain.translate.plan.api.response.Plan;
+
+import java.util.Map;
 
 /**
  * 加入副本限制条件
@@ -13,6 +14,6 @@ public interface Limit {
      * 决定是否符合
      * @return
      */
-    LimitResult determine(DungeonDomain dungeonDomain, Plan plan);
+    LimitResult determine(Map<String,String> limits, Plan plan);
 
 }

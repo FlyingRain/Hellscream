@@ -7,7 +7,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath "org.springframework.boot:spring-boot-gradle-plugin:1.5.2.RELEASE"
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:1.5.8.RELEASE"
     }
 }
 
@@ -21,6 +21,10 @@ sourceCompatibility = 1.8
 repositories {
     mavenCentral()
     mavenLocal()
+}
+//不需要main函数
+bootRepackage{
+    enabled = false
 }
 
 dependencies {
