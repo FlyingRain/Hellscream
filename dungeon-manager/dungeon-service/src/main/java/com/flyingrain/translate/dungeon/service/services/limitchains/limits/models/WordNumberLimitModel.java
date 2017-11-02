@@ -29,4 +29,12 @@ public class WordNumberLimitModel {
     public void setLeast(int least) {
         this.least = least;
     }
+
+    @Override
+    public String toString() {
+        return "WordNumberLimitModel{" +
+                "largest=" + largest +
+                ", least=" + least +
+                '}';
+    }
 }

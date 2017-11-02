@@ -14,4 +14,11 @@ public class BookTypeLimitModel {
     public void setBookType(int bookType) {
         this.bookType = bookType;
     }
+
+    @Override
+    public String toString() {
+        return "BookTypeLimitModel{" +
+                "bookType=" + bookType +
+                '}';
+    }
 }

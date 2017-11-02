@@ -6,7 +6,7 @@ import com.flyingrain.translate.framework.lang.common.Result;
 import com.flyingrain.translate.plan.api.request.PlanRequest;
 import com.flyingrain.translate.plan.service.common.PlanExceptionCode;
 import com.flyingrain.translate.plan.service.services.PlanService;
-import com.flyingrain.translate.plan.service.services.common.PlanType;
+import com.flyingrain.translate.plan.api.response.PlanType;
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

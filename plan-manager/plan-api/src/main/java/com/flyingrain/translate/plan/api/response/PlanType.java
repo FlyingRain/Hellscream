@@ -1,4 +1,4 @@
-package com.flyingrain.translate.plan.service.services.common;
+package com.flyingrain.translate.plan.api.response;
 
 /**
  * 计划类型

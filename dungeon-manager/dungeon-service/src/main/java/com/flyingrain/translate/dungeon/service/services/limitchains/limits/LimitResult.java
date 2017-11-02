@@ -10,6 +10,23 @@ public class LimitResult {
 
     private String  reason;
 
+    /**
+     * 返回成功
+     * @return
+     */
+    public static LimitResult success(){
+        LimitResult result = new LimitResult();
+        result.success = true;
+        return result;
+    }
+
+    public static LimitResult fail(String reason){
+        LimitResult result = new LimitResult();
+        result.success = false;
+        result.reason =reason;
+        return result;
+    }
+
     public boolean isSuccess() {
         return success;
     }

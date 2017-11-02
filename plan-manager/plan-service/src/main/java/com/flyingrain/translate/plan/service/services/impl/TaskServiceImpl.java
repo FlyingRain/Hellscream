@@ -8,7 +8,7 @@ import com.flyingrain.translate.plan.api.response.Word;
 import com.flyingrain.translate.plan.service.common.PlanExceptionCode;
 import com.flyingrain.translate.plan.service.services.TaskCache;
 import com.flyingrain.translate.plan.service.services.TaskService;
-import com.flyingrain.translate.plan.service.services.common.PlanType;
+import com.flyingrain.translate.plan.api.response.PlanType;
 import com.flyingrain.translate.plan.service.services.common.TaskStatus;
 import com.flyingrain.translate.plan.service.services.dao.mapper.DayPlanMapper;
 import com.flyingrain.translate.plan.service.services.dao.mapper.PlanMapper;

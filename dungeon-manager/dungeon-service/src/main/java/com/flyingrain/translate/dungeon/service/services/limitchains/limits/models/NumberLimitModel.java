@@ -25,4 +25,12 @@ public class NumberLimitModel {
     public void setLeast(int least) {
         this.least = least;
     }
+
+    @Override
+    public String toString() {
+        return "NumberLimitModel{" +
+                "largest=" + largest +
+                ", least=" + least +
+                '}';
+    }
 }
