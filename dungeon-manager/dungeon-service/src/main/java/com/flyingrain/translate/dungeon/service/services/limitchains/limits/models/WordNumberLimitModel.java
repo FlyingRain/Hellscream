@@ -1,8 +1,11 @@
 package com.flyingrain.translate.dungeon.service.services.limitchains.limits.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /**
  * Created by wally on 10/31/17.
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class WordNumberLimitModel {
 
     /**

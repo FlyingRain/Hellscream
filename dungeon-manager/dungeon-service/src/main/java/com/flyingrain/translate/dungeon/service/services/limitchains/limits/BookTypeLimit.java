@@ -3,6 +3,7 @@ package com.flyingrain.translate.dungeon.service.services.limitchains.limits;
 import com.flyingrain.translate.dungeon.service.services.common.LimitEnum;
 import com.flyingrain.translate.dungeon.service.services.limitchains.limits.models.BookTypeLimitModel;
 import com.flyingrain.translate.plan.api.response.Plan;
+import com.flyingrain.translate.plan.api.response.TaskSummary;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,7 +26,7 @@ public class BookTypeLimit extends AbstractLimit<BookTypeLimitModel> {
     }
 
     @Override
-    public LimitResult judge(BookTypeLimitModel limitObject, Plan plan) {
+    public LimitResult judge(BookTypeLimitModel limitObject, Plan plan, TaskSummary summary) {
         if (limitObject == null||limitObject.getBookType() == plan.getBookId()) {
             logger.info("judge pass,limit :[{}]",limitObject);
             return LimitResult.success();

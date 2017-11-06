@@ -8,6 +8,7 @@ public enum LimitEnum {
     WORDNUMBER("wordNumber","单词数量限制"),
     TIME("time","时间约束"),
     MEMBERNUM("memberNum","成员数量限制"),
+    PLANTYPE("planType","计划类型限制"),
     ;
 
 

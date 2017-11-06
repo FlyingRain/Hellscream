@@ -3,7 +3,7 @@ package com.flyingrain.translate.dungeon.service.services.limitchains.limits;
 import com.flyingrain.translate.dungeon.service.services.common.LimitEnum;
 import com.flyingrain.translate.dungeon.service.services.limitchains.limits.models.WordNumberLimitModel;
 import com.flyingrain.translate.plan.api.response.Plan;
-import com.flyingrain.translate.plan.api.response.PlanType;
+import com.flyingrain.translate.plan.api.response.TaskSummary;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,24 +25,18 @@ public class WordNumberLimit extends AbstractLimit<WordNumberLimitModel> {
     }
 
     @Override
-    public LimitResult judge(WordNumberLimitModel limitObject, Plan plan) {
+    public LimitResult judge(WordNumberLimitModel limitObject, Plan plan, TaskSummary summary) {
         if (limitObject == null) {
             logger.info("limit is null,judge pass!");
             return LimitResult.success();
         }
         //按单词数量
-        if (plan.getPlanType() == PlanType.BYNUMBER.getType()) {
-            int large = limitObject.getLargest() == 0 ? Integer.MAX_VALUE : limitObject.getLargest();
-            int least = limitObject.getLeast();
-            if (plan.getNumber() >= least && plan.getNumber() <= large) {
-                return LimitResult.success();
-            } else {
-                return LimitResult.fail("单词数量不符合要求;");
-            }
+        int large = limitObject.getLargest() == 0 ? Integer.MAX_VALUE : limitObject.getLargest();
+        int least = limitObject.getLeast();
+        if (summary.getNewWordsNumber() >= least && summary.getNewWordsNumber() <= large) {
+            return LimitResult.success();
+        } else {
+            return LimitResult.fail("单词数量不符合要求;");
         }
-        if (plan.getPlanType() == PlanType.BYDEADLINE.getType()) {
-
-        }
-        return null;
     }
 }
