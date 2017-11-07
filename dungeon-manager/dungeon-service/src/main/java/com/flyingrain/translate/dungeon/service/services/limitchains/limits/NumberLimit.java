@@ -20,6 +20,7 @@ public class NumberLimit extends AbstractLimit<NumberLimitModel>{
 
     @Override
     public LimitResult judge(NumberLimitModel limitObject, Plan plan, TaskSummary summary) {
-        return null;
+        //TODO limit of dungeon members
+        return LimitResult.success();
     }
 }
