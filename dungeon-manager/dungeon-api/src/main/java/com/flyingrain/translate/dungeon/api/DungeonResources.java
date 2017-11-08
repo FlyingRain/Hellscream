@@ -3,7 +3,10 @@ package com.flyingrain.translate.dungeon.api;
 import com.flyingrain.translate.dungeon.api.domain.DungeonInstance;
 import com.flyingrain.translate.dungeon.api.requests.DungeonQueryRequest;
 import com.flyingrain.translate.dungeon.api.requests.JoinRequest;
+import com.flyingrain.translate.dungeon.api.requests.UploadTestRequest;
+import com.flyingrain.translate.dungeon.api.responses.DungeonPlanResult;
 import com.flyingrain.translate.dungeon.api.responses.JoinResult;
+import com.flyingrain.translate.dungeon.api.responses.UploadResult;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -37,5 +40,22 @@ public interface DungeonResources {
     JoinResult joinDungeon(JoinRequest joinRequest);
 
 
+    /**
+     * 获取计划在副本中的信息
+     * @param planId
+     * @param userId
+     * @return
+     */
+    @GET
+    @Path("/getDungeonPlan")
+    DungeonPlanResult getDungeonPlan(@QueryParam("planId")Integer planId,@QueryParam("userId")Integer userId);
 
+    /**
+     * 上传副本测试结果
+     * @param request
+     * @return
+     */
+    @POST
+    @Path("/uploadTest")
+    UploadResult uploadTest(UploadTestRequest request);
 }

@@ -6,6 +6,8 @@ import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
+import java.util.List;
+
 /**
  * Created by wally on 9/11/17.
  */
@@ -21,7 +23,6 @@ public interface DungeonRuleMapper {
     @Options(useGeneratedKeys = true, keyProperty = "ruleModel.id")
     int insertDungeonRule(@Param("ruleModel") DungeonRuleModel ruleModel);
 
-
     /**
      * 根据Id查找副本规则
      * @param id
@@ -29,6 +30,14 @@ public interface DungeonRuleMapper {
      */
     @Select("select id,rule,desc,rule_param,rule_type,is_active,data_added,last_modified from dungeon_rule where id=#{id}")
     DungeonRuleModel getRuleById(int id);
+
+    /**
+     * 根据副本Id查询副本限制
+     * @param dungeonId
+     * @return
+     */
+    @Select("select dr.id,dr.rule,dr.desc,dr.rule_param,dr.rule_type,dr.is_active from dungeon_rule dr join dungeon_rule_relation drr on (dr.id=drr.rule_id and drr.dungeon_id=#{dungeonId}) ")
+    List<DungeonRuleModel> getRulesByDungeonId(int dungeonId);
 
 
 }

@@ -18,7 +18,7 @@ public class DungeonInstance {
     /**
      * 副本实例中的任务
      */
-    private List<Integer> taskIds;
+    private List<Integer> planIds;
 
     /**
      * 实例状态
@@ -50,12 +50,25 @@ public class DungeonInstance {
         this.dungeonId = dungeonId;
     }
 
-    public List<Integer> getTaskIds() {
-        return taskIds;
+    @Override
+    public String toString() {
+        return "DungeonInstance{" +
+                "dungeonId=" + dungeonId +
+                ", planIds=" + planIds +
+                ", status=" + status +
+                ", startTime=" + startTime +
+                ", finishTime=" + finishTime +
+                ", dungeonDomain=" + dungeonDomain +
+                ", remark='" + remark + '\'' +
+                '}';
     }
 
-    public void setTaskIds(List<Integer> taskIds) {
-        this.taskIds = taskIds;
+    public List<Integer> getPlanIds() {
+        return planIds;
+    }
+
+    public void setPlanIds(List<Integer> planIds) {
+        this.planIds = planIds;
     }
 
     public DungeonDomain getDungeonDomain() {
@@ -98,14 +111,4 @@ public class DungeonInstance {
         this.remark = remark;
     }
 
-    @Override
-    public String toString() {
-        return "DungeonInstance{" +
-                "dungeonId=" + dungeonId +
-                ", userIds=" + taskIds +
-                ", startTime=" + startTime +
-                ", finishTime=" + finishTime +
-                ", remark='" + remark + '\'' +
-                '}';
-    }
 }
