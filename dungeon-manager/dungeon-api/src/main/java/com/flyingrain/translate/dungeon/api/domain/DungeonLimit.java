@@ -1,7 +1,6 @@
 package com.flyingrain.translate.dungeon.api.domain;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import org.hibernate.validator.constraints.NotBlank;
 
 /**
  * 副本限制
@@ -9,11 +8,6 @@ import org.hibernate.validator.constraints.NotBlank;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class DungeonLimit {
 
-    /**
-     * 限制名称(唯一)
-     */
-    @NotBlank
-    private String limitName;
     /**
      * 限制类型
      */
@@ -40,14 +34,6 @@ public class DungeonLimit {
      * 描述
      */
     private String desc;
-
-    public String getLimitName() {
-        return limitName;
-    }
-
-    public void setLimitName(String limitName) {
-        this.limitName = limitName;
-    }
 
     public String getType() {
         return type;

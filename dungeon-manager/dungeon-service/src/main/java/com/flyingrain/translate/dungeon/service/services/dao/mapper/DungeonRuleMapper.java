@@ -40,4 +40,13 @@ public interface DungeonRuleMapper {
     List<DungeonRuleModel> getRulesByDungeonId(int dungeonId);
 
 
+    /**
+     * 根据限制获取Id
+     * @param ruleModel
+     * @return
+     */
+    @Select("select id from dungeon_rule where rule_type=#{dungeonRuleModel.rule_type} and rule_param=#{dungeonRuleModel.rule_param}")
+    int getLimitId(@Param("dungeonRuleModel") DungeonRuleModel ruleModel);
+
+
 }
