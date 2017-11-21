@@ -3,6 +3,7 @@ package com.flyingrain.translate.database.conf.test.data;
 import com.flyingrain.translate.database.conf.DataSourceName;
 import com.flyingrain.translate.database.conf.test.data.mapper.Test1Mapper;
 import com.flyingrain.translate.database.conf.test.data.mapper.Test2Mapper;
+import com.flyingrain.translate.database.conf.test.data.mapper.resulthandler.MyResultHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -18,13 +19,13 @@ public class Dao {
     private Test2Mapper test2Mapper;
 
     public void test(){
-        Model model = test1Mapper.setectAll();
+        Model model = test1Mapper.setectAll(1,"wulei");
         System.out.println(model.getName());
     }
 
     @DataSourceName("test")
     public void test2(){
-        Model model = test2Mapper.setectAll();
-        System.out.println(model.getName());
+        MyResultHandler handler = new MyResultHandler();
+        test2Mapper.setectAll(handler);
     }
 }

@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 /**
  * Created by wally on 4/7/17.
  */
+@Component
 public class DataBaseDispatcher implements ApplicationContextAware, InitializingBean {
 
     private Logger logger = LoggerFactory.getLogger(DataBaseDispatcher.class);

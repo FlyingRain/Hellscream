@@ -1,6 +1,7 @@
 package com.flyingrain.translate.database.conf;
 
 import com.flyingrain.translate.database.conf.databases.DataBasePro;
+import com.flyingrain.translate.database.conf.test.data.mapper.interceptor.InterceptorTester;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInterceptor;
 import org.apache.ibatis.plugin.Interceptor;
@@ -40,7 +41,7 @@ public class BaseConfig {
         PageInterceptor pageHelper = new PageInterceptor();
         pageHelper.setProperties(properties);
 
-        sqlSessionFactory.setPlugins(new Interceptor[]{pageHelper});
+        sqlSessionFactory.setPlugins(new Interceptor[]{pageHelper,new InterceptorTester()});
         //DefaultResourceLoader resourceLoader = new DefaultResourceLoader();
         //sqlSessionFactory.setMapperLocations(new Resource[]{resourceLoader.getResource("classpath:mapper/*.xml")});
         return sqlSessionFactory;
