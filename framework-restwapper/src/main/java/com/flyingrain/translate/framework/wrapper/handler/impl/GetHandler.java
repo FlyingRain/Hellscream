@@ -49,7 +49,7 @@ public class GetHandler implements Handler {
         //jersey处理genericType的方法
         Response response = target.request().header("token",token).get();
         Result result = response.readEntity(new GenericType<Result>(){});
-        logger.info("get response {[]}",result);
+        logger.info("get response [{}]",result);
         if(!result.isSuccess()){
             throw new FlyException(result.getCode(),result.getMsg());
         }

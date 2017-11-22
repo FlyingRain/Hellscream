@@ -5,6 +5,8 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
+import java.util.List;
+
 /**
  * Created by wally on 4/12/17.
  */
@@ -16,5 +18,13 @@ public interface AudioMapper {
 
 
     @Select("select * from audio where word_id=#{wordId} and audio_type=#{type}")
-    Audio getAudioByWordIdAndType(@Param("wordId") int wordId,@Param("type") String type);
+    Audio getAudioByWordIdAndType(@Param("wordId") int wordId, @Param("type") String type);
+
+    /**
+     * 获取单词发音
+     * @param wordId
+     * @return
+     */
+    @Select("select * from audio where word_id={#wordId}")
+    List<Audio> wordAudios(int wordId);
 }

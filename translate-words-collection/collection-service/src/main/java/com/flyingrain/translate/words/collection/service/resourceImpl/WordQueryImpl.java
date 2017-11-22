@@ -2,8 +2,6 @@ package com.flyingrain.translate.words.collection.service.resourceImpl;
 
 import com.flyingrain.translate.framework.annotaions.Resource;
 import com.flyingrain.translate.words.collection.api.WordQuery;
-import com.flyingrain.translate.words.collection.result.Result;
-import com.flyingrain.translate.words.collection.result.ResultType;
 import com.flyingrain.translate.words.collection.result.SentenceDefine;
 import com.flyingrain.translate.words.collection.result.WordResult;
 import com.flyingrain.translate.words.collection.service.services.WordServices;
@@ -11,6 +9,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 /**
  * Created by wally on 4/18/17.
@@ -28,6 +28,12 @@ public class WordQueryImpl implements WordQuery {
     public WordResult queryWord(String word, int type) {
         logger.info("start to query [{}] , type is [{}]",word,type);
         return wordServices.getWord(word,type);
+    }
+
+    @Override
+    public List<WordResult> batchQueryWord(List<Integer> wordIds) {
+
+        return null;
     }
 
     @Override
