@@ -4,6 +4,7 @@ import com.flyingrain.translate.plan.api.response.Plan;
 import com.flyingrain.translate.plan.api.response.TaskSummary;
 
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * 加入副本限制条件
@@ -15,6 +16,6 @@ public interface Limit {
      * 决定是否符合
      * @return
      */
-    LimitResult determine(Map<String,String> limits, Plan plan, TaskSummary summary);
+    LimitResult determine(Map<Integer,Optional<String>> limits, Plan plan, TaskSummary summary);
 
 }

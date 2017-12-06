@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * Created by wally on 11/2/17.
@@ -16,8 +17,8 @@ public abstract class AbstractLimit<T> implements Limit{
 
     private Logger logger = LoggerFactory.getLogger(AbstractLimit.class);
     @Override
-    public LimitResult determine(Map<String, String> limits, Plan plan, TaskSummary summary) {
-        String limitString = limits.get(getLimitName());
+    public LimitResult determine(Map<Integer, Optional<String>> limits, Plan plan, TaskSummary summary) {
+        String limitString = limits.get(getLimitName()).orElse("");
         if(StringUtils.isEmpty(limitString)){
             logger.warn("there is no limit :[{}]",getLimitName());
             return LimitResult.success();
@@ -30,7 +31,7 @@ public abstract class AbstractLimit<T> implements Limit{
      * 获取限制名称
      * @return
      */
-    public abstract String getLimitName();
+    public abstract int getLimitName();
 
     /**
      * 获取限制类

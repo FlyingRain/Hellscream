@@ -4,13 +4,15 @@ import com.flyingrain.translate.dungeon.service.services.common.LimitEnum;
 import com.flyingrain.translate.dungeon.service.services.limitchains.limits.models.PlanTypeLimitModel;
 import com.flyingrain.translate.plan.api.response.Plan;
 import com.flyingrain.translate.plan.api.response.TaskSummary;
+import org.springframework.stereotype.Component;
 
 /**
  * Created by wally on 11/6/17.
  */
+@Component
 public class PlanTypeLimit extends AbstractLimit<PlanTypeLimitModel> {
     @Override
-    public String getLimitName() {
+    public int getLimitName() {
         return LimitEnum.PLANTYPE.getLimitName();
     }
 

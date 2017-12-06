@@ -4,28 +4,28 @@ package com.flyingrain.translate.dungeon.service.services.common;
  * Created by wally on 11/1/17.
  */
 public enum LimitEnum {
-    WORDTYPE("wordType","单词书限制"),
-    WORDNUMBER("wordNumber","单词数量限制"),
-    TIME("time","时间约束"),
-    MEMBERNUM("memberNum","成员数量限制"),
-    PLANTYPE("planType","计划类型限制"),
+    WORDTYPE(1,"单词书限制"),
+    WORDNUMBER(2,"单词数量限制"),
+    TIME(3,"时间约束"),
+    MEMBERNUM(4,"成员数量限制"),
+    PLANTYPE(5,"计划类型限制"),
     ;
 
 
-    LimitEnum(String limitName, String desc) {
+    LimitEnum(int limitName, String desc) {
         this.limitName = limitName;
         this.desc = desc;
     }
 
-    private String limitName;
+    private int limitName;
 
     private String desc;
 
-    public String getLimitName() {
+    public int getLimitName() {
         return limitName;
     }
 
-    public void setLimitName(String limitName) {
+    public void setLimitName(int limitName) {
         this.limitName = limitName;
     }
 

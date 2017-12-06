@@ -1,16 +1,19 @@
 package com.flyingrain.translate.dungeon.service.services.limitchains.limits;
 
+import com.flyingrain.translate.dungeon.service.services.common.LimitEnum;
 import com.flyingrain.translate.dungeon.service.services.limitchains.limits.models.NumberLimitModel;
 import com.flyingrain.translate.plan.api.response.Plan;
 import com.flyingrain.translate.plan.api.response.TaskSummary;
+import org.springframework.stereotype.Component;
 
 /**
  * Created by wally on 11/6/17.
  */
+@Component
 public class NumberLimit extends AbstractLimit<NumberLimitModel>{
     @Override
-    public String getLimitName() {
-        return null;
+    public int getLimitName() {
+        return LimitEnum.MEMBERNUM.getLimitName();
     }
 
     @Override

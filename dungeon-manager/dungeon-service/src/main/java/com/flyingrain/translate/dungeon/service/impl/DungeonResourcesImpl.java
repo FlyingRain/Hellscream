@@ -8,7 +8,9 @@ import com.flyingrain.translate.dungeon.api.requests.UploadTestRequest;
 import com.flyingrain.translate.dungeon.api.responses.DungeonPlanResult;
 import com.flyingrain.translate.dungeon.api.responses.JoinResult;
 import com.flyingrain.translate.dungeon.api.responses.UploadResult;
+import com.flyingrain.translate.dungeon.service.services.DungeonService;
 import com.flyingrain.translate.framework.annotaions.Resource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -20,6 +22,8 @@ import java.util.List;
 @Resource
 public class DungeonResourcesImpl implements DungeonResources{
 
+    @Autowired
+    private DungeonService dungeonService;
 
     @Override
     public List<DungeonInstance> getDungeons(DungeonQueryRequest queryRequest) {
@@ -28,7 +32,7 @@ public class DungeonResourcesImpl implements DungeonResources{
 
     @Override
     public JoinResult joinDungeon(JoinRequest joinRequest) {
-        return null;
+        return dungeonService.joinDungeon(joinRequest);
     }
 
     @Override

@@ -36,8 +36,8 @@ public interface DungeonRuleMapper {
      * @param dungeonId
      * @return
      */
-    @Select("select dr.id,dr.rule,dr.desc,dr.rule_param,dr.rule_type,dr.is_active from dungeon_rule dr join dungeon_rule_relation drr on (dr.id=drr.rule_id and drr.dungeon_id=#{dungeonId}) ")
-    List<DungeonRuleModel> getRulesByDungeonId(int dungeonId);
+    @Select("select dr.id as id,dr.rule as rule,dr.desc as desc,dr.rule_param as rule_param,dr.rule_type as rule_type,dr.is_active as is_active from dungeon_rule dr join dungeon_rule_relation drr on (dr.id=drr.rule_id and drr.dungeon_id=#{dungeonId}) where drr.is_active=#{isActive}")
+    List<DungeonRuleModel> getRulesByDungeonId(@Param("dungeonId") int dungeonId,@Param("isActive")int isActive);
 
 
     /**

@@ -41,4 +41,13 @@ public class JoinRequest {
     public void setDungeonInstanceId(int dungeonInstanceId) {
         this.dungeonInstanceId = dungeonInstanceId;
     }
+
+    @Override
+    public String toString() {
+        return "JoinRequest{" +
+                "userId=" + userId +
+                ", planId=" + planId +
+                ", dungeonInstanceId=" + dungeonInstanceId +
+                '}';
+    }
 }
