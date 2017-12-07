@@ -1,6 +1,7 @@
 package com.flyingrain.translate.auth.service.services.impl;
 
 import com.flyingrain.translate.auth.api.requests.AuthRequest;
+import com.flyingrain.translate.auth.api.responses.AuthResponse;
 import com.flyingrain.translate.auth.service.common.AuthError;
 import com.flyingrain.translate.auth.service.services.AuthService;
 import com.flyingrain.translate.auth.service.services.config.AuthConfig;
@@ -38,7 +39,7 @@ public class AuthServiceImpl implements AuthService {
     private AuthConfig authConfig;
 
     @Override
-    public boolean authority(AuthRequest request) {
+    public AuthResponse authority(AuthRequest request) {
         String userId = StringUtils.isEmpty(request.getToken())?COMMONUSER:userDao.getUserId(request.getToken());
         if (StringUtils.isEmpty(userId)) {
             logger.info("user login expired token:[{}]", request.getToken());
@@ -46,7 +47,7 @@ public class AuthServiceImpl implements AuthService {
         }
         int i = authorityDao.getAuth(userId, request.getUrl());
         if (i == 1) {
-            return true;
+            return new AuthResponse(true,Integer.parseInt(userId));
         } else {
             logger.info("the user has no auth cached in redis, start to userCenter.userId :[{}]", userId);
             UserAuthRequest authRequest = new UserAuthRequest();
@@ -58,10 +59,10 @@ public class AuthServiceImpl implements AuthService {
                 if (m != 1) {
                     logger.error("cache failed!");
                 }
-                return true;
+                return new AuthResponse(true,Integer.parseInt(userId));
             }
         }
 
-        return false;
+        return new AuthResponse(false,0);
     }
 }

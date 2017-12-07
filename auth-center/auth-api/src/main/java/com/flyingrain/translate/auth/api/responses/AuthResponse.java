@@ -11,11 +11,29 @@ public class AuthResponse {
      */
     private boolean result;
 
+    /**
+     * 用户Id
+     */
+    private Integer userId;
+
+    public AuthResponse(boolean result, Integer userId) {
+        this.result = result;
+        this.userId = userId;
+    }
+
     public boolean isResult() {
         return result;
     }
 
     public void setResult(boolean result) {
         this.result = result;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 }

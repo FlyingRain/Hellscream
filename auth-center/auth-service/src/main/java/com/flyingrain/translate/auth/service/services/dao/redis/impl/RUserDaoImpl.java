@@ -68,8 +68,6 @@ public class RUserDaoImpl implements RUserDao {
         logger.info("start to delete token :[{}]", token);
         String keyPattern = StringUtils.isEmpty(token) ? (LOGINKEY + SPLIT + userId + SPLIT + "*") : (LOGINKEY + SPLIT + "*" + SPLIT + token);
         Set<String> result = stringRedisTemplate.keys(keyPattern);
-        result.forEach(key -> {
-            stringRedisTemplate.delete(key);
-        });
+        result.forEach(key -> stringRedisTemplate.delete(key));
     }
 }

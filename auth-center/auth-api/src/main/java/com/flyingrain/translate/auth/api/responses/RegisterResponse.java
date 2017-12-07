@@ -7,7 +7,7 @@ public class RegisterResponse {
     /**
      * userId
      */
-    String userId;
+    private String userId;
 
     public String getUserId() {
         return userId;
