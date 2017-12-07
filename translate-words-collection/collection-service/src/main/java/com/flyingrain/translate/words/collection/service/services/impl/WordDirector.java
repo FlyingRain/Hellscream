@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -44,13 +45,8 @@ public class WordDirector {
             logger.warn("no enMean to be found! [{}]", wordId);
         }
         List<Audio> wordAudios = wordBuilder.wordAudio(wordId);
-      wordAudios.stream().collect(Collectors.groupingBy(Audio::getAudio_type,Collectors.mapping(Audio::getChannel_audio_address,Collectors.reducing((a,b)-> a+b))));
-
-
-
-
-
-
+        Map<String, Optional<String>> result = wordAudios.stream().collect(Collectors.groupingBy(Audio::getAudio_type, Collectors.mapping(Audio::getChannel_audio_address, Collectors.reducing((a, b) -> a + b))));
+        wordResult.set
 
         return wordResult;
     }
@@ -59,4 +55,4 @@ public class WordDirector {
 }
 
 
-        }
+
