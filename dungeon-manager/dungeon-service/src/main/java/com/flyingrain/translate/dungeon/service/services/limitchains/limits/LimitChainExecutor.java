@@ -6,6 +6,7 @@ import org.springframework.util.CollectionUtils;
 
 import java.util.LinkedList;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * Created by wally on 10/30/17.
@@ -14,14 +15,15 @@ public class LimitChainExecutor {
 
 
     private LinkedList<Limit> limits = new LinkedList<>();
-    private final Map<String, String> details;
+    private final Map<Integer, Optional<String>> details;
     private final Plan plan;
     private final TaskSummary taskSummary;
 
-    public LimitChainExecutor(Map<String, String> details, Plan plan, TaskSummary taskSummary) {
+    public LimitChainExecutor(Map<Integer, Optional<String>> details, Plan plan, TaskSummary taskSummary,LinkedList<Limit> limits) {
         this.details = details;
         this.plan = plan;
         this.taskSummary = taskSummary;
+        this.limits = limits;
     }
 
     public LimitResult execute() {

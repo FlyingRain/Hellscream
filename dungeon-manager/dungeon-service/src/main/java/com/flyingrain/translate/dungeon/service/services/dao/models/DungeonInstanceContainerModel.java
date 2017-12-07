@@ -29,6 +29,10 @@ public class DungeonInstanceContainerModel {
      */
     private int status;
     /**
+     * 备注
+     */
+    private String remark;
+    /**
      * 添加时间
      */
     private Date data_added;
@@ -36,6 +40,17 @@ public class DungeonInstanceContainerModel {
      * 最后修改时间
      */
     private Date last_modified;
+
+    public DungeonInstanceContainerModel() {
+    }
+
+    public DungeonInstanceContainerModel(int dungeon_instance_id, int plan_id, int user_id, int status, String remark) {
+        this.dungeon_instance_id = dungeon_instance_id;
+        this.plan_id = plan_id;
+        this.user_id = user_id;
+        this.status = status;
+        this.remark = remark;
+    }
 
     public int getId() {
         return id;
@@ -47,6 +62,14 @@ public class DungeonInstanceContainerModel {
 
     public int getDungeon_instance_id() {
         return dungeon_instance_id;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
 
     public void setDungeon_instance_id(int dungeon_instance_id) {

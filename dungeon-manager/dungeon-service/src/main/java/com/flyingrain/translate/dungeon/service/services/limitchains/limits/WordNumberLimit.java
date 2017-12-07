@@ -6,16 +6,18 @@ import com.flyingrain.translate.plan.api.response.Plan;
 import com.flyingrain.translate.plan.api.response.TaskSummary;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 /**
  * Created by wally on 11/2/17.
  */
+@Component
 public class WordNumberLimit extends AbstractLimit<WordNumberLimitModel> {
 
     private Logger logger = LoggerFactory.getLogger(WordNumberLimit.class);
 
     @Override
-    public String getLimitName() {
+    public int getLimitName() {
         return LimitEnum.WORDNUMBER.getLimitName();
     }
 

@@ -1,8 +1,10 @@
 package com.flyingrain.translate.words.collection.service.services.impl;
 
 import com.flyingrain.translate.words.collection.result.WordResult;
+import com.flyingrain.translate.words.collection.service.common.AudioType;
 import com.flyingrain.translate.words.collection.service.dao.model.Audio;
 import com.flyingrain.translate.words.collection.service.dao.model.ENMean;
+import com.flyingrain.translate.words.collection.service.dao.model.Word;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -10,10 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -28,7 +27,7 @@ public class WordDirector {
     private WordBuilder wordBuilder;
 
 
-    private WordResult buildWord(int wordId) {
+    public  WordResult buildWord(int wordId) {
         WordResult wordResult = new WordResult();
         wordResult.setSamples(wordBuilder.wordSentence(wordId));
         ENMean enMean = wordBuilder.wordEnMean(wordId);
@@ -45,9 +44,16 @@ public class WordDirector {
             logger.warn("no enMean to be found! [{}]", wordId);
         }
         List<Audio> wordAudios = wordBuilder.wordAudio(wordId);
-        Map<String, Optional<String>> result = wordAudios.stream().collect(Collectors.groupingBy(Audio::getAudio_type, Collectors.mapping(Audio::getChannel_audio_address, Collectors.reducing((a, b) -> a + b))));
-        wordResult.set
 
+         Map<String, Optional<String>> result = new HashMap<>();
+        if (CollectionUtils.isNotEmpty(wordAudios))
+            result = wordAudios.stream().collect(Collectors.groupingBy(Audio::getAudio_type, Collectors.mapping(Audio::getChannel_audio_address, Collectors.reducing((a, b) -> a + "|" + b))));
+        wordResult.setUkAudio(Arrays.asList(result.get(AudioType.UK_AUDIO.type).orElse("|").split("\\|")));
+        wordResult.setUsAudio(Arrays.asList(result.get(AudioType.US_AUDIO.type).orElse("|").split("\\|")));
+        Word word = wordBuilder.getWord(wordId);
+        wordResult.setMean(word.getMean());
+        wordResult.setWord(word.getWord());
+        wordResult.setWordId(wordId);
         return wordResult;
     }
 

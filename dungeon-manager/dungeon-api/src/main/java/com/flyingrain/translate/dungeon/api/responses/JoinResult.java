@@ -19,6 +19,16 @@ public class JoinResult {
      */
     private String msg;
 
+
+    public JoinResult(boolean success, int dungeonInstanceId, String msg) {
+        this.success = success;
+        this.dungeonInstanceId = dungeonInstanceId;
+        this.msg = msg;
+    }
+
+    public JoinResult() {
+    }
+
     public boolean isSuccess() {
         return success;
     }

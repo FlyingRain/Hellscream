@@ -42,4 +42,12 @@ public class LimitResult {
     public void setReason(String reason) {
         this.reason = reason;
     }
+
+    @Override
+    public String toString() {
+        return "LimitResult{" +
+                "success=" + success +
+                ", reason='" + reason + '\'' +
+                '}';
+    }
 }

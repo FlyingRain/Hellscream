@@ -6,17 +6,19 @@ import com.flyingrain.translate.plan.api.response.Plan;
 import com.flyingrain.translate.plan.api.response.TaskSummary;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 /**
  * Created by wally on 10/31/17.
  */
+@Component
 public class BookTypeLimit extends AbstractLimit<BookTypeLimitModel> {
 
     private Logger logger = LoggerFactory.getLogger(BookTypeLimit.class);
 
 
     @Override
-    public String getLimitName() {
+    public int getLimitName() {
         return LimitEnum.WORDTYPE.getLimitName();
     }
 
