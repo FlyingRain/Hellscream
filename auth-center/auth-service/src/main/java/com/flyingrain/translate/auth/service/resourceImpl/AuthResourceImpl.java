@@ -2,6 +2,7 @@ package com.flyingrain.translate.auth.service.resourceImpl;
 
 import com.flyingrain.translate.auth.api.AuthResource;
 import com.flyingrain.translate.auth.api.requests.AuthRequest;
+import com.flyingrain.translate.auth.api.responses.AuthResponse;
 import com.flyingrain.translate.auth.service.services.AuthService;
 import com.flyingrain.translate.framework.annotaions.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ public class AuthResourceImpl implements AuthResource {
     private AuthService authService;
 
     @Override
-    public boolean authority(AuthRequest request) {
+    public AuthResponse authority(AuthRequest request) {
         return authService.authority(request);
     }
 }
