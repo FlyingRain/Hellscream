@@ -20,8 +20,13 @@ public class DungeonInstanceModel {
      * 数量
      */
     private int numbers;
+
     /**
      * 开始时间
+     */
+    private Date start_time;
+    /**
+     *
      */
     private Date enroll_time;
     /**
@@ -75,6 +80,14 @@ public class DungeonInstanceModel {
 
     public void setEnroll_time(Date enroll_time) {
         this.enroll_time = enroll_time;
+    }
+
+    public Date getStart_time() {
+        return start_time;
+    }
+
+    public void setStart_time(Date start_time) {
+        this.start_time = start_time;
     }
 
     public int getDungeon_status() {

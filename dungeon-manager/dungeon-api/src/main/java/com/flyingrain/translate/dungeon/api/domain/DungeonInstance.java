@@ -24,6 +24,11 @@ public class DungeonInstance {
      * 实例状态
      */
     private int status;
+
+    /**
+     * enrollTime
+     */
+    private Date enrollTime;
     /**
      * 实例开始时间
      */
@@ -101,6 +106,14 @@ public class DungeonInstance {
 
     public void setFinishTime(Date finishTime) {
         this.finishTime = finishTime;
+    }
+
+    public Date getEnrollTime() {
+        return enrollTime;
+    }
+
+    public void setEnrollTime(Date enrollTime) {
+        this.enrollTime = enrollTime;
     }
 
     public String getRemark() {
