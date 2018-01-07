@@ -25,6 +25,6 @@ public interface AudioMapper {
      * @param wordId
      * @return
      */
-    @Select("select * from audio where word_id={#wordId}")
+    @Select("select * from audio where word_id=#{wordId}")
     List<Audio> wordAudios(int wordId);
 }

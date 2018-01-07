@@ -1,12 +1,9 @@
 package com.flyingrain.translate.database.conf;
 
 import com.flyingrain.translate.database.conf.databases.DataBasePro;
-import com.flyingrain.translate.database.conf.test.data.mapper.interceptor.InterceptorTester;
-import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInterceptor;
 import org.apache.ibatis.plugin.Interceptor;
 import org.mybatis.spring.SqlSessionFactoryBean;
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -26,7 +23,6 @@ import java.util.Properties;
 @PropertySource({"classpath:datasource.properties","classpath:redispool.properties"})
 @EnableConfigurationProperties(DataBasePro.class)
 @Import(DynamicDataSourceRegister.class)
-@MapperScan("com.flyingrain.translate.database.conf.test.data.mapper")
 public class BaseConfig {
 
 
@@ -41,7 +37,7 @@ public class BaseConfig {
         PageInterceptor pageHelper = new PageInterceptor();
         pageHelper.setProperties(properties);
 
-        sqlSessionFactory.setPlugins(new Interceptor[]{pageHelper,new InterceptorTester()});
+        sqlSessionFactory.setPlugins(new Interceptor[]{pageHelper});
         //DefaultResourceLoader resourceLoader = new DefaultResourceLoader();
         //sqlSessionFactory.setMapperLocations(new Resource[]{resourceLoader.getResource("classpath:mapper/*.xml")});
         return sqlSessionFactory;

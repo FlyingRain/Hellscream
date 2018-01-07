@@ -1,7 +1,6 @@
 package com.flyingrain.translate.database.conf;
 
 import com.flyingrain.translate.database.conf.databases.DataBasePro;
-import com.flyingrain.translate.database.conf.test.data.Dao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
@@ -19,8 +18,6 @@ public class DataBaseDispatcher implements ApplicationContextAware, Initializing
 
     private Logger logger = LoggerFactory.getLogger(DataBaseDispatcher.class);
 
-    @Autowired
-    Dao dao;
     private DataBasePro dataBasePro;
 
     private ApplicationContext applicationContext;
@@ -40,8 +37,6 @@ public class DataBaseDispatcher implements ApplicationContextAware, Initializing
     @Override
     public void afterPropertiesSet() throws Exception {
         String[] names = applicationContext.getBeanNamesForAnnotation(DataSourceName.class);
-        dao.test();
-        dao.test2();
 
 
     }
