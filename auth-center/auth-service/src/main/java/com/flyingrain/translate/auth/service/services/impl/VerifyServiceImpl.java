@@ -5,6 +5,7 @@ import com.flyingrain.translate.auth.api.requests.VerifyRequest;
 import com.flyingrain.translate.auth.service.services.VerifyService;
 import com.flyingrain.translate.auth.service.services.config.AuthConfig;
 import com.flyingrain.translate.framework.lang.common.Algorithm;
+import com.flyingrain.translate.framework.lang.utils.EncryptUtil;
 import com.flyingrain.translate.framework.lang.utils.SignUtil;
 import com.flyingrain.translate.framework.lang.utils.model.SignModel;
 import com.flyingrain.translate.framework.lang.utils.model.VerifySignModel;
@@ -41,5 +42,10 @@ public class VerifyServiceImpl implements VerifyService{
         signModel.setAlgorithm(Algorithm.RSA);
         signModel.setKeyPath(authConfig.getPubKeyPath());
         return SignUtil.sign(signModel);
+    }
+
+    @Override
+    public String decrypt(String encrypt) {
+        return EncryptUtil.decryptMsgWithRSA(encrypt,authConfig.getPrivateKeyPath(),true);
     }
 }

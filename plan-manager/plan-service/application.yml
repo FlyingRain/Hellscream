@@ -10,6 +10,10 @@ load:
 server:
   port: 8098
 
+context:
+  listener:
+    classes: com.flyingrain.translate.framework.config.LoadAdditionalProperty
+
 logging:
   file: /home/wally/workspace/myprojects/logs/plan.log
   level:

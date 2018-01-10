@@ -9,6 +9,7 @@ public class EncryptTest {
 
     @Test
     public void testMD5Encrypt(){
+        String ss = "{\"phone\":\"17626189012\",\"password\":\"+WQFxghV6DAh09aD9Hmxla/eLfdNAAepAqYDhIFbNTcvQzJ8p9PIChXRmVYnGve/oT6IDGOWTb2B5qOIwPnXQaE3PJ4z5hrYrjb+f/4eAxCzAOUVUjEuvulIQlUnkKUsnCMJxvQvDWscU1qb6wazZwrfI87PMKBDM6Ktzq4LPWg=\"}";
         String msg ="{\"phone\":\"18635232287\",\"password\":\"123321\"}null";
         String encryptMsg = EncryptUtil.encryptWithMD5(msg);
         System.out.println(encryptMsg);
@@ -16,9 +17,9 @@ public class EncryptTest {
 
 
     public void testRSAEncrypt(){
-        String privateKeyPath = "/home/wally/pkcs8_java_private_key.pem";
-        String publicKeyPath = "/home/wally/pub.pem";
-        String msg = "测试报文";
+        String privateKeyPath = "/home/wally/workspace/myprojects/github/Hellscream/certs/flyingrain_pkcs8_private.pem";
+        String publicKeyPath = "/home/wally/workspace/myprojects/github/Hellscream/certs/flyingrain_pub.pem";
+        String msg = "123456";
         String encryptMsg = EncryptUtil.encryptWithRSA(msg,privateKeyPath,true);
         System.out.println(encryptMsg);
         String encryptMsg2 = EncryptUtil.encryptWithRSA(msg,publicKeyPath,false);

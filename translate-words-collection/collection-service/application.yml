@@ -9,6 +9,10 @@ load:
 server:
   port: 8099
 
+context:
+  listener:
+    classes: com.flyingrain.translate.framework.config.LoadAdditionalProperty
+
 #log文件地址
 logging:
   file: /home/wally/workspace/myprojects/logs/wordCollect.log

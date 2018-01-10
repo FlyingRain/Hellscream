@@ -4,6 +4,9 @@ load:
   yaml:
     - file:databaseConfig.yml
 
+context:
+  listener:
+    classes: com.flyingrain.translate.framework.config.LoadAdditionalProperty
 
 server:
   port: 8087

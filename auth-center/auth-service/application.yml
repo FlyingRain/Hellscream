@@ -11,3 +11,7 @@ load:
     - file:resource.properties
 server:
   port: 8088
+
+context:
+  listener:
+    classes: com.flyingrain.translate.framework.config.LoadAdditionalProperty

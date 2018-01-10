@@ -22,4 +22,12 @@ public interface VerifyService {
      * @return
      */
     String sign(SignRequest request);
+
+
+    /**
+     * 解密
+     * @param encrypt
+     * @return
+     */
+    String decrypt(String encrypt);
 }

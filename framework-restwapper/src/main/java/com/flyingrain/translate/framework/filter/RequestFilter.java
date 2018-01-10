@@ -1,8 +1,10 @@
 package com.flyingrain.translate.framework.filter;
 
+import com.flyingrain.translate.framework.UserContext;
 import com.flyingrain.translate.framework.common.RestWrapperError;
 import com.flyingrain.translate.framework.lang.FlyException;
 import com.flyingrain.translate.framework.lang.common.Result;
+import com.flyingrain.translate.framework.lang.utils.ObjectUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,10 +45,12 @@ public class RequestFilter implements ContainerRequestFilter {
             throw new FlyException(result.getCode(),result.getMsg());
         }
         logger.info("auth result is :[{}]",result.getRealResult());
-        if(result.getRealResult()!=null&&result.getRealResult().getClass()==Boolean.class){
-            if(!(boolean)result.getRealResult()){
+        if(result.getRealResult()!=null){
+            AuthResult authResult = ObjectUtil.jsonToObject(result.getRealResult().toString(),AuthResult.class);
+            if(!authResult.isResult()){
                 throw new FlyException(RestWrapperError.NOAUTH.getCode(),RestWrapperError.NOAUTH.getMsg());
             }
+            UserContext.setUserId(authResult.getUserId());
         }else{
             logger.error("error response! [{}]",result.getRealResult());
             throw new FlyException(RestWrapperError.ERRORRESPONSE.getCode(),RestWrapperError.ERRORRESPONSE.getMsg());

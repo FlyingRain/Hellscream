@@ -47,6 +47,7 @@ public class AuthCenter {
         params.put("token", token);
         params.put("url", url);
         String result = HttpUtil.sendPostForJson(params, headers, authUrl);
+        logger.info("auth result is :[{}]",result);
         try {
             return mapper.readValue(result,Result.class);
 

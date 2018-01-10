@@ -33,4 +33,8 @@ public interface VerifyResource {
     @POST
     @Path("/sign")
     String sign(SignRequest signRequest);
+
+
+
+
 }
