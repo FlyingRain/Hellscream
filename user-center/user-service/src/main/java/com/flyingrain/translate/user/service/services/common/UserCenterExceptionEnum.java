@@ -8,6 +8,7 @@ public enum UserCenterExceptionEnum {
     ParamError("U0001","参数错误"),
     InsertFailure("U0002","插入用户失败"),
     LoginFailure("U0003","登陆失败，用户名或密码错误"),
+    USERNOTEXIT("U0004","用户不存在"),
     ;
 
     private String code;

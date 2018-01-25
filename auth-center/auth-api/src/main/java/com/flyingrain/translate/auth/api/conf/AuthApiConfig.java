@@ -2,6 +2,7 @@ package com.flyingrain.translate.auth.api.conf;
 
 import com.flyingrain.translate.auth.api.AuthResource;
 import com.flyingrain.translate.auth.api.UserAuthResource;
+import com.flyingrain.translate.auth.api.VerifyResource;
 import com.flyingrain.translate.framework.wrapper.impl.RestWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -24,6 +25,12 @@ public class AuthApiConfig {
     @Autowired
     UserAuthResource getUserResource(RestWrapper wrapper){
         return wrapper.wrapper(UserAuthResource.class);
+    }
+
+    @Bean
+    @Autowired
+    VerifyResource verifyResource(RestWrapper wrapper){
+        return wrapper.wrapper(VerifyResource.class);
     }
 
 }

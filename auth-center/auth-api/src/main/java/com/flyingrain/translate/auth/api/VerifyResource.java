@@ -35,6 +35,15 @@ public interface VerifyResource {
     String sign(SignRequest signRequest);
 
 
+    /**
+     * 解密
+     * @param encryptMsg
+     * @return
+     */
+    @POST
+    @Path("/decrypt")
+    String decrypt(String encryptMsg);
+
 
 
 }

@@ -3,6 +3,8 @@ serverPrefix: /translate
 load:
   yaml:
     - file:databaseConfig.yml
+  properties:
+    - file:resource.properties
 
 context:
   listener:

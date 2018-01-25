@@ -17,10 +17,10 @@ public interface UserLoginMapper {
 
     /**
      * 验证密码是否正确
-     * @param model
+     * @param userId
      * @return
      */
-    @Select("select count(1) from user_login where user_id=#{userLoginModel.user_id} and password=#{userLoginModel.password}")
-    int authentity(@Param("userLoginModel") UserLoginModel model);
+    @Select("select * from user_login where user_id=#{userId}")
+    UserLoginModel authentity(@Param("userId") int userId);
 
 }

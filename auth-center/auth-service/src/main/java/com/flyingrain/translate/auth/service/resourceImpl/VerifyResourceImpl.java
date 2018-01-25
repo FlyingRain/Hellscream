@@ -27,4 +27,9 @@ public class VerifyResourceImpl implements VerifyResource {
     public String sign(SignRequest signRequest) {
         return verifyService.sign(signRequest);
     }
+
+    @Override
+    public String decrypt(String encryptMsg) {
+        return verifyService.decrypt(encryptMsg);
+    }
 }

@@ -15,6 +15,7 @@ import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.container.PreMatching;
 import java.io.IOException;
+import java.util.Map;
 
 /**
  * 请求过滤器
@@ -36,24 +37,24 @@ public class RequestFilter implements ContainerRequestFilter {
     public void filter(ContainerRequestContext requestContext) throws IOException {
         String token = requestContext.getHeaderString("token");
         String url = requestContext.getUriInfo().getPath();
-        if(this.innerToken.equals(token)){
+        if (this.innerToken.equals(token)) {
             return;
         }
 
-        Result result = authCenter.auth(token,url);
-        if(!result.isSuccess()){
-            throw new FlyException(result.getCode(),result.getMsg());
+        Result result = authCenter.auth(token, url);
+        if (!result.isSuccess()) {
+            throw new FlyException(result.getCode(), result.getMsg());
         }
-        logger.info("auth result is :[{}]",result.getRealResult());
-        if(result.getRealResult()!=null){
-            AuthResult authResult = ObjectUtil.jsonToObject(result.getRealResult().toString(),AuthResult.class);
-            if(!authResult.isResult()){
-                throw new FlyException(RestWrapperError.NOAUTH.getCode(),RestWrapperError.NOAUTH.getMsg());
+        logger.info("auth result is :[{}]", result.getRealResult());
+        if (result.getRealResult() != null && result.getRealResult() instanceof Map) {
+            AuthResult authResult = ObjectUtil.mapToObject((Map) result.getRealResult(), AuthResult.class);
+            if (!authResult.isResult()) {
+                throw new FlyException(RestWrapperError.NOAUTH.getCode(), RestWrapperError.NOAUTH.getMsg());
             }
             UserContext.setUserId(authResult.getUserId());
-        }else{
-            logger.error("error response! [{}]",result.getRealResult());
-            throw new FlyException(RestWrapperError.ERRORRESPONSE.getCode(),RestWrapperError.ERRORRESPONSE.getMsg());
+        } else {
+            logger.error("error response! [{}]", result.getRealResult());
+            throw new FlyException(RestWrapperError.ERRORRESPONSE.getCode(), RestWrapperError.ERRORRESPONSE.getMsg());
         }
 
         //        if (requestContext.hasEntity()) {

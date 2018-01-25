@@ -1,5 +1,6 @@
 package com.flyingrain.translate.user.service.services.impl;
 
+import com.flyingrain.translate.auth.api.VerifyResource;
 import com.flyingrain.translate.framework.lang.FlyException;
 import com.flyingrain.translate.user.api.request.UserAuthRequest;
 import com.flyingrain.translate.user.api.request.LoginRequest;
@@ -34,17 +35,20 @@ public class UserAuthorityServiceImpl implements UserAuthorityService{
     @Autowired
     private RoleAuthorityMapper roleAuthorityMapper;
 
+    @Autowired
+    private VerifyResource verifyResource;
+
     @Override
     public LoginResult userLogin(LoginRequest request) {
         logger.info("login user : [{}]",request);
         int userId = userInfoMapper.getUserId(transferRequest(request));
         logger.info("get userId :[{}]",userId);
-        UserLoginModel loginModel = new UserLoginModel();
-        loginModel.setPassword(request.getPassword());
-        loginModel.setUser_id(userId);
-        int i = loginMapper.authentity(loginModel);
-        logger.info("login result :[{}]",i);
-        if(i!=1){
+        UserLoginModel loginModel = loginMapper.authentity(userId);
+        if(loginModel==null){
+            throw new FlyException(UserCenterExceptionEnum.USERNOTEXIT.getCode(),UserCenterExceptionEnum.USERNOTEXIT.getMsg());
+        }
+        String pass = verifyResource.decrypt(request.getPassword());
+        if(!pass.equals(verifyResource.decrypt(loginModel.getPassword()))){
             throw new FlyException(UserCenterExceptionEnum.LoginFailure.getCode(),UserCenterExceptionEnum.LoginFailure.getMsg());
         }
         LoginResult result = new LoginResult();

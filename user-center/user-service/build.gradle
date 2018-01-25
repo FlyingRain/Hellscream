@@ -3,4 +3,5 @@ version '1.0-SNAPSHOT'
 
 dependencies{
     compile  project(':user-api')
+    compile group:'com.flyingrain.translate.auth',name:'auth-api',version:'1.0-SNAPSHOT'
 }
