@@ -4,6 +4,8 @@ import com.flyingrain.translate.framework.annotaions.Resource;
 import com.flyingrain.translate.user.api.UserResource;
 import com.flyingrain.translate.user.api.request.LoginRequest;
 import com.flyingrain.translate.user.api.request.UserInfo;
+import com.flyingrain.translate.user.api.request.WxBindRequest;
+import com.flyingrain.translate.user.api.request.WxLoginRequest;
 import com.flyingrain.translate.user.api.response.LoginResult;
 import com.flyingrain.translate.user.api.response.UserInfoResult;
 import com.flyingrain.translate.user.service.services.UserAuthorityService;
@@ -46,6 +48,17 @@ public class UserResourceImpl implements UserResource{
     public LoginResult login(LoginRequest loginRequest) {
         logger.info("receive login request : [{}]",loginRequest);
         return authorityService.userLogin(loginRequest);
+    }
+
+    @Override
+    public LoginResult wxLogin(WxBindRequest wxBindRequest) {
+
+        return null;
+    }
+
+    @Override
+    public boolean bindWx(WxLoginRequest wxLoginRequest) {
+        return false;
     }
 
 

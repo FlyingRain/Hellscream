@@ -25,6 +25,14 @@ public interface UserAuthResource {
     LoginResponse login(VerifyRequest request);
 
 
+    @POST
+    @Path("/wxLogin")
+    LoginResponse wxLogin(VerifyRequest verifyRequest);
+
+    @POST
+    @Path("/wxBind")
+    boolean wxBind(VerifyRequest verifyRequest);
+
     /**
      * 用户注册
      * @param request

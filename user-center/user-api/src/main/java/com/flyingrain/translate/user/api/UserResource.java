@@ -2,6 +2,8 @@ package com.flyingrain.translate.user.api;
 
 import com.flyingrain.translate.user.api.request.LoginRequest;
 import com.flyingrain.translate.user.api.request.UserInfo;
+import com.flyingrain.translate.user.api.request.WxBindRequest;
+import com.flyingrain.translate.user.api.request.WxLoginRequest;
 import com.flyingrain.translate.user.api.response.LoginResult;
 import com.flyingrain.translate.user.api.response.UserInfoResult;
 
@@ -29,5 +31,14 @@ public interface UserResource {
     @Path("/user/login")
     @POST
     LoginResult login(LoginRequest loginRequest);
+
+
+    @Path("/user/wxBind")
+    @POST
+    LoginResult wxLogin(WxBindRequest wxBindRequest);
+
+
+    @Path("/user/wxLogin")
+    boolean bindWx(WxLoginRequest wxLoginRequest);
 
 }
