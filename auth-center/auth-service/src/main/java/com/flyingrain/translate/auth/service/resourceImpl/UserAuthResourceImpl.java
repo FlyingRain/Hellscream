@@ -63,6 +63,16 @@ public class UserAuthResourceImpl implements UserAuthResource {
     }
 
     @Override
+    public LoginResponse wxLogin(VerifyRequest verifyRequest) {
+        return null;
+    }
+
+    @Override
+    public boolean wxBind(VerifyRequest verifyRequest) {
+        return false;
+    }
+
+    @Override
     public RegisterResponse register(VerifyRequest request) {
         String param = request.getParam();
         int i = param.indexOf(ENCRYPTPARAM);
