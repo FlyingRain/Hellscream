@@ -19,7 +19,7 @@ public class DungeonQueryRequest {
      */
     private int pageSize;
     /**
-     * 副本Id
+     * 副本模板Id
      */
     private Integer dungeonId;
 

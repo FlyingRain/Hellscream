@@ -31,9 +31,9 @@ public interface DungeonManagerResources {
      * @param dungeonId
      * @return
      */
-    @GET
-    @Path("/deleteDungeon")
-    int deleteDungeon(@QueryParam("dungeonId") Integer dungeonId);
+    @DELETE
+    @Path("/deleteDungeon/{dungeonId}")
+    int deleteDungeon(@PathParam("dungeonId") Integer dungeonId);
 
 
     /**

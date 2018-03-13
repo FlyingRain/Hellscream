@@ -27,7 +27,7 @@ public interface DungeonResources {
      * @return
      */
     @POST
-    @Path("/getDungeons")
+    @Path("/dungeons")
     List<DungeonInstance> getDungeons(DungeonQueryRequest queryRequest);
 
     /**

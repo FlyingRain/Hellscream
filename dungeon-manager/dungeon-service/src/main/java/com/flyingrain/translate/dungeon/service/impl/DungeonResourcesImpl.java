@@ -10,6 +10,8 @@ import com.flyingrain.translate.dungeon.api.responses.JoinResult;
 import com.flyingrain.translate.dungeon.api.responses.UploadResult;
 import com.flyingrain.translate.dungeon.service.services.DungeonService;
 import com.flyingrain.translate.framework.annotaions.Resource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -20,14 +22,17 @@ import java.util.List;
  */
 @Component
 @Resource
-public class DungeonResourcesImpl implements DungeonResources{
+public class DungeonResourcesImpl implements DungeonResources {
+
+    private Logger logger = LoggerFactory.getLogger(DungeonResourcesImpl.class);
 
     @Autowired
     private DungeonService dungeonService;
 
     @Override
     public List<DungeonInstance> getDungeons(DungeonQueryRequest queryRequest) {
-        return null;
+        logger.info("dungeon query request:[{}]", queryRequest);
+        return dungeonService.getDungeons(queryRequest);
     }
 
     @Override
