@@ -15,6 +15,8 @@ public class UserInfoModel {
 
     private String pet_name;
 
+    private String weixin;
+
     private String school;
 
     private String phone;
@@ -97,6 +99,14 @@ public class UserInfoModel {
 
     public int getVerify_email() {
         return verify_email;
+    }
+
+    public String getWeixin() {
+        return weixin;
+    }
+
+    public void setWeixin(String weixin) {
+        this.weixin = weixin;
     }
 
     public void setVerify_email(int verify_email) {

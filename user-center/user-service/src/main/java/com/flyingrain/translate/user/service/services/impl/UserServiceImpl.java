@@ -94,6 +94,7 @@ public class UserServiceImpl implements UserService {
         result.setPhone(model.getPhone());
         result.setSchool(model.getSchool());
         result.setEmail(model.getEmail());
+        result.setWeixin(model.getWeixin());
         result.setAge(model.getAge());
         result.setName(model.getName());
         result.setVerifyEmail(model.getVerify_email());

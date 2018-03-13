@@ -2,6 +2,8 @@ package com.flyingrain.translate.auth.service.services.impl;
 
 import com.flyingrain.translate.auth.api.requests.AuthLoginRequest;
 import com.flyingrain.translate.auth.api.requests.AuthRegisterRequest;
+import com.flyingrain.translate.auth.api.requests.WxBind;
+import com.flyingrain.translate.auth.api.requests.WxLogin;
 import com.flyingrain.translate.auth.api.responses.LoginResponse;
 import com.flyingrain.translate.auth.api.responses.RegisterResponse;
 import com.flyingrain.translate.auth.service.services.UserService;
@@ -10,6 +12,8 @@ import com.flyingrain.translate.auth.service.services.dao.redis.intf.RUserDao;
 import com.flyingrain.translate.user.api.UserResource;
 import com.flyingrain.translate.user.api.request.LoginRequest;
 import com.flyingrain.translate.user.api.request.UserInfo;
+import com.flyingrain.translate.user.api.request.WxBindRequest;
+import com.flyingrain.translate.user.api.request.WxLoginRequest;
 import com.flyingrain.translate.user.api.response.LoginResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,14 +43,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public LoginResponse login(AuthLoginRequest authLoginRequest) {
-        LoginResult loginResult= userResource.login(transferLoginRequest(authLoginRequest));
+        LoginResult loginResult = userResource.login(transferLoginRequest(authLoginRequest));
         int userId = loginResult.getUserId();
-        logger.info("start to del cache,userId:[{}]",userId);
-        rUserDao.delToken(null,String.valueOf(userId));
+        logger.info("start to del cache,userId:[{}]", userId);
+        rUserDao.delToken(null, String.valueOf(userId));
         //get token
         String token = UUID.randomUUID().toString();
-        logger.info("start to cache the login status ! userId:[{}]",userId);
-        rUserDao.insertUserToken(String.valueOf(userId),token,authConfig.getExpireDay());
+        logger.info("start to cache the login status ! userId:[{}]", userId);
+        rUserDao.insertUserToken(String.valueOf(userId), token, authConfig.getExpireDay());
         LoginResponse response = new LoginResponse();
         response.setToken(token);
         response.setUserId(String.valueOf(userId));
@@ -68,7 +72,7 @@ public class UserServiceImpl implements UserService {
     public RegisterResponse register(AuthRegisterRequest registerRequest) {
         logger.info("start to userCenter to register!");
         String userId = userResource.addUser(getUserInfo(registerRequest));
-        logger.info("register success! userId :[{}]",userId);
+        logger.info("register success! userId :[{}]", userId);
         RegisterResponse registerResponse = new RegisterResponse();
         registerResponse.setUserId(userId);
         return registerResponse;
@@ -76,13 +80,30 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String logoff(String userId) {
-        rUserDao.delToken(null,userId);
+        rUserDao.delToken(null, userId);
         return "success";
     }
 
-    private UserInfo getUserInfo(AuthRegisterRequest registerRequest){
-        UserInfo userInfo  = new UserInfo();
-        BeanUtils.copyProperties(registerRequest,userInfo);
+    @Override
+    public LoginResponse wxLogin(WxLogin wxLogin) {
+        WxLoginRequest wxLoginRequest = new WxLoginRequest();
+        wxLoginRequest.setWxNo(wxLogin.getWxNo());
+        LoginResponse loginResponse = new LoginResponse();
+        loginResponse.setUserId(userResource.wxLogin(wxLoginRequest).getUserId() + "");
+        return loginResponse;
+    }
+
+    @Override
+    public boolean wxBind(WxBind wxBind) {
+        WxBindRequest wxBindRequest = new WxBindRequest();
+        wxBindRequest.setLoginRequest(transferLoginRequest(wxBind.getLoginRequest()));
+        wxBindRequest.setWxNo(wxBind.getWxNo());
+        return userResource.bindWx(wxBindRequest);
+    }
+
+    private UserInfo getUserInfo(AuthRegisterRequest registerRequest) {
+        UserInfo userInfo = new UserInfo();
+        BeanUtils.copyProperties(registerRequest, userInfo);
         return userInfo;
     }
 }

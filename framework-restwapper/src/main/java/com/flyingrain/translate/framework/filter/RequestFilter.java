@@ -36,12 +36,13 @@ public class RequestFilter implements ContainerRequestFilter {
     @Override
     public void filter(ContainerRequestContext requestContext) throws IOException {
         String token = requestContext.getHeaderString("token");
+        String weixin = requestContext.getHeaderString("weixin");
         String url = requestContext.getUriInfo().getPath();
         if (this.innerToken.equals(token)) {
             return;
         }
 
-        Result result = authCenter.auth(token, url);
+        Result result = authCenter.auth(token, weixin, url);
         if (!result.isSuccess()) {
             throw new FlyException(result.getCode(), result.getMsg());
         }

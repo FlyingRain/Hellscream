@@ -2,9 +2,9 @@ datasource:
   config:
     - sourceName: default
       userName: root
-      password: 123456
+      password: Xtm123456!
       driveClass: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://10.243.57.238:3306/user?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+      url: jdbc:mysql://10.243.121.53:3306/userCenter?useUnicode=true&characterEncoding=UTF-8&useSSL=false
 
     - sourceName: test
       userName: root

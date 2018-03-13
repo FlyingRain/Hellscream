@@ -1,9 +1,12 @@
 package com.flyingrain.translate.auth.api.requests;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 /**
  * 验签请求
  * Created by wally on 17-7-20.
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class VerifyRequest {
 
     /**

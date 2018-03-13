@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : localhost_3306
-Source Server Version : 50718
-Source Host           : localhost:3306
+Source Server         : 10.243.121.53_3306
+Source Server Version : 50721
+Source Host           : 10.243.121.53:3306
 Source Database       : userCenter
 
 Target Server Type    : MYSQL
-Target Server Version : 50718
+Target Server Version : 50721
 File Encoding         : 65001
 
-Date: 2017-07-14 09:59:08
+Date: 2018-03-09 15:49:05
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -25,6 +25,7 @@ CREATE TABLE `user_info` (
   `gender` tinyint(2) DEFAULT NULL,
   `pet_name` varchar(255) DEFAULT NULL,
   `school` varchar(125) DEFAULT NULL,
+  `weixin` varchar(32) DEFAULT NULL,
   `phone` varchar(20) DEFAULT NULL,
   `verify_phone` tinyint(2) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
@@ -36,4 +37,4 @@ CREATE TABLE `user_info` (
   UNIQUE KEY `email_index` (`email`) USING BTREE,
   UNIQUE KEY `phone_index` (`phone`) USING BTREE,
   UNIQUE KEY `petName_index` (`pet_name`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;

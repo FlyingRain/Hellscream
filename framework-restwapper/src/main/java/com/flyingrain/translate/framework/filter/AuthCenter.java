@@ -42,10 +42,11 @@ public class AuthCenter {
         headers.put("token",innerToken);
     }
 
-    public Result auth(String token, String url) {
+    public Result auth(String token,String weixin, String url) {
         Map<String, String> params = new HashMap<>();
         params.put("token", token);
         params.put("url", url);
+        params.put("weixin",weixin);
         String result = HttpUtil.sendPostForJson(params, headers, authUrl);
         logger.info("auth result is :[{}]",result);
         try {

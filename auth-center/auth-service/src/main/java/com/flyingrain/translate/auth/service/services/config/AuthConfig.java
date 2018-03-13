@@ -30,8 +30,23 @@ public class AuthConfig {
     @Value("${auth.login.expireDay}")
     private int expireDay;
 
+    /**
+     * 密钥地址
+     */
+    @Value("${auth.secretKey.path}")
+    private String secretKeyPath;
+
+
     public String getPubKeyPath() {
         return pubKeyPath;
+    }
+
+    public String getSecretKeyPath() {
+        return secretKeyPath;
+    }
+
+    public void setSecretKeyPath(String secretKeyPath) {
+        this.secretKeyPath = secretKeyPath;
     }
 
     public void setPubKeyPath(String pubKeyPath) {

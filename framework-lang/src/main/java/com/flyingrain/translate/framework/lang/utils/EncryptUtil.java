@@ -6,10 +6,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import sun.misc.BASE64Decoder;
 
-import javax.crypto.BadPaddingException;
-import javax.crypto.Cipher;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
+import javax.crypto.*;
+import javax.crypto.spec.SecretKeySpec;
 import java.io.*;
 import java.security.*;
 import java.security.cert.CertificateException;
@@ -26,6 +24,8 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class EncryptUtil {
 
+    private static String ENCRYPTENCODE = "UTF-8";
+
     private static Logger logger = LoggerFactory.getLogger(EncryptUtil.class);
 
     private static ConcurrentHashMap<String, PrivateKey> privateKeys = new ConcurrentHashMap<>();
@@ -38,7 +38,7 @@ public class EncryptUtil {
         try {
             logger.info("start to encrypt msg:[{}]", msg);
             MessageDigest digest = MessageDigest.getInstance("MD5");
-            byte [] encryptByte = digest.digest(msg.getBytes("utf-8"));
+            byte[] encryptByte = digest.digest(msg.getBytes("utf-8"));
             String result = bytesToHex(encryptByte);
             String enCodeMsg = Base64.getEncoder().encodeToString(result.getBytes());
             logger.info("encrypt msg is [{}]", enCodeMsg);
@@ -55,8 +55,54 @@ public class EncryptUtil {
     }
 
     /**
+     * 3DES加密算法
      *
+     * @return
+     */
+    public static String encryptBy3DES(String keyPath, String target) {
+        try {
+            byte[] desKeyBytes = get3DesKey(keyPath);
+            byte[] targetBytes = target.getBytes(ENCRYPTENCODE);
+            //生成密钥
+            SecretKey desKey = new SecretKeySpec(desKeyBytes, "DESede");
+            Cipher cipher = Cipher.getInstance("DESede");
+            cipher.init(Cipher.ENCRYPT_MODE, desKey);
+            byte[] encryptByteMsg = cipher.doFinal(targetBytes);
+            String encryptMsg = Base64.getEncoder().encodeToString(encryptByteMsg);
+            logger.info("get 3des encryptMsg:[{}]", encryptMsg);
+            return encryptMsg;
+        } catch (UnsupportedEncodingException | NoSuchPaddingException | NoSuchAlgorithmException | InvalidKeyException | BadPaddingException | IllegalBlockSizeException e) {
+            logger.error("encrypt by des3 happened exception! ", e);
+            throw new FlyException(FrameworkExceptionCode.ENCRYPTERROR.getCode(), FrameworkExceptionCode.ENCRYPTERROR.getMsg());
+        }
+    }
+
+    /**
+     * 解密3des
+     *
+     * @param keyPath
+     * @param target
+     * @return
+     */
+    public static String decryptBy3DES(String keyPath, String target) {
+        try {
+            byte[] desKeyBytes = get3DesKey(keyPath);
+            byte[] encryptBytes = Base64.getDecoder().decode(target.getBytes());
+            SecretKey secretKey = new SecretKeySpec(desKeyBytes, "DESede");
+            Cipher cipher = Cipher.getInstance("DESede");
+            cipher.init(Cipher.DECRYPT_MODE, secretKey);
+            byte[] plainBytes = cipher.doFinal(encryptBytes);
+            return new String(plainBytes);
+        } catch (UnsupportedEncodingException | NoSuchPaddingException | NoSuchAlgorithmException | InvalidKeyException | BadPaddingException | IllegalBlockSizeException e) {
+            logger.error("decrypt with 3des happened exception!", e);
+            throw new FlyException(FrameworkExceptionCode.DECRYPTERROR.getCode(), FrameworkExceptionCode.DECRYPTERROR.getMsg());
+        }
+
+    }
+
+    /**
      * 把md5结果转换为16进制
+     *
      * @param bytes
      * @return
      */
@@ -128,9 +174,9 @@ public class EncryptUtil {
             byte[] encryptByte = Base64.getDecoder().decode(encryptMsg.getBytes());
             byte[] plainByteMsg = cipher.doFinal(encryptByte);
             return new String(plainByteMsg);
-        } catch (NoSuchAlgorithmException |NoSuchPaddingException |InvalidKeyException|BadPaddingException|IllegalBlockSizeException  e) {
-            logger.error("decrypt error!",e);
-            throw new FlyException(FrameworkExceptionCode.DECRYPTERROR.getCode(),FrameworkExceptionCode.DECRYPTERROR.getMsg());
+        } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | BadPaddingException | IllegalBlockSizeException e) {
+            logger.error("decrypt error!", e);
+            throw new FlyException(FrameworkExceptionCode.DECRYPTERROR.getCode(), FrameworkExceptionCode.DECRYPTERROR.getMsg());
         }
     }
 
@@ -190,6 +236,7 @@ public class EncryptUtil {
 
     /**
      * 有密码的密钥读取
+     *
      * @param path
      * @param pwd
      * @return
@@ -199,32 +246,31 @@ public class EncryptUtil {
         if (privateKey != null) {
             return privateKey;
         }
-        try (FileInputStream fis =  new FileInputStream(path);){
+        try (FileInputStream fis = new FileInputStream(path);) {
             KeyStore e = KeyStore.getInstance(KeyStore.getDefaultType());
             char[] nPassword = null;
-            if(pwd != null && !pwd.trim().equals("")) {
+            if (pwd != null && !pwd.trim().equals("")) {
                 nPassword = pwd.toCharArray();
             }
             e.load(fis, null);
             Enumeration en = e.aliases();
             String keyAlias = null;
-            if(en.hasMoreElements()) {
-                keyAlias = (String)en.nextElement();
+            if (en.hasMoreElements()) {
+                keyAlias = (String) en.nextElement();
             }
 
-            privateKey = (PrivateKey)e.getKey(keyAlias, nPassword);
+            privateKey = (PrivateKey) e.getKey(keyAlias, nPassword);
 
             PrivateKey key = privateKeys.putIfAbsent(path, privateKey);
             if (key != null) {
                 return key;
             }
             return privateKey;
-        } catch (KeyStoreException |CertificateException|IOException|UnrecoverableKeyException|NoSuchAlgorithmException e) {
-            logger.error("load privateKey failed!",e);
-            throw new FlyException(FrameworkExceptionCode.SYSERROR.getCode(),FrameworkExceptionCode.SYSERROR.getMsg());
+        } catch (KeyStoreException | CertificateException | IOException | UnrecoverableKeyException | NoSuchAlgorithmException e) {
+            logger.error("load privateKey failed!", e);
+            throw new FlyException(FrameworkExceptionCode.SYSERROR.getCode(), FrameworkExceptionCode.SYSERROR.getMsg());
         }
     }
-
 
 
     private static PublicKey loadRSAPublicKey(String publicKeyPath) {
@@ -252,5 +298,24 @@ public class EncryptUtil {
         }
     }
 
+
+    /**
+     * 获取3des的key
+     *
+     * @param keyPath
+     * @return
+     */
+    private static byte[] get3DesKey(String keyPath) throws UnsupportedEncodingException {
+        String key = readFile(keyPath);
+        byte[] desKey = new byte[24];
+        byte[] keyByte = key.getBytes(ENCRYPTENCODE);
+        if (keyByte.length > 24) {
+            System.arraycopy(keyByte, 0, desKey, 0, desKey.length);
+        } else {
+            System.arraycopy(keyByte, 0, desKey, 0, keyByte.length);
+        }
+        return desKey;
+
+    }
 
 }

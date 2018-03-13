@@ -40,18 +40,19 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public AuthResponse authority(AuthRequest request) {
-        String userId = StringUtils.isEmpty(request.getToken())?COMMONUSER:userDao.getUserId(request.getToken());
+        String userId = StringUtils.isEmpty(request.getToken()) ? COMMONUSER : userDao.getUserId(request.getToken());
         if (StringUtils.isEmpty(userId)) {
             logger.info("user login expired token:[{}]", request.getToken());
             throw new FlyException(AuthError.LOGINEXPIRE.getCode(), AuthError.LOGINEXPIRE.getMsg());
         }
         int i = authorityDao.getAuth(userId, request.getUrl());
         if (i == 1) {
-            return new AuthResponse(true,Integer.parseInt(userId));
+            return new AuthResponse(true, Integer.parseInt(userId));
         } else {
             logger.info("the user has no auth cached in redis, start to userCenter.userId :[{}]", userId);
             UserAuthRequest authRequest = new UserAuthRequest();
             authRequest.setUserId(Integer.parseInt(userId));
+            authRequest.setWeixin(request.getWeixin());
             authRequest.setUrl(request.getUrl());
             if (userAuthorityResource.auth(authRequest)) {
                 logger.info("start cache authResult!");
@@ -59,10 +60,12 @@ public class AuthServiceImpl implements AuthService {
                 if (m != 1) {
                     logger.error("cache failed!");
                 }
-                return new AuthResponse(true,Integer.parseInt(userId));
+                return new AuthResponse(true, Integer.parseInt(userId));
             }
         }
 
-        return new AuthResponse(false,0);
+        return new AuthResponse(false, 0);
     }
+
+
 }

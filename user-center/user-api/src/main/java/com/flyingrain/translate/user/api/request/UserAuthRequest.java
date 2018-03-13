@@ -10,6 +10,10 @@ public class UserAuthRequest {
      * 用户Id
      */
     private int userId;
+    /**
+     * 微信号
+     */
+    private String weixin;
 
     /**
      * 资源地址
@@ -30,6 +34,14 @@ public class UserAuthRequest {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public String getWeixin() {
+        return weixin;
+    }
+
+    public void setWeixin(String weixin) {
+        this.weixin = weixin;
     }
 
     @Override

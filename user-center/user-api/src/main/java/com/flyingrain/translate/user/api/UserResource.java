@@ -33,12 +33,13 @@ public interface UserResource {
     LoginResult login(LoginRequest loginRequest);
 
 
+    @Path("/user/wxLogin")
+    @POST
+    LoginResult wxLogin(WxLoginRequest wxLoginRequest);
+
+
     @Path("/user/wxBind")
     @POST
-    LoginResult wxLogin(WxBindRequest wxBindRequest);
-
-
-    @Path("/user/wxLogin")
-    boolean bindWx(WxLoginRequest wxLoginRequest);
+    boolean bindWx(WxBindRequest wxBindRequest);
 
 }

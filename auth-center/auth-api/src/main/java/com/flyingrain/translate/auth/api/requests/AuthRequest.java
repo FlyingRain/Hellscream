@@ -10,6 +10,11 @@ public class AuthRequest {
      * token
      */
     private String token;
+
+    /**
+     * 微信号
+     */
+    private String weixin;
     /**
      * 地址
      */
@@ -25,6 +30,14 @@ public class AuthRequest {
 
     public String getUrl() {
         return url;
+    }
+
+    public String getWeixin() {
+        return weixin;
+    }
+
+    public void setWeixin(String weixin) {
+        this.weixin = weixin;
     }
 
     public void setUrl(String url) {

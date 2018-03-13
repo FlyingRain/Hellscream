@@ -14,6 +14,8 @@ public class UserInfoResult {
 
     private int age;
 
+    private String weixin;
+
     private String phone;
 
     private String email;
@@ -44,8 +46,31 @@ public class UserInfoResult {
         return age;
     }
 
+    public String getWeixin() {
+        return weixin;
+    }
+
+    public void setWeixin(String weixin) {
+        this.weixin = weixin;
+    }
+
     public void setAge(int age) {
         this.age = age;
+    }
+
+    @Override
+    public String toString() {
+        return "UserInfoResult{" +
+                "userId=" + userId +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                ", weixin='" + weixin + '\'' +
+                ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
+                ", school='" + school + '\'' +
+                ", verifyPhone=" + verifyPhone +
+                ", verifyEmail=" + verifyEmail +
+                '}';
     }
 
     public String getPhone() {

@@ -33,4 +33,11 @@ public interface UserInfoMapper {
     @SelectProvider(type = UserInfoProvider.class,method = "getUserId")
     int getUserId(@Param("userInfoModel")UserInfoModel model);
 
+    /**
+     * 更新用户信息
+     * @param model
+     * @return
+     */
+    @UpdateProvider(type = UserInfoProvider.class,method = "updateSql")
+    int updateUserInfo(@Param("userInfoModel")UserInfoModel model);
 }

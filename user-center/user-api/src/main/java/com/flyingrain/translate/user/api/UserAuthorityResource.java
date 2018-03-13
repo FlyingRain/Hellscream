@@ -21,4 +21,7 @@ public interface UserAuthorityResource {
     @Path("/verifyAuthority")
     @POST
     boolean auth(UserAuthRequest request);
+
+
+
 }

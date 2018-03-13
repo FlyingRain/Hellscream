@@ -22,6 +22,10 @@ public class UserInfo {
      */
     private int gender;
     /**
+     * 微信号
+     */
+    private String weixin;
+    /**
      * 年龄
      */
     private int age;
@@ -102,6 +106,14 @@ public class UserInfo {
 
     public String getPassword() {
         return password;
+    }
+
+    public String getWeixin() {
+        return weixin;
+    }
+
+    public void setWeixin(String weixin) {
+        this.weixin = weixin;
     }
 
     public void setPassword(String password) {

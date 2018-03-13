@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Resource
-public class UserResourceImpl implements UserResource{
+public class UserResourceImpl implements UserResource {
 
     private Logger logger = LoggerFactory.getLogger(UserResourceImpl.class);
 
@@ -32,33 +32,34 @@ public class UserResourceImpl implements UserResource{
 
     @Override
     public String addUser(UserInfo userInfo) {
-        logger.info("start to add user,petName is [{}]",userInfo.getPetName());
+        logger.info("start to add user,petName is [{}]", userInfo.getPetName());
         int userId = userService.insertUserInfo(userInfo);
-        logger.info("return userId :[{}]",userId);
+        logger.info("return userId :[{}]", userId);
         return String.valueOf(userId);
     }
 
     @Override
     public UserInfoResult getUserInfo(int userId) {
-        logger.info("start to get userInfo by userId:[{}]",userId);
+        logger.info("start to get userInfo by userId:[{}]", userId);
         return userService.getUserInfoById(userId);
     }
 
     @Override
     public LoginResult login(LoginRequest loginRequest) {
-        logger.info("receive login request : [{}]",loginRequest);
+        logger.info("receive login request : [{}]", loginRequest);
         return authorityService.userLogin(loginRequest);
     }
 
     @Override
-    public LoginResult wxLogin(WxBindRequest wxBindRequest) {
-
-        return null;
+    public LoginResult wxLogin(WxLoginRequest wxLoginRequest) {
+        logger.info("wxLogin request:[{}]", wxLoginRequest);
+        return authorityService.wxLogin(wxLoginRequest);
     }
 
     @Override
-    public boolean bindWx(WxLoginRequest wxLoginRequest) {
-        return false;
+    public boolean bindWx(WxBindRequest wxBindRequest) {
+        logger.info("wxBindRequest :[{}]", wxBindRequest);
+        return authorityService.wxBind(wxBindRequest);
     }
 
 

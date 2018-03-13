@@ -24,4 +24,12 @@ public class WxBindRequest {
     public void setLoginRequest(LoginRequest loginRequest) {
         this.loginRequest = loginRequest;
     }
+
+    @Override
+    public String toString() {
+        return "WxBindRequest{" +
+                "wxNo='" + wxNo + '\'' +
+                ", loginRequest=" + loginRequest +
+                '}';
+    }
 }

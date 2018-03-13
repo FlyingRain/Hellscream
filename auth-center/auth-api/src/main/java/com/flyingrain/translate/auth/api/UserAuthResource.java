@@ -1,5 +1,6 @@
 package com.flyingrain.translate.auth.api;
 
+import com.flyingrain.translate.auth.api.requests.MessageRequest;
 import com.flyingrain.translate.auth.api.requests.VerifyRequest;
 import com.flyingrain.translate.auth.api.responses.LoginResponse;
 import com.flyingrain.translate.auth.api.responses.RegisterResponse;
@@ -27,11 +28,11 @@ public interface UserAuthResource {
 
     @POST
     @Path("/wxLogin")
-    LoginResponse wxLogin(VerifyRequest verifyRequest);
+    LoginResponse wxLogin(MessageRequest messageRequest);
 
     @POST
     @Path("/wxBind")
-    boolean wxBind(VerifyRequest verifyRequest);
+    boolean wxBind(MessageRequest messageRequest);
 
     /**
      * 用户注册

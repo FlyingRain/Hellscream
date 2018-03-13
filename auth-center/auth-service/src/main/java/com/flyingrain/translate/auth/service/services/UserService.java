@@ -2,6 +2,8 @@ package com.flyingrain.translate.auth.service.services;
 
 import com.flyingrain.translate.auth.api.requests.AuthLoginRequest;
 import com.flyingrain.translate.auth.api.requests.AuthRegisterRequest;
+import com.flyingrain.translate.auth.api.requests.WxBind;
+import com.flyingrain.translate.auth.api.requests.WxLogin;
 import com.flyingrain.translate.auth.api.responses.LoginResponse;
 import com.flyingrain.translate.auth.api.responses.RegisterResponse;
 
@@ -32,5 +34,21 @@ public interface UserService {
      * @return
      */
     String logoff(String userId);
+
+
+    /**
+     * 微信登陆
+     * @param wxLogin
+     * @return
+     */
+    LoginResponse wxLogin(WxLogin wxLogin);
+
+    /**
+     * 微信号绑定
+     * @param wxBindRequest
+     * @return
+     */
+    boolean wxBind(WxBind wxBindRequest);
+
 
 }
