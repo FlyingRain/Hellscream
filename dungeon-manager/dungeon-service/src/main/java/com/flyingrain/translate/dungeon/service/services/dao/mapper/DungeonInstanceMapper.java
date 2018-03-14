@@ -6,6 +6,8 @@ import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
+import java.util.List;
+
 /**
  * Created by wally on 9/11/17.
  */
@@ -24,10 +26,21 @@ public interface DungeonInstanceMapper {
 
     /**
      * 根据实例Id查询副本Id
+     *
      * @param id
      * @return
      */
     @Select("select dungeon_source from dungeon_instance where id=#{instanceId}")
     int dungeonId(@Param("instanceId") int id);
+
+
+    /**
+     * 根据副本模板Id和状态获取副本实例
+     *
+     * @param dungonId
+     * @return
+     */
+    @Select("select dungeon_source,enroll_time,start_time,end_time,dungeon_status from dungeon_instance where dungeon_source=#{dungeonId} and dungeon_status=#{status}")
+    List<DungeonInstanceModel> dungeonInstanceByModelId(@Param("dungeonId") int dungonId, @Param("status") int status);
 
 }

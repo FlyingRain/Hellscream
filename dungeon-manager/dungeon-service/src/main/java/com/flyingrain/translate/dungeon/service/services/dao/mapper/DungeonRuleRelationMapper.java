@@ -1,10 +1,11 @@
 package com.flyingrain.translate.dungeon.service.services.dao.mapper;
 
+import com.flyingrain.translate.dungeon.service.services.dao.mapper.providers.DungeonRuleRelationProvider;
 import com.flyingrain.translate.dungeon.service.services.dao.models.DungeonRuleModel;
 import com.flyingrain.translate.dungeon.service.services.dao.models.DungeonRuleRelationModel;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.SelectProvider;
 
 import java.util.List;
 
@@ -15,6 +16,7 @@ public interface DungeonRuleRelationMapper {
 
     /**
      * 插入副本规则映射
+     *
      * @param relationModel
      * @return
      */
@@ -23,9 +25,8 @@ public interface DungeonRuleRelationMapper {
     int insertRuleRelation(@Param("relationModel") DungeonRuleRelationModel relationModel);
 
 
-
-    @Select("select from dungeon_rule_relation drr join dungeon_rule dr on (drr.rule_id = dr.id) where dr.")
-    List<DungeonRuleRelationModel> queryDungeonByRule(@Param("dungeonRule") DungeonRuleModel ruleModel);
+    @SelectProvider(type = DungeonRuleRelationProvider.class, method = "queryDungeonByRule")
+    List<Integer> queryDungeonByRule(@Param("dungeonRule") DungeonRuleModel ruleModel);
 
 
 }

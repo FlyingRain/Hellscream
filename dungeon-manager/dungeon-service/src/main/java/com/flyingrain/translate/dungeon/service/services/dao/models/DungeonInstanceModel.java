@@ -16,17 +16,13 @@ public class DungeonInstanceModel {
      * 副本模板Id
      */
     private int dungeon_source;
-    /**
-     * 数量
-     */
-    private int numbers;
 
     /**
      * 开始时间
      */
     private Date start_time;
     /**
-     *
+     * 报名开始时间
      */
     private Date enroll_time;
     /**
@@ -64,14 +60,6 @@ public class DungeonInstanceModel {
 
     public void setDungeon_source(int dungeon_source) {
         this.dungeon_source = dungeon_source;
-    }
-
-    public int getNumbers() {
-        return numbers;
-    }
-
-    public void setNumbers(int numbers) {
-        this.numbers = numbers;
     }
 
     public Date getEnroll_time() {

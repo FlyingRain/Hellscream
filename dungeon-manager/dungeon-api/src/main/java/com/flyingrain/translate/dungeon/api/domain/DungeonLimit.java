@@ -11,7 +11,7 @@ public class DungeonLimit {
     /**
      * 限制类型
      */
-    private String type;
+    private Integer type;
     /**
      * 值
      */
@@ -35,11 +35,11 @@ public class DungeonLimit {
      */
     private String desc;
 
-    public String getType() {
+    public Integer getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(Integer type) {
         this.type = type;
     }
 
