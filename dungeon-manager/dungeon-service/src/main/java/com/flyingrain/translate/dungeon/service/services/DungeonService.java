@@ -3,6 +3,7 @@ package com.flyingrain.translate.dungeon.service.services;
 import com.flyingrain.translate.dungeon.api.domain.DungeonInstance;
 import com.flyingrain.translate.dungeon.api.requests.DungeonQueryRequest;
 import com.flyingrain.translate.dungeon.api.requests.JoinRequest;
+import com.flyingrain.translate.dungeon.api.responses.DungeonPlanResult;
 import com.flyingrain.translate.dungeon.api.responses.JoinResult;
 
 import java.util.List;
@@ -26,4 +27,10 @@ public interface DungeonService {
      * @return
      */
     JoinResult joinDungeon(JoinRequest request);
+
+    /**
+     * 获取用户计划在副本中的状态
+     * @return
+     */
+    DungeonPlanResult dungeonPlan(Integer userId,Integer planId);
 }

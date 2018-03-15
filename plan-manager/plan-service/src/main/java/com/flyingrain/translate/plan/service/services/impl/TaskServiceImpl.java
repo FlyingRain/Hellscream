@@ -1,14 +1,13 @@
 package com.flyingrain.translate.plan.service.services.impl;
 
+import com.flyingrain.translate.dungeon.api.DungeonResources;
+import com.flyingrain.translate.dungeon.api.responses.DungeonPlanResult;
 import com.flyingrain.translate.framework.lang.FlyException;
 import com.flyingrain.translate.framework.lang.utils.DateUtil;
-import com.flyingrain.translate.plan.api.response.Task;
-import com.flyingrain.translate.plan.api.response.TaskSummary;
-import com.flyingrain.translate.plan.api.response.Word;
+import com.flyingrain.translate.plan.api.response.*;
 import com.flyingrain.translate.plan.service.common.PlanExceptionCode;
 import com.flyingrain.translate.plan.service.services.TaskCache;
 import com.flyingrain.translate.plan.service.services.TaskService;
-import com.flyingrain.translate.plan.api.response.PlanType;
 import com.flyingrain.translate.plan.service.services.common.TaskStatus;
 import com.flyingrain.translate.plan.service.services.dao.mapper.DayPlanMapper;
 import com.flyingrain.translate.plan.service.services.dao.mapper.PlanMapper;
@@ -44,6 +43,9 @@ public class TaskServiceImpl implements TaskService {
 
     @Autowired
     private PlanMapper planMapper;
+
+    @Autowired
+    private DungeonResources dungeonResources;
 
     @Autowired
     private Map<String, TaskGenerator> taskGeneratorMap;
@@ -93,10 +95,12 @@ public class TaskServiceImpl implements TaskService {
             try {
                 dayPlanMapper.insertDayPlan(newDayPlan);
             } catch (Exception e) {
-                logger.error("insert into recitePlan failed!",e);
-                throw new FlyException(PlanExceptionCode.PLAN_GEN_FAILED.getCode(),PlanExceptionCode.PLAN_GEN_FAILED.getMsg());
+                logger.error("insert into recitePlan failed!", e);
+                throw new FlyException(PlanExceptionCode.PLAN_GEN_FAILED.getCode(), PlanExceptionCode.PLAN_GEN_FAILED.getMsg());
             }
             task.setId(newDayPlan.getId());
+            DungeonPlanResult dungeonPlanResult = dungeonResources.getDungeonPlan(newDayPlan.getUser_id(), newDayPlan.getPlan_id());
+            task.setDungeonInfo(transferDungeonResult(dungeonPlanResult));
             //缓存生成的Task
             taskCache.cacheTask(task, newDayPlan);
             return task;
@@ -112,11 +116,11 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public TaskSummary getTaskSummary(int userId, int planId, Date planDate) {
-        TaskSummary summary = taskCache.getTaskSummary(planDate,userId);
-        if(summary==null){
-            generateTask(userId,planId,planDate);
+        TaskSummary summary = taskCache.getTaskSummary(planDate, userId);
+        if (summary == null) {
+            generateTask(userId, planId, planDate);
         }
-        return taskCache.getTaskSummary(planDate,userId);
+        return taskCache.getTaskSummary(planDate, userId);
     }
 
 
@@ -140,6 +144,14 @@ public class TaskServiceImpl implements TaskService {
         newDayPlan.setUser_id(planModel.getUser_id());
         newDayPlan.setStatus(TaskStatus.PROCESSING.value);
         return newDayPlan;
+    }
+
+    private DungeonInfo transferDungeonResult(DungeonPlanResult dungeonPlanResult) {
+        DungeonInfo dungeonInfo = new DungeonInfo();
+        dungeonInfo.setDungeonInstanceId(dungeonPlanResult.getDungeonInstanceId());
+        dungeonInfo.setStatus(dungeonPlanResult.getStatus());
+        dungeonInfo.setDesc(dungeonPlanResult.getDesc());
+        return dungeonInfo;
     }
 
 }

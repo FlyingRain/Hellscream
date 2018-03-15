@@ -15,6 +15,8 @@ public class Task {
 
     private int wordNumber;
 
+    private DungeonInfo dungeonInfo;
+
     private int newWordNumber;
 
     private List<Word> newWords;
@@ -35,6 +37,14 @@ public class Task {
 
     public void setNewWordNumber(int newWordNumber) {
         this.newWordNumber = newWordNumber;
+    }
+
+    public DungeonInfo getDungeonInfo() {
+        return dungeonInfo;
+    }
+
+    public void setDungeonInfo(DungeonInfo dungeonInfo) {
+        this.dungeonInfo = dungeonInfo;
     }
 
     public List<Word> getNewWords() {

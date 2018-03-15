@@ -1,5 +1,6 @@
 package com.flyingrain.translate.plan.service.impl;
 
+import com.flyingrain.translate.dungeon.api.DungeonResources;
 import com.flyingrain.translate.framework.annotaions.Resource;
 import com.flyingrain.translate.framework.beanValidation.annotations.BeanValidation;
 import com.flyingrain.translate.framework.lang.FlyException;
@@ -33,6 +34,8 @@ public class TaskResourceImpl implements TaskResource {
     private TaskService taskService;
     @Autowired
     private TaskSychronize taskSychronize;
+
+
 
     @Override
     @BeanValidation(TaskResourceValidation.class)

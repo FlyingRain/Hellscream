@@ -3,6 +3,7 @@ package com.flyingrain.translate.dungeon.service.services.impl;
 import com.flyingrain.translate.dungeon.api.domain.*;
 import com.flyingrain.translate.dungeon.api.requests.DungeonQueryRequest;
 import com.flyingrain.translate.dungeon.api.requests.JoinRequest;
+import com.flyingrain.translate.dungeon.api.responses.DungeonPlanResult;
 import com.flyingrain.translate.dungeon.api.responses.JoinResult;
 import com.flyingrain.translate.dungeon.service.services.DungeonService;
 import com.flyingrain.translate.dungeon.service.services.common.ActiveEnum;
@@ -35,7 +36,7 @@ public class DungeonServiceImpl implements DungeonService {
     @Autowired
     private LimitChainBuilder builder;
 
-    @Autowired
+    @Autowired      
     private DungeonInstanceContainerMapper containerMapper;
 
     @Autowired
@@ -49,6 +50,9 @@ public class DungeonServiceImpl implements DungeonService {
 
     @Autowired
     private DungeonRuleMapper dungeonRuleMapper;
+
+    @Autowired
+    private DungeonInstanceContainerMapper instanceContainerMapper;
 
 
     @Override
@@ -114,6 +118,18 @@ public class DungeonServiceImpl implements DungeonService {
         logger.info("result is [{}]", result);
         return result.isSuccess() ? userJoinDungeon(request) : new JoinResult(result.isSuccess(), request.getDungeonInstanceId(), result.getReason());
     }
+
+    @Override
+    public DungeonPlanResult dungeonPlan(Integer userId, Integer planId) {
+        DungeonInstanceContainerModel containerModel = instanceContainerMapper.queryPlanStatus(userId,planId);
+        DungeonPlanResult dungeonPlanResult = new DungeonPlanResult();
+        dungeonPlanResult.setDesc(containerModel.getRemark());
+        dungeonPlanResult.setStatus(containerModel.getStatus());
+        dungeonPlanResult.setPlanId(planId);
+        dungeonPlanResult.setDungeonInstanceId(containerModel.getDungeon_instance_id());
+        return dungeonPlanResult;
+    }
+
 
     /**
      * 用户加入副本

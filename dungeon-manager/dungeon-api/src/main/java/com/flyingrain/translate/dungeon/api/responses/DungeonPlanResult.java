@@ -19,6 +19,11 @@ public class DungeonPlanResult {
      */
     private int planId;
 
+    /**
+     * 状态说明
+     */
+    private String desc;
+
     public int getDungeonInstanceId() {
         return dungeonInstanceId;
     }
@@ -37,6 +42,14 @@ public class DungeonPlanResult {
 
     public int getPlanId() {
         return planId;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 
     public void setPlanId(int planId) {
