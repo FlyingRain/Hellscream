@@ -21,6 +21,15 @@ import java.util.List;
 public interface DungeonResources {
 
     /**
+     * 获取副本实例详情
+     * @param instanceId
+     * @return
+     */
+    @GET
+    @Path("/dungeonInstance/{dungeonInstanceId}")
+    DungeonInstance dungeonInstanceById(@PathParam("dungeonInstanceId")Integer instanceId);
+
+    /**
      * 根据条件查询副本实例
      *
      * @param queryRequest

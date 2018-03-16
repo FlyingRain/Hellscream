@@ -30,6 +30,11 @@ public class DungeonResourcesImpl implements DungeonResources {
     private DungeonService dungeonService;
 
     @Override
+    public DungeonInstance dungeonInstanceById(Integer instanceId) {
+        return null;
+    }
+
+    @Override
     public List<DungeonInstance> getDungeons(DungeonQueryRequest queryRequest) {
         logger.info("dungeon query request:[{}]", queryRequest);
         return dungeonService.getDungeons(queryRequest);

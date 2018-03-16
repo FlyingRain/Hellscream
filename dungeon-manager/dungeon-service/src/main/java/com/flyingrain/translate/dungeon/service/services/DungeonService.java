@@ -15,6 +15,13 @@ public interface DungeonService {
 
 
     /**
+     * 实例
+     * @param dungeonInstanceId
+     * @return
+     */
+    DungeonInstance getInstanceById(Integer dungeonInstanceId);
+
+    /**
      * 根据条件查询副本
      * @param queryRequest
      * @return

@@ -1,17 +1,18 @@
 package com.flyingrain.translate.dungeon.service.services.impl;
 
-import com.flyingrain.translate.dungeon.api.domain.*;
+import com.flyingrain.translate.dungeon.api.domain.DungeonInstance;
+import com.flyingrain.translate.dungeon.api.domain.DungeonLimit;
+import com.flyingrain.translate.dungeon.api.domain.DungeonStatus;
+import com.flyingrain.translate.dungeon.api.domain.UserDungeonStatus;
 import com.flyingrain.translate.dungeon.api.requests.DungeonQueryRequest;
 import com.flyingrain.translate.dungeon.api.requests.JoinRequest;
 import com.flyingrain.translate.dungeon.api.responses.DungeonPlanResult;
 import com.flyingrain.translate.dungeon.api.responses.JoinResult;
 import com.flyingrain.translate.dungeon.service.services.DungeonService;
-import com.flyingrain.translate.dungeon.service.services.common.ActiveEnum;
 import com.flyingrain.translate.dungeon.service.services.dao.mapper.*;
 import com.flyingrain.translate.dungeon.service.services.dao.models.DungeonInstanceContainerModel;
-import com.flyingrain.translate.dungeon.service.services.dao.models.DungeonInstanceModel;
-import com.flyingrain.translate.dungeon.service.services.dao.models.DungeonResourceModel;
 import com.flyingrain.translate.dungeon.service.services.dao.models.DungeonRuleModel;
+import com.flyingrain.translate.dungeon.service.services.impl.dungeonInstance.DungeonInstanceDirector;
 import com.flyingrain.translate.dungeon.service.services.limitchains.LimitChainBuilder;
 import com.flyingrain.translate.dungeon.service.services.limitchains.limits.LimitResult;
 import org.apache.commons.lang3.StringUtils;
@@ -21,8 +22,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,24 +35,27 @@ public class DungeonServiceImpl implements DungeonService {
     @Autowired
     private LimitChainBuilder builder;
 
-    @Autowired      
+    @Autowired
     private DungeonInstanceContainerMapper containerMapper;
 
     @Autowired
     private DungeonRuleRelationMapper dungeonRuleRelationMapper;
 
     @Autowired
-    private DungeonResourceMapper resourceMapper;
-
-    @Autowired
     private DungeonInstanceMapper dungeonInstanceMapper;
 
     @Autowired
-    private DungeonRuleMapper dungeonRuleMapper;
+    private DungeonInstanceDirector dungeonInstanceDirector;
+
 
     @Autowired
     private DungeonInstanceContainerMapper instanceContainerMapper;
 
+
+    @Override
+    public DungeonInstance getInstanceById(Integer dungeonInstanceId) {
+        return dungeonInstanceDirector.build(dungeonInstanceId);
+    }
 
     @Override
     public List<DungeonInstance> getDungeons(DungeonQueryRequest queryRequest) {
@@ -68,48 +70,9 @@ public class DungeonServiceImpl implements DungeonService {
             dungeonRuleModel.setRule_type(limit.getType());
         }
         List<Integer> dungeonIds = dungeonRuleRelationMapper.queryDungeonByRule(dungeonRuleModel);
-        List<DungeonInstance> dungeonInstances = new ArrayList<>();
-
-        dungeonIds.stream().map(resourceMapper::getByDungeonId).forEach(dungeonResource -> {
-            List<DungeonInstanceModel> instanceModels = dungeonInstanceMapper.dungeonInstanceByModelId(dungeonResource.getId(), DungeonStatus.PREPARE.getStatus());
-            List<DungeonRuleModel> ruleModels = dungeonRuleMapper.getRulesByDungeonId(dungeonResource.getId(), ActiveEnum.ACTIVE.ordinal());
-            instanceModels.forEach(instanceModel -> dungeonInstances.add(generateInstance(ruleModels, dungeonResource, instanceModel)));
-        });
-        return dungeonInstances;
+        return dungeonIds.stream().flatMap(dungeonId -> dungeonInstanceMapper.dungeonInstanceByModelId(dungeonId, DungeonStatus.PREPARE.getStatus()).stream()).map(dungeonInstanceDirector::build).collect(Collectors.toList());
     }
 
-    /**
-     * 生成副本内容
-     *
-     * @param ruleModels
-     * @param dungeonResourceModel
-     * @param dungeonInstanceModel
-     * @return
-     */
-    private DungeonInstance generateInstance(List<DungeonRuleModel> ruleModels, DungeonResourceModel dungeonResourceModel, DungeonInstanceModel dungeonInstanceModel) {
-        DungeonInstance dungeonInstance = new DungeonInstance();
-        dungeonInstance.setDungeonId(dungeonInstanceModel.getId());
-        dungeonInstance.setEnrollTime(dungeonInstanceModel.getEnroll_time());
-        dungeonInstance.setStartTime(dungeonInstanceModel.getStart_time());
-        dungeonInstance.setStatus(dungeonInstanceModel.getDungeon_status());
-        dungeonInstance.setRemark(dungeonResourceModel.getDesc());
-        //生成副本模型
-        DungeonDomain dungeonDomain = new DungeonDomain();
-        dungeonDomain.setDesc(dungeonResourceModel.getDesc());
-        dungeonDomain.setId(dungeonResourceModel.getId() + "");
-        dungeonDomain.setImgPaths(Arrays.asList(dungeonResourceModel.getImgs().split(",")));
-        dungeonDomain.setTitle(dungeonResourceModel.getTitle());
-        dungeonDomain.setLimits(ruleModels.stream().map(model -> {
-            DungeonLimit limit = new DungeonLimit();
-            limit.setDesc(model.getRule());
-            limit.setType(model.getRule_type());
-            limit.setValue(model.getRule_param());
-            return limit;
-        }).collect(Collectors.toList()));
-        dungeonInstance.setDungeonDomain(dungeonDomain);
-        dungeonInstance.setFinishTime(dungeonInstanceModel.getEnd_time());
-        return dungeonInstance;
-    }
 
     @Override
     public JoinResult joinDungeon(JoinRequest request) {
@@ -121,7 +84,7 @@ public class DungeonServiceImpl implements DungeonService {
 
     @Override
     public DungeonPlanResult dungeonPlan(Integer userId, Integer planId) {
-        DungeonInstanceContainerModel containerModel = instanceContainerMapper.queryPlanStatus(userId,planId);
+        DungeonInstanceContainerModel containerModel = instanceContainerMapper.queryPlanStatus(userId, planId);
         DungeonPlanResult dungeonPlanResult = new DungeonPlanResult();
         dungeonPlanResult.setDesc(containerModel.getRemark());
         dungeonPlanResult.setStatus(containerModel.getStatus());
