@@ -47,19 +47,21 @@ public class GetHandler implements Handler {
         logger.info("start to send get message : url [{}]", url);
         WebTarget target = client.target(url);
         //jersey处理genericType的方法
-        Response response = target.request().header("token",token).get();
-        Result result = response.readEntity(new GenericType<Result>(){});
-        logger.info("get response [{}]",result);
-        if(!result.isSuccess()){
-            throw new FlyException(result.getCode(),result.getMsg());
+        Response response = target.request().header("token", token).get();
+        Result result = response.readEntity(new GenericType<Result>() {
+        });
+        logger.info("get response [{}]", result);
+        if (result != null && !result.isSuccess()) {
+            throw new FlyException(result.getCode(), result.getMsg());
         }
-        return (T) resultResolver.resolve(result.getRealResult(),request.getMethod());
+        return result == null ? null : (T) resultResolver.resolve(result.getRealResult(), request.getMethod());
 
     }
 
 
     /**
      * 解析url
+     *
      * @param request 请求参数
      * @return
      */

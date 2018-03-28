@@ -5,6 +5,7 @@ import com.flyingrain.translate.dungeon.service.services.common.ActiveEnum;
 import com.flyingrain.translate.dungeon.service.services.common.ExceptionEnum;
 import com.flyingrain.translate.dungeon.service.services.dao.mapper.DungeonInstanceMapper;
 import com.flyingrain.translate.dungeon.service.services.dao.mapper.DungeonRuleMapper;
+import com.flyingrain.translate.dungeon.service.services.dao.models.DungeonInstanceModel;
 import com.flyingrain.translate.dungeon.service.services.dao.models.DungeonRuleModel;
 import com.flyingrain.translate.dungeon.service.services.limitchains.limits.Limit;
 import com.flyingrain.translate.dungeon.service.services.limitchains.limits.LimitChainExecutor;
@@ -58,13 +59,9 @@ public class LimitChainBuilder {
         logger.info("start to build dungeon limit chain,dungeonInstanceId :[{}]", joinRequest.getDungeonInstanceId());
         Plan plan = planManagerResource.getUserPlan(joinRequest.getUserId() + "");
         TaskSummary taskSummary = null;
-        try {
-            taskSummary = taskResource.getTaskSummary(joinRequest.getPlanId(), joinRequest.getUserId(), "");
-        } catch (ParseException e) {
-            logger.error("get taskSummary failed!", e);
-            throw new FlyException(ExceptionEnum.PLANFAIL.getCode(), ExceptionEnum.PLANFAIL.getDesc());
-        }
 
+
+        DungeonInstanceModel instanceModel = instanceMapper.dungeonInstanceById(joinRequest.getDungeonInstanceId());
         List<DungeonRuleModel> dungeonRuleModels = dungeonRuleMapper.getRulesByDungeonId(instanceMapper.dungeonId(joinRequest.getDungeonInstanceId()), ActiveEnum.ACTIVE.ordinal());
         Map<Integer, Optional<String>> rules = dungeonRuleModels.stream().collect(Collectors.groupingBy(DungeonRuleModel::getRule_type, Collectors.mapping(DungeonRuleModel::getRule_param, Collectors.reducing((r, l) -> r + l))));
         LinkedList<Limit> limitChain = new LinkedList<>();

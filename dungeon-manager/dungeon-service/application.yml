@@ -2,3 +2,9 @@ serverPrefix: /translate
 
 server:
  port: 8899
+
+load:
+  yaml:
+    - file:databaseConfig.yml
+  properties:
+    - file:resource.properties

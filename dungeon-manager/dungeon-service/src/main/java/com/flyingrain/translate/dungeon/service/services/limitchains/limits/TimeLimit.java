@@ -37,6 +37,7 @@ public class TimeLimit extends AbstractLimit<TimeLimitModel> {
 
     @Override
     public LimitResult judge(TimeLimitModel limitObject, Plan plan, TaskSummary summary) {
+
         if (plan.getPlanType() == PlanType.BYDEADLINE.getType()) {
             if (DateUtils.truncatedCompareTo(limitObject.getEndDate(), plan.getDeadline(), Calendar.DATE) < 0) {
                 return LimitResult.fail("the plan's deadline is earlier than the endTime of the dungeon!");

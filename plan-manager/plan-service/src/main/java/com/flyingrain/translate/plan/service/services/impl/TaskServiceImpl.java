@@ -92,16 +92,17 @@ public class TaskServiceImpl implements TaskService {
             Task task = generator.generateTask(userId, planModel, planDate);
             List<Integer> wordIds = Stream.of(task.getNewWords(), task.getOldWords()).flatMap(List::stream).map(Word::getWordId).collect(Collectors.toList());
             DayPlan newDayPlan = getNewDayPlan(planModel, wordIds, planDate);
+            //查询副本信息
+            DungeonPlanResult dungeonPlanResult = dungeonResources.getDungeonPlan(newDayPlan.getUser_id(), newDayPlan.getPlan_id());
+            task.setDungeonInfo(dungeonPlanResult == null ? null : transferDungeonResult(dungeonPlanResult));
             try {
                 dayPlanMapper.insertDayPlan(newDayPlan);
             } catch (Exception e) {
                 logger.error("insert into recitePlan failed!", e);
                 throw new FlyException(PlanExceptionCode.PLAN_GEN_FAILED.getCode(), PlanExceptionCode.PLAN_GEN_FAILED.getMsg());
             }
-            task.setId(newDayPlan.getId());
-            DungeonPlanResult dungeonPlanResult = dungeonResources.getDungeonPlan(newDayPlan.getUser_id(), newDayPlan.getPlan_id());
-            task.setDungeonInfo(transferDungeonResult(dungeonPlanResult));
             //缓存生成的Task
+            task.setId(newDayPlan.getId());
             taskCache.cacheTask(task, newDayPlan);
             return task;
         } else {

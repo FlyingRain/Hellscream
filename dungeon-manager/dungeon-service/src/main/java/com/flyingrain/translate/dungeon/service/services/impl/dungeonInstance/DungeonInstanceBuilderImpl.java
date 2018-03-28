@@ -2,6 +2,7 @@ package com.flyingrain.translate.dungeon.service.services.impl.dungeonInstance;
 
 import com.flyingrain.translate.dungeon.api.domain.DungeonLimit;
 import com.flyingrain.translate.dungeon.service.services.common.ActiveEnum;
+import com.flyingrain.translate.dungeon.service.services.dao.mapper.DungeonInstanceMapper;
 import com.flyingrain.translate.dungeon.service.services.dao.mapper.DungeonResourceMapper;
 import com.flyingrain.translate.dungeon.service.services.dao.mapper.DungeonRuleMapper;
 import com.flyingrain.translate.dungeon.service.services.dao.models.DungeonInstanceModel;
@@ -30,6 +31,9 @@ public class DungeonInstanceBuilderImpl implements DungeonInstanceBuilder {
     @Autowired
     private DungeonResourceMapper resourceMapper;
 
+    @Autowired
+    private DungeonInstanceMapper instanceMapper;
+
     @Override
     public List<DungeonLimit> dungeonLimits(int dungeonModelId) {
         List<DungeonRuleModel> ruleModels = dungeonRuleMapper.getRulesByDungeonId(dungeonModelId, ActiveEnum.ACTIVE.ordinal());
@@ -49,6 +53,6 @@ public class DungeonInstanceBuilderImpl implements DungeonInstanceBuilder {
 
     @Override
     public DungeonInstanceModel dungeonInstance(int dungeonInstanceId) {
-        return null;
+        return instanceMapper.dungeonInstanceById(dungeonInstanceId);
     }
 }

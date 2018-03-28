@@ -43,4 +43,12 @@ public interface DungeonInstanceMapper {
     @Select("select dungeon_source,enroll_time,start_time,end_time,dungeon_status from dungeon_instance where dungeon_source=#{dungeonId} and dungeon_status=#{status}")
     List<DungeonInstanceModel> dungeonInstanceByModelId(@Param("dungeonId") int dungonId, @Param("status") int status);
 
+
+    /**
+     * 获取副本实例信息
+     * @param instanceId
+     * @return
+     */
+    @Select("select * from dungeon_instance where id=#{instanceId}")
+    DungeonInstanceModel dungeonInstanceById(@Param("instanceId") int instanceId);
 }

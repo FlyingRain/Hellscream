@@ -4,6 +4,7 @@ import com.flyingrain.translate.dungeon.api.DungeonResources;
 import com.flyingrain.translate.framework.annotaions.Resource;
 import com.flyingrain.translate.framework.beanValidation.annotations.BeanValidation;
 import com.flyingrain.translate.framework.lang.FlyException;
+import com.flyingrain.translate.framework.lang.utils.DateUtil;
 import com.flyingrain.translate.plan.api.intf.TaskResource;
 import com.flyingrain.translate.plan.api.request.TaskResult;
 import com.flyingrain.translate.plan.api.response.Task;
@@ -54,11 +55,11 @@ public class TaskResourceImpl implements TaskResource {
     }
 
     @Override
-    public TaskSummary getTaskSummary(Integer planId, Integer userId, String planDate) throws ParseException {
+    public TaskSummary getTaskSummary(Integer planId, Integer userId, String planDate){
         logger.info("obtain taskSummary:planId:[{}],userId:[{}],planDate:[{}]", new Object[]{planId, userId, planDate});
         Date date = new Date();
         if (StringUtils.isNotEmpty(planDate)) {
-            date = DateUtils.parseDate(planDate, "yyyy/MM/dd");
+            date = DateUtil.StringtoDate(planDate, "yyyy/MM/dd");
         }
         return taskService.getTaskSummary(userId, planId, date);
     }

@@ -59,14 +59,14 @@ public class PostHandler implements Handler {
             throw new RuntimeException("do not support multiParams!");
         }
         logger.info("start to send Post request :[{}]", params[0]);
-        Response response = webTarget.request().header("token",token).buildPost(Entity.entity(params[0], MediaType.APPLICATION_JSON)).invoke();
+        Response response = webTarget.request().header("token", token).buildPost(Entity.entity(params[0], MediaType.APPLICATION_JSON)).invoke();
         //jersey处理genericType的方法
         Result result = response.readEntity(new GenericType<Result>() {
         });
-        if(!result.isSuccess()){
-            throw new FlyException(result.getCode(),result.getMsg());
+        if (result != null && !result.isSuccess()) {
+            throw new FlyException(result.getCode(), result.getMsg());
         }
-        return (T) resultResolver.resolve(result.getRealResult(),method);
+        return result == null ? null : (T) resultResolver.resolve(result.getRealResult(), method);
     }
 
     public String getToken() {

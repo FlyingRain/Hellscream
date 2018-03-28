@@ -36,7 +36,7 @@ public interface TaskResource {
      */
     @GET
     @Path("/getTaskSummary")
-    TaskSummary getTaskSummary(@QueryParam("planId")Integer planId,@QueryParam("userId")Integer userId,@QueryParam("planDate")String planDate) throws ParseException;
+    TaskSummary getTaskSummary(@QueryParam("planId")Integer planId,@QueryParam("userId")Integer userId,@QueryParam("planDate")String planDate);
     /**
      * 生成用户的每日计划
      * @return 结果

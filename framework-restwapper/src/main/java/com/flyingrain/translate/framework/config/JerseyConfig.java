@@ -4,6 +4,7 @@ import com.flyingrain.translate.framework.annotaions.Resource;
 import com.flyingrain.translate.framework.exceptionHandler.AppExceptionHandler;
 import com.flyingrain.translate.framework.filter.RequestFilter;
 import com.flyingrain.translate.framework.filter.ResponseFilter;
+import org.glassfish.jersey.media.multipart.MultiPartFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.servlet.ServletProperties;
 import org.slf4j.Logger;
@@ -46,6 +47,7 @@ public class JerseyConfig extends ResourceConfig implements InitializingBean, Ap
         resources.add(AppExceptionHandler.class);
         resources.add(RequestFilter.class);
         resources.add(ResponseFilter.class);
+        resources.add(MultiPartFeature.class);
         servletRegistrationBean.addInitParameter(ServletProperties.JAXRS_APPLICATION_CLASS,MyApplication.class.getName());
 
     }

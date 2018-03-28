@@ -4,7 +4,7 @@ datasource:
       userName: root
       password: Xtm123456!
       driveClass: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://10.243.121.53:3306/plan?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+      url: jdbc:mysql://10.243.121.53:3306/dungeon?useUnicode=true&characterEncoding=UTF-8&useSSL=false
 
     - sourceName: test
       userName: root

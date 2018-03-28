@@ -29,9 +29,9 @@ public class EncryptTest {
 
     @Test
     public void testRSAEncrypt() {
-        String privateKeyPath = "/home/wally/workspace/myprojects/github/Hellscream/certs/flyingrain_pkcs8_private.pem";
-        String publicKeyPath = "/home/wally/workspace/myprojects/github/Hellscream/certs/flyingrain_pub.pem";
-        String msg = "{\"sign\":\"O1CcQMnQXRkdlHD5MRKJErAsNtoil6hf/3n+oyU4HdPoujcR91iAWzN2AAAcZhdJVqzt/DTR8bp9kwvwzdMHzCh6h/oq9pCKCuiJOoII2UNmpxgIQsdWW7nzaEkPGuK1aAlx80BIWRsB1KMPd41yGYUAroAkuZHezPeWTPNKnug=\",\"param\":\"{\\\"wxNo\\\":\\\"321123\\\",\\\"loginRequest\\\":{\\\"phone\\\":\\\"17626189012\\\",\\\"password\\\":\\\"123456\\\"}}\"}\",\"serviceId\":\"user\"}";
+        String privateKeyPath = "/home/wally/workspace/github/Hellscream/certs/flyingrain_pkcs8_private.pem";
+        String publicKeyPath = "/home/wally/workspace/github/Hellscream/certs/flyingrain_pub.pem";
+        String msg = "123456";
         String encryptMsg = EncryptUtil.encryptWithRSA(msg, privateKeyPath, true);
         System.out.println(encryptMsg);
         String encryptMsg2 = EncryptUtil.encryptWithRSA(msg, publicKeyPath, false);

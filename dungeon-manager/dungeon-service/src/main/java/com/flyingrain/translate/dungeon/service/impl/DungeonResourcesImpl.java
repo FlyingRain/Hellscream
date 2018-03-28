@@ -47,7 +47,7 @@ public class DungeonResourcesImpl implements DungeonResources {
 
     @Override
     public DungeonPlanResult getDungeonPlan(Integer planId, Integer userId) {
-        logger.info("query user:[{userId}],dungeon status", userId);
+        logger.info("query user:[{}],dungeon status", userId);
         return dungeonService.dungeonPlan(userId, planId);
     }
 

@@ -85,6 +85,9 @@ public class DungeonServiceImpl implements DungeonService {
     @Override
     public DungeonPlanResult dungeonPlan(Integer userId, Integer planId) {
         DungeonInstanceContainerModel containerModel = instanceContainerMapper.queryPlanStatus(userId, planId);
+        if (containerModel == null) {
+            return null;
+        }
         DungeonPlanResult dungeonPlanResult = new DungeonPlanResult();
         dungeonPlanResult.setDesc(containerModel.getRemark());
         dungeonPlanResult.setStatus(containerModel.getStatus());

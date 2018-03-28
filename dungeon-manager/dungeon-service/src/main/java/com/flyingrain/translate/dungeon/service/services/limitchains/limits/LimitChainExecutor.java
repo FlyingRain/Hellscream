@@ -5,6 +5,7 @@ import com.flyingrain.translate.plan.api.response.TaskSummary;
 import org.springframework.util.CollectionUtils;
 
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -15,11 +16,24 @@ public class LimitChainExecutor {
 
 
     private LinkedList<Limit> limits = new LinkedList<>();
-    private final Map<Integer, Optional<String>> details;
-    private final Plan plan;
-    private final TaskSummary taskSummary;
 
-    public LimitChainExecutor(Map<Integer, Optional<String>> details, Plan plan, TaskSummary taskSummary,LinkedList<Limit> limits) {
+    private List<Limit> preLimits;
+
+    private List<Limit> ruleLimits;
+
+    private List<Limit> postLimits;
+
+    private  Map<Integer, Optional<String>> details;
+    private  Plan plan;
+    private  TaskSummary taskSummary;
+
+    public LimitChainExecutor(List<Limit> preLimits, List<Limit> ruleLimits, List<Limit> postLimits) {
+        this.preLimits = preLimits;
+        this.ruleLimits = ruleLimits;
+        this.postLimits = postLimits;
+    }
+
+    public LimitChainExecutor(Map<Integer, Optional<String>> details, Plan plan, TaskSummary taskSummary, LinkedList<Limit> limits) {
         this.details = details;
         this.plan = plan;
         this.taskSummary = taskSummary;

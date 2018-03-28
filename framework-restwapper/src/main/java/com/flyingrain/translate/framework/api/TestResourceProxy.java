@@ -17,8 +17,8 @@ import java.util.List;
 public interface TestResourceProxy {
 
     @GET
-    @Path("/resource/proxy")
-    List<MyResult> testProxy(@QueryParam("mm")String mm);
+    @Path("/resource/proxy/{mm}")
+    List<MyResult> testProxy(@PathParam("mm") String mm);
 
     @POST
     @Path("/webtarget")
