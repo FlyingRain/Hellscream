@@ -1,7 +1,5 @@
 package com.flyingrain.translate.dungeon.service.services.common;
 
-import javax.print.DocFlavor;
-
 /**
  * Created on 18-3-24.
  *
@@ -26,4 +24,14 @@ public class LimitConstant {
      * 副本实例
      */
     public static final String DUNGEONINSTANCE = "dungeonInstance";
+
+    /**
+     * 剩余时间
+     */
+    public static final String LEFTDAY = "leftDay";
+
+    /**
+     * 请求参数
+     */
+    public static final String PARAM = "param";
 }

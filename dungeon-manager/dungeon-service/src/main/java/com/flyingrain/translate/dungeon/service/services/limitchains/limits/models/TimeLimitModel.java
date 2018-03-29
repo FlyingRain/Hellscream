@@ -5,11 +5,19 @@ import java.util.Date;
 /**
  * Created by wally on 10/31/17.
  */
-public class TimeLimitModel {
+public class TimeLimitModel extends AbstractLimitModel{
 
     private Date startDate;
 
     private Date endDate;
+
+    public TimeLimitModel(Date startDate, Date endDate) {
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+
+    public TimeLimitModel() {
+    }
 
     public Date getStartDate() {
         return startDate;

@@ -3,9 +3,10 @@ package com.flyingrain.translate.dungeon.service.services.limitchains.limits.mod
 /**
  * Created by wally on 10/31/17.
  */
-public class BookTypeLimitModel {
+public class BookTypeLimitModel extends AbstractLimitModel{
 
     private int bookType;
+
 
     public int getBookType() {
         return bookType;

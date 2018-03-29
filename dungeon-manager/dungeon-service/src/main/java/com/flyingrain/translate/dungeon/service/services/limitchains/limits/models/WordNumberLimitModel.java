@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  * Created by wally on 10/31/17.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class WordNumberLimitModel {
+public class WordNumberLimitModel extends AbstractLimitModel{
 
     /**
      * 最大单词数
@@ -16,6 +16,8 @@ public class WordNumberLimitModel {
      * 最小单词数
      */
     private int least;
+
+
 
     public int getLargest() {
         return largest;

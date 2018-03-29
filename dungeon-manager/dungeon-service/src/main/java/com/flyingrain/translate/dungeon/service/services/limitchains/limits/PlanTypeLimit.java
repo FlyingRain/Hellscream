@@ -1,9 +1,9 @@
 package com.flyingrain.translate.dungeon.service.services.limitchains.limits;
 
-import com.flyingrain.translate.dungeon.service.services.common.LimitEnum;
+import com.flyingrain.translate.dungeon.service.services.common.LimitConstant;
+import com.flyingrain.translate.dungeon.service.services.limitchains.LimitContext;
 import com.flyingrain.translate.dungeon.service.services.limitchains.limits.models.PlanTypeLimitModel;
 import com.flyingrain.translate.plan.api.response.Plan;
-import com.flyingrain.translate.plan.api.response.TaskSummary;
 import org.springframework.stereotype.Component;
 
 /**
@@ -11,9 +11,13 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class PlanTypeLimit extends AbstractLimit<PlanTypeLimitModel> {
-    @Override
-    public int getLimitName() {
-        return LimitEnum.PLANTYPE.getLimitName();
+
+    public PlanTypeLimit(String param) {
+        super(param);
+    }
+
+    public PlanTypeLimit(PlanTypeLimitModel limitModel) {
+        super(limitModel);
     }
 
     @Override
@@ -21,9 +25,11 @@ public class PlanTypeLimit extends AbstractLimit<PlanTypeLimitModel> {
         return PlanTypeLimitModel.class;
     }
 
+
     @Override
-    public LimitResult judge(PlanTypeLimitModel limitObject, Plan plan, TaskSummary summary) {
-        if (limitObject == null || limitObject.getPlanType() == plan.getPlanType()) {
+    public LimitResult determine() {
+        Plan plan = (Plan) LimitContext.get(LimitConstant.PLAN);
+        if (limitModel == null || limitModel.getPlanType() == plan.getPlanType()) {
             return LimitResult.success();
         }
         return LimitResult.fail("计划类型不符合要求;");

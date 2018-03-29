@@ -9,11 +9,17 @@ import com.flyingrain.translate.dungeon.api.requests.JoinRequest;
 import com.flyingrain.translate.dungeon.api.responses.DungeonPlanResult;
 import com.flyingrain.translate.dungeon.api.responses.JoinResult;
 import com.flyingrain.translate.dungeon.service.services.DungeonService;
-import com.flyingrain.translate.dungeon.service.services.dao.mapper.*;
+import com.flyingrain.translate.dungeon.service.services.common.ActiveEnum;
+import com.flyingrain.translate.dungeon.service.services.dao.mapper.DungeonInstanceContainerMapper;
+import com.flyingrain.translate.dungeon.service.services.dao.mapper.DungeonInstanceMapper;
+import com.flyingrain.translate.dungeon.service.services.dao.mapper.DungeonRuleMapper;
+import com.flyingrain.translate.dungeon.service.services.dao.mapper.DungeonRuleRelationMapper;
 import com.flyingrain.translate.dungeon.service.services.dao.models.DungeonInstanceContainerModel;
+import com.flyingrain.translate.dungeon.service.services.dao.models.DungeonInstanceModel;
 import com.flyingrain.translate.dungeon.service.services.dao.models.DungeonRuleModel;
 import com.flyingrain.translate.dungeon.service.services.impl.dungeonInstance.DungeonInstanceDirector;
-import com.flyingrain.translate.dungeon.service.services.limitchains.LimitChainBuilder;
+import com.flyingrain.translate.dungeon.service.services.limitchains.LimitChainRequest;
+import com.flyingrain.translate.dungeon.service.services.limitchains.LimitChainsDirector;
 import com.flyingrain.translate.dungeon.service.services.limitchains.limits.LimitResult;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -33,13 +39,16 @@ public class DungeonServiceImpl implements DungeonService {
 
     private Logger logger = LoggerFactory.getLogger(DungeonServiceImpl.class);
     @Autowired
-    private LimitChainBuilder builder;
+    private LimitChainsDirector builder;
 
     @Autowired
     private DungeonInstanceContainerMapper containerMapper;
 
     @Autowired
     private DungeonRuleRelationMapper dungeonRuleRelationMapper;
+
+    @Autowired
+    private DungeonRuleMapper ruleMapper;
 
     @Autowired
     private DungeonInstanceMapper dungeonInstanceMapper;
@@ -77,7 +86,7 @@ public class DungeonServiceImpl implements DungeonService {
     @Override
     public JoinResult joinDungeon(JoinRequest request) {
         logger.info("get join request :[{}]", request);
-        LimitResult result = builder.build(request).execute();
+        LimitResult result = builder.buildChain(getLimitChainRequest(request)).execute();
         logger.info("result is [{}]", result);
         return result.isSuccess() ? userJoinDungeon(request) : new JoinResult(result.isSuccess(), request.getDungeonInstanceId(), result.getReason());
     }
@@ -108,4 +117,16 @@ public class DungeonServiceImpl implements DungeonService {
         int i = containerMapper.userJoinDungeon(new DungeonInstanceContainerModel(joinRequest.getDungeonInstanceId(), joinRequest.getPlanId(), joinRequest.getUserId(), UserDungeonStatus.PREPAREUNPAY.getStatus(), StringUtils.EMPTY));
         return i == 1 ? new JoinResult(true, joinRequest.getDungeonInstanceId(), StringUtils.EMPTY) : new JoinResult(false, joinRequest.getDungeonInstanceId(), "加入失败");
     }
+
+    private LimitChainRequest getLimitChainRequest(JoinRequest joinRequest) {
+        LimitChainRequest request = new LimitChainRequest();
+        DungeonInstanceModel instanceModel = dungeonInstanceMapper.dungeonInstanceById(joinRequest.getDungeonInstanceId());
+        List<DungeonRuleModel> ruleModels = ruleMapper.getRulesByDungeonId(instanceModel.getDungeon_source(), ActiveEnum.ACTIVE.ordinal());
+        request.setInstanceModel(instanceModel);
+        request.setPlanId(joinRequest.getPlanId());
+        request.setRuleModels(ruleModels);
+        request.setUserId(joinRequest.getUserId());
+        return request;
+    }
+
 }
