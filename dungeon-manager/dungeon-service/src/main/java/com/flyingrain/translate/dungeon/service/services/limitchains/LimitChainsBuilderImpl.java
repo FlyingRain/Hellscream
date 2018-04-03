@@ -55,6 +55,7 @@ public class LimitChainsBuilderImpl implements LimitChainsBuilder {
     @Override
     public List<Limit> buildRuleChain() {
         LinkedList<Limit> ruleLimits = new LinkedList<>();
+
         LimitChainRequest request = (LimitChainRequest) LimitContext.get(LimitConstant.PARAM);
         List<DungeonRuleModel> ruleModels = request.getRuleModels();
 
