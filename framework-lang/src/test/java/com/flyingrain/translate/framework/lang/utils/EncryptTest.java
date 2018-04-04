@@ -29,8 +29,8 @@ public class EncryptTest {
 
     @Test
     public void testRSAEncrypt() {
-        String privateKeyPath = "/home/wally/workspace/github/Hellscream/certs/flyingrain_pkcs8_private.pem";
-        String publicKeyPath = "/home/wally/workspace/github/Hellscream/certs/flyingrain_pub.pem";
+        String privateKeyPath = "/home/wally/workspace/myprojects/github/Hellscream/certs/flyingrain_pkcs8_private.pem";
+        String publicKeyPath = "/home/wally/workspace/myprojects/github/Hellscream/certs/flyingrain_pub.pem";
         String msg = "123456";
         String encryptMsg = EncryptUtil.encryptWithRSA(msg, privateKeyPath, true);
         System.out.println(encryptMsg);

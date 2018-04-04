@@ -1,14 +1,18 @@
 package com.flyingrain.translate.framework.lang.utils;
 
-import org.apache.commons.lang3.ObjectUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.nio.file.Paths;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.List;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -21,25 +25,56 @@ public class JavaClassLoader {
 
     private static final String JAVASUFFIX = "class";
 
+    private static final String JARTAG = ".jar!";
+
     private static Logger logger = LoggerFactory.getLogger(JavaClassLoader.class);
 
     /**
-     * 装载包中的类
+     * 装载包中的类(包含jar包中的)
+     *
      * @param packagePath
      * @param classLoader
      * @return
      */
-    public static Map<String, Class<?>> loadClasses(String packagePath, ClassLoader classLoader) {
+    public static List<Class<?>> loadClasses(String packagePath, ClassLoader classLoader) throws IOException, URISyntaxException {
         classLoader = classLoader == null ? Thread.currentThread().getContextClassLoader() : classLoader;
+        Enumeration<URL> urlEnumeration = classLoader.getResources(packagePath.replaceAll("\\.", "/"));
+        List<String> classes = new ArrayList<>();
+        List<URL> urls = new ArrayList<>();
+        while (urlEnumeration.hasMoreElements()) {
+            URL url = urlEnumeration.nextElement();
+            urls.add(url);
+            classes.addAll(url.getPath().contains(JARTAG) ? loadJarClass(url) : loadPackageClassFile(url, packagePath));
+        }
+
         String currentClassPath = JavaClassLoader.class.getResource("").getPath();
         logger.info("current classPath is :[{}]", currentClassPath);
-        List<File> files = Stream.of(Objects.requireNonNull(Paths.get(currentClassPath, packagePath.replaceAll("\\.", "/")).toFile().listFiles(innerFile -> innerFile.getName().endsWith(JAVASUFFIX)))).collect(Collectors.toList());
-        URLClassLoader urlClassLoader = new URLClassLoader(files.stream().map(FunctionWrapperUtil.wrapperUncheckedFunction(file -> file.toURI().toURL())).collect(Collectors.toList()).toArray(new URL[files.size()]), classLoader);
-        Map<String, Optional<Class<?>>> optionalClasses = files.stream().map(FunctionWrapperUtil.wrapperUncheckedFunction(file -> urlClassLoader.loadClass(packagePath + "." + file.getName().substring(0, file.getName().length() - JAVASUFFIX.length() - 1)))).collect(Collectors.groupingBy(Class::getName, Collectors.mapping(l -> l, Collectors.reducing((l, r) -> l))));
-        Map<String, Class<?>> classes = new HashMap<>();
-        optionalClasses.forEach((k, v) -> classes.put(k, v.orElse(ObjectUtils.Null.class)));
-        return classes;
+        URLClassLoader urlClassLoader = new URLClassLoader(urls.toArray(new URL[0]), classLoader);
+        return classes.stream().map(FunctionWrapperUtil.wrapperUncheckedFunction(urlClassLoader::loadClass)).collect(Collectors.toList());
     }
 
+
+    private static List<String> loadPackageClassFile(URL url, String packagePath) throws URISyntaxException {
+        File file = new File(url.toURI());
+        File[] files = file.listFiles(innerFile -> innerFile.getName().endsWith(JAVASUFFIX));
+        if (files == null || files.length == 0) {
+            logger.info("there is no class file!");
+            return new ArrayList<>();
+        }
+        return Stream.of(files).map(innerFile -> packagePath + innerFile.getName().substring(0, JAVASUFFIX.length() - 1)).collect(Collectors.toList());
+    }
+
+    private static List<String> loadJarClass(URL url) throws IOException {
+        List<String> jarClasses = new ArrayList<>();
+        String jarPath = url.getPath().substring(5, url.getPath().indexOf(".jar") + 4);
+        JarFile jarFile = new JarFile(jarPath);
+        Enumeration<JarEntry> jarEntryEnumeration = jarFile.entries();
+        while (jarEntryEnumeration.hasMoreElements()) {
+            JarEntry jarEntry = jarEntryEnumeration.nextElement();
+            if (jarEntry.getName().endsWith(JAVASUFFIX))
+                jarClasses.add(jarEntry.getName().substring(0,jarEntry.getName().length()-JAVASUFFIX.length()-1).replaceAll("/","."));
+        }
+        return jarClasses;
+    }
 
 }

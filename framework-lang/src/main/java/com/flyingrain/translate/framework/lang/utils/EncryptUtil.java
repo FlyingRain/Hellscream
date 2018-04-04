@@ -2,9 +2,9 @@ package com.flyingrain.translate.framework.lang.utils;
 
 import com.flyingrain.translate.framework.lang.FlyException;
 import com.flyingrain.translate.framework.lang.common.FrameworkExceptionCode;
+import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import sun.misc.BASE64Decoder;
 
 import javax.crypto.*;
 import javax.crypto.spec.SecretKeySpec;
@@ -14,7 +14,6 @@ import java.security.cert.CertificateException;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
-import java.util.Base64;
 import java.util.Enumeration;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -32,7 +31,7 @@ public class EncryptUtil {
 
     private static ConcurrentHashMap<String, PublicKey> publicKeys = new ConcurrentHashMap<>();
 
-    private static BASE64Decoder base64Decoder = new BASE64Decoder();
+    private static Base64 base64 = new Base64();
 
     public static String encryptWithMD5(String msg) {
         try {
@@ -40,7 +39,7 @@ public class EncryptUtil {
             MessageDigest digest = MessageDigest.getInstance("MD5");
             byte[] encryptByte = digest.digest(msg.getBytes("utf-8"));
             String result = bytesToHex(encryptByte);
-            String enCodeMsg = Base64.getEncoder().encodeToString(result.getBytes());
+            String enCodeMsg = base64.encodeToString(result.getBytes());
             logger.info("encrypt msg is [{}]", enCodeMsg);
             return enCodeMsg;
         } catch (NoSuchAlgorithmException e) {
@@ -68,7 +67,7 @@ public class EncryptUtil {
             Cipher cipher = Cipher.getInstance("DESede");
             cipher.init(Cipher.ENCRYPT_MODE, desKey);
             byte[] encryptByteMsg = cipher.doFinal(targetBytes);
-            String encryptMsg = Base64.getEncoder().encodeToString(encryptByteMsg);
+            String encryptMsg = base64.encodeToString(encryptByteMsg);
             logger.info("get 3des encryptMsg:[{}]", encryptMsg);
             return encryptMsg;
         } catch (UnsupportedEncodingException | NoSuchPaddingException | NoSuchAlgorithmException | InvalidKeyException | BadPaddingException | IllegalBlockSizeException e) {
@@ -87,7 +86,7 @@ public class EncryptUtil {
     public static String decryptBy3DES(String keyPath, String target) {
         try {
             byte[] desKeyBytes = get3DesKey(keyPath);
-            byte[] encryptBytes = Base64.getDecoder().decode(target.getBytes());
+            byte[] encryptBytes = base64.decode(target.getBytes());
             SecretKey secretKey = new SecretKeySpec(desKeyBytes, "DESede");
             Cipher cipher = Cipher.getInstance("DESede");
             cipher.init(Cipher.DECRYPT_MODE, secretKey);
@@ -143,7 +142,7 @@ public class EncryptUtil {
                 cipher.init(Cipher.ENCRYPT_MODE, publicKey);
             }
             byte[] encryptByteMsg = cipher.doFinal(msg.getBytes("utf-8"));
-            String encryptMsg = Base64.getEncoder().encodeToString(encryptByteMsg);
+            String encryptMsg = base64.encodeToString(encryptByteMsg);
             logger.info("get encryptMsg:[{}]", encryptMsg);
             return encryptMsg;
         } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | BadPaddingException | UnsupportedEncodingException | IllegalBlockSizeException e) {
@@ -171,7 +170,7 @@ public class EncryptUtil {
                 PublicKey publicKey = loadRSAPublicKey(keyPath);
                 cipher.init(Cipher.DECRYPT_MODE, publicKey);
             }
-            byte[] encryptByte = Base64.getDecoder().decode(encryptMsg.getBytes());
+            byte[] encryptByte = base64.decode(encryptMsg.getBytes());
             byte[] plainByteMsg = cipher.doFinal(encryptByte);
             return new String(plainByteMsg);
         } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | BadPaddingException | IllegalBlockSizeException e) {
@@ -216,7 +215,7 @@ public class EncryptUtil {
         }
         String keyContent = readFile(privateKeyPath);
         try {
-            byte decodeKey[] = base64Decoder.decodeBuffer(keyContent);
+            byte decodeKey[] = base64.decode(keyContent);
             PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(decodeKey);
             KeyFactory keyFactory = KeyFactory.getInstance("RSA");
             privateKey = keyFactory.generatePrivate(keySpec);
@@ -225,9 +224,6 @@ public class EncryptUtil {
                 return key;
             }
             return privateKey;
-        } catch (IOException e) {
-            logger.error("IoException", e);
-            throw new FlyException(FrameworkExceptionCode.SYSERROR.getCode(), FrameworkExceptionCode.SYSERROR.getMsg());
         } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
             logger.error("get algorithm error!", e);
             throw new FlyException(FrameworkExceptionCode.SYSERROR.getCode(), FrameworkExceptionCode.SYSERROR.getMsg());
@@ -280,7 +276,7 @@ public class EncryptUtil {
         }
         String keyContent = readFile(publicKeyPath);
         try {
-            byte[] decodeKey = base64Decoder.decodeBuffer(keyContent);
+            byte[] decodeKey = base64.decode(keyContent);
             KeyFactory keyFactory = KeyFactory.getInstance("RSA");
             X509EncodedKeySpec keySpec = new X509EncodedKeySpec(decodeKey);
             publicKey = keyFactory.generatePublic(keySpec);
@@ -289,9 +285,6 @@ public class EncryptUtil {
                 return key;
             }
             return publicKey;
-        } catch (IOException e) {
-            logger.error("IoException", e);
-            throw new FlyException(FrameworkExceptionCode.SYSERROR.getCode(), FrameworkExceptionCode.SYSERROR.getMsg());
         } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
             logger.error("get algorithm error!", e);
             throw new FlyException(FrameworkExceptionCode.SYSERROR.getCode(), FrameworkExceptionCode.SYSERROR.getMsg());
