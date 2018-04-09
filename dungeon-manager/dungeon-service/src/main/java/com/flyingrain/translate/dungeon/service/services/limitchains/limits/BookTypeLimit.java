@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Created by wally on 10/31/17.
  */
-
+@LimitType("01")
 public class BookTypeLimit extends AbstractLimit<BookTypeLimitModel> {
 
     private Logger logger = LoggerFactory.getLogger(BookTypeLimit.class);

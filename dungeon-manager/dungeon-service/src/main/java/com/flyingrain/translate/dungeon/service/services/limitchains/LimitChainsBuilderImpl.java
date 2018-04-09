@@ -3,6 +3,7 @@ package com.flyingrain.translate.dungeon.service.services.limitchains;
 import com.flyingrain.translate.dungeon.service.services.common.LimitConstant;
 import com.flyingrain.translate.dungeon.service.services.dao.models.DungeonInstanceModel;
 import com.flyingrain.translate.dungeon.service.services.dao.models.DungeonRuleModel;
+import com.flyingrain.translate.dungeon.service.services.limitchains.limits.AbstractLimit;
 import com.flyingrain.translate.dungeon.service.services.limitchains.limits.Limit;
 import com.flyingrain.translate.dungeon.service.services.limitchains.limits.ParamInitLimit;
 import com.flyingrain.translate.dungeon.service.services.limitchains.limits.TimeLimit;
@@ -16,8 +17,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by wally on 18-3-18.
@@ -26,6 +29,10 @@ import java.util.List;
 public class LimitChainsBuilderImpl implements LimitChainsBuilder {
 
     private Logger logger = LoggerFactory.getLogger(LimitChainsBuilderImpl.class);
+
+
+    private Map<String, Class<AbstractLimit>> limits;
+
     @Autowired
     private PlanManagerResource planManagerResource;
 
@@ -35,6 +42,13 @@ public class LimitChainsBuilderImpl implements LimitChainsBuilder {
     @Autowired
     private PlanDerivativeResource derivativeResource;
 
+    @Autowired
+    private LimitLoader loader;
+
+    @PostConstruct
+    public void init() {
+        limits = loader.loadLimitModels();
+    }
 
     @Override
     public List<Limit> buildPreChain() {
@@ -43,6 +57,7 @@ public class LimitChainsBuilderImpl implements LimitChainsBuilder {
         Plan plan = planManagerResource.getUserPlan(request.getUserId() + "");
         TaskSummary taskSummary = taskResource.getTaskSummary(request.getPlanId(), request.getUserId(), null);
         int leftDay = derivativeResource.getPlanLeftDay(request.getPlanId());
+
         ParamInitLimit paramInitLimit = new ParamInitLimit(plan, taskSummary, leftDay);
         List<Limit> preChain = new LinkedList<>();
         TimeLimit timeLimit = new TimeLimit(instanceModel.getEnroll_time(), instanceModel.getEnd_time());

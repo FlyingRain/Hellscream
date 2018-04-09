@@ -7,7 +7,6 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
@@ -49,8 +48,8 @@ public class JavaClassLoader {
 
         String currentClassPath = JavaClassLoader.class.getResource("").getPath();
         logger.info("current classPath is :[{}]", currentClassPath);
-        URLClassLoader urlClassLoader = new URLClassLoader(urls.toArray(new URL[0]), classLoader);
-        return classes.stream().map(FunctionWrapperUtil.wrapperUncheckedFunction(urlClassLoader::loadClass)).collect(Collectors.toList());
+//        URLClassLoader urlClassLoader = new URLClassLoader(urls.toArray(new URL[0]), classLoader);
+        return classes.stream().map(FunctionWrapperUtil.wrapperUncheckedFunction(classLoader::loadClass)).collect(Collectors.toList());
     }
 
 
